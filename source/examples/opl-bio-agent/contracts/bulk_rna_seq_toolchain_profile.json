@@ -1,0 +1,121 @@
+{
+  "surface_kind": "opl_bio_bulk_rna_seq_toolchain_profile",
+  "version": "opl-bio-bulk-rna-seq-toolchain-profile.v0.1",
+  "owner": "opl-bio-agent",
+  "state": "active_target_profile",
+  "purpose": "Declare the mainstream Bulk RNA-seq toolchain required for article-grade replay and separate it from smoke-only fallback analysis.",
+  "input_lanes": [
+    {
+      "lane_id": "fastq_alignment_counts",
+      "starting_inputs": ["FASTQ", "reference genome", "annotation GTF", "sample sheet"],
+      "required_tool_groups": ["fastq_qc", "trimming_optional", "alignment", "bam_qc", "gene_counting", "multiqc", "differential_expression", "organism_annotation", "enrichment", "reporting"],
+      "article_grade": true
+    },
+    {
+      "lane_id": "fastq_transcript_quant",
+      "starting_inputs": ["FASTQ", "transcriptome index", "tx2gene map", "sample sheet"],
+      "required_tool_groups": ["fastq_qc", "trimming_optional", "transcript_quantification", "quant_import", "differential_expression", "organism_annotation", "enrichment", "reporting"],
+      "article_grade": true
+    },
+    {
+      "lane_id": "processed_count_matrix",
+      "starting_inputs": ["counts.tsv", "sample_sheet.tsv", "contrast"],
+      "required_tool_groups": ["count_matrix_qc", "differential_expression", "organism_annotation", "enrichment", "reporting"],
+      "article_grade": true
+    },
+    {
+      "lane_id": "smoke_fallback",
+      "starting_inputs": ["small counts.tsv", "sample_sheet.tsv", "contrast"],
+      "required_tool_groups": ["deterministic_fallback"],
+      "article_grade": false
+    }
+  ],
+  "tool_groups": {
+    "fastq_qc": {
+      "required_any": ["fastqc"],
+      "recommended": ["fastqc", "multiqc"],
+      "outputs": ["fastqc reports", "multiqc_report.html"]
+    },
+    "multiqc": {
+      "required_any": ["multiqc"],
+      "recommended": ["multiqc"],
+      "outputs": ["multiqc_report.html"]
+    },
+    "trimming_optional": {
+      "required_any": [],
+      "recommended": ["fastp", "trim_galore"],
+      "outputs": ["trimmed FASTQ", "trimming QC"]
+    },
+    "alignment": {
+      "required_any": ["STAR", "hisat2"],
+      "recommended": ["STAR"],
+      "outputs": ["sorted BAM", "alignment summary"]
+    },
+    "bam_qc": {
+      "required_any": ["samtools"],
+      "recommended": ["samtools", "rseqc"],
+      "outputs": ["flagstat", "idxstats", "infer_experiment"]
+    },
+    "gene_counting": {
+      "required_any": ["featureCounts", "htseq-count"],
+      "recommended": ["featureCounts"],
+      "outputs": ["gene count matrix"]
+    },
+    "transcript_quantification": {
+      "required_any": ["salmon", "kallisto"],
+      "recommended": ["salmon"],
+      "outputs": ["quant.sf or abundance.tsv"]
+    },
+    "quant_import": {
+      "required_bioc_packages": ["tximport"],
+      "recommended_bioc_packages": ["tximport"],
+      "outputs": ["gene-level imported counts"]
+    },
+    "count_matrix_qc": {
+      "required_any_bioc_packages": ["DESeq2", "edgeR", "limma"],
+      "recommended_bioc_packages": ["DESeq2", "edgeR", "limma"],
+      "outputs": ["sample QC", "PCA", "library size summary"]
+    },
+    "differential_expression": {
+      "required_any_bioc_packages": ["DESeq2", "edgeR", "limma"],
+      "recommended_bioc_packages": ["DESeq2", "edgeR", "limma"],
+      "outputs": ["de_results.tsv", "contrast summary", "model receipt"]
+    },
+    "enrichment": {
+      "required_any_bioc_packages": ["clusterProfiler", "fgsea"],
+      "required_any_online_tools": ["gprofiler"],
+      "recommended_bioc_packages": ["clusterProfiler", "fgsea", "msigdbr"],
+      "outputs": ["enrichment_results.tsv", "gsea_results.tsv"]
+    },
+    "organism_annotation": {
+      "required_any_bioc_packages": ["org.Hs.eg.db", "org.Mm.eg.db", "org.Rn.eg.db", "org.Dr.eg.db", "org.Dm.eg.db", "org.Ce.eg.db", "org.Sc.sgd.db", "org.At.tair.db"],
+      "recommended_bioc_packages": ["GO.db", "GenomeInfoDbData", "org.Hs.eg.db", "org.Mm.eg.db", "org.Rn.eg.db", "org.Dr.eg.db", "org.Dm.eg.db", "org.Ce.eg.db", "org.Sc.sgd.db", "org.At.tair.db"],
+      "outputs": ["gene id mapping", "GO term mapping", "organism annotation receipt"]
+    },
+    "reporting": {
+      "required_any": ["Rscript", "node"],
+      "recommended": ["Rscript", "quarto", "pandoc"],
+      "outputs": ["report.md", "report.html", "artifact_manifest.json", "run_receipt.json"]
+    },
+    "deterministic_fallback": {
+      "required_any": ["node"],
+      "recommended": ["node"],
+      "outputs": ["normalized_counts.tsv", "de_results.tsv", "enrichment_results.tsv", "report.md"]
+    }
+  },
+  "maturity_policy": {
+    "article_replay_requires_mainstream_lane": true,
+    "fallback_can_pass_smoke": true,
+    "fallback_can_claim_article_replay": false,
+    "fallback_can_claim_domain_ready": false,
+    "tool_receipt_required_for_article_replay": true,
+    "de_method_receipt_required": true,
+    "enrichment_method_receipt_required": true
+  },
+  "authority_boundary": {
+    "profile_can_claim_tool_installed": false,
+    "profile_can_claim_article_replay_ready": false,
+    "profile_can_claim_domain_ready": false,
+    "profile_can_claim_clinical_validity": false
+  }
+}

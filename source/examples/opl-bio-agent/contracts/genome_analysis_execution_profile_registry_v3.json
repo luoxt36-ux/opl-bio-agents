@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "surface_kind": "opl_bio_genome_analysis_execution_profile_registry_v3",
+  "version": "v3",
+  "status": "development_profile_contract_frozen_confirmation_profiles_not_released",
+  "agent_id": "opl_bio_genome_analysis_agent",
+  "decision_schema": "examples/opl-bio-agent/contracts/genome_analysis_execution_profile_decision_v3.schema.json",
+  "execution_contract": {
+    "selection_unit": "one_execution_profile_per_system_case",
+    "profile_result_kind": "actual_local_pipeline_result_artifact",
+    "same_profile_catalog_visible_to_all_systems": true,
+    "profile_result_bytes_visible_to_prediction_system": false,
+    "raw_genomic_record_bytes_visible_to_prediction_system": false,
+    "private_truth_visible_to_prediction_system": false,
+    "profile_results_generated_without_truth": true,
+    "identical_profile_selection_may_reuse_one_content_addressed_local_result": true,
+    "different_profile_selection_must_bind_to_a_different_pipeline_receipt": true,
+    "missing_profile_artifact_is_a_preflight_failure": true,
+    "unsupported_profile_is_a_nonretryable_typed_null": true,
+    "accuracy_authority": "deterministic_local_code_after_decision_freeze"
+  },
+  "discriminability_gate": {
+    "development_only": true,
+    "required_before_confirmation_task_release": true,
+    "minimum_source_independent_development_cases_per_domain": 2,
+    "all_profiles_must_have_local_pipeline_receipts": true,
+    "minimum_unique_result_hashes_per_case": 2,
+    "minimum_primary_endpoint_range_per_case": 0.01,
+    "minimum_distinct_winning_profiles_per_domain": 2,
+    "confirmation_truth_may_be_used_for_profile_design": false,
+    "failure_blocks_external_prediction_dispatch": true
+  },
+  "domains": [
+    {
+      "domain_id": "germline_small_variant",
+      "result_endpoint_id": "variant_f1",
+      "profiles": [
+        {"profile_id":"germline_small_variant.p1_sensitivity","tradeoff":"recall_favoring","local_pipeline_family":"frozen_hprc_small_variant_filter","configuration":{"candidate_source":"longcallD","minimum_genotype_quality":5,"minimum_depth":0,"pass_only":false}},
+        {"profile_id":"germline_small_variant.p2_balanced","tradeoff":"balanced","local_pipeline_family":"frozen_hprc_small_variant_filter","configuration":{"candidate_source":"DeepVariant","minimum_genotype_quality":20,"minimum_depth":10,"pass_only":true}},
+        {"profile_id":"germline_small_variant.p3_specificity","tradeoff":"precision_favoring","local_pipeline_family":"frozen_hprc_small_variant_filter","configuration":{"candidate_source":"DeepVariant","minimum_genotype_quality":30,"minimum_depth":20,"pass_only":true}},
+        {"profile_id":"germline_small_variant.p4_consensus","tradeoff":"caller_consensus","local_pipeline_family":"frozen_hprc_small_variant_consensus","configuration":{"candidate_sources":["DeepVariant","longcallD"],"minimum_supporting_callers":2}}
+      ]
+    },
+    {
+      "domain_id": "somatic_tumor_normal",
+      "result_endpoint_id": "somatic_variant_f1",
+      "profiles": [
+        {"profile_id":"somatic_tumor_normal.p1_sensitivity","tradeoff":"low_vaf_recall_favoring","local_pipeline_family":"frozen_somatic_candidate_filter","configuration":{"minimum_vaf":0.02,"minimum_alt_depth":3,"pass_only":false}},
+        {"profile_id":"somatic_tumor_normal.p2_balanced","tradeoff":"balanced","local_pipeline_family":"frozen_somatic_candidate_filter","configuration":{"minimum_vaf":0.05,"minimum_alt_depth":5,"pass_only":true}},
+        {"profile_id":"somatic_tumor_normal.p3_specificity","tradeoff":"artifact_rejection_favoring","local_pipeline_family":"frozen_somatic_candidate_filter","configuration":{"minimum_vaf":0.1,"minimum_alt_depth":8,"pass_only":true}},
+        {"profile_id":"somatic_tumor_normal.p4_consensus","tradeoff":"multi_caller_consensus","local_pipeline_family":"frozen_somatic_consensus","configuration":{"minimum_supporting_callers":2}}
+      ]
+    },
+    {
+      "domain_id": "structural_copy_number",
+      "result_endpoint_id": "sv_cnv_event_f1",
+      "profiles": [
+        {"profile_id":"structural_copy_number.p1_sensitivity","tradeoff":"event_recall_favoring","local_pipeline_family":"frozen_sv_cnv_event_filter","configuration":{"minimum_event_size":30,"minimum_quality":5,"pass_only":false}},
+        {"profile_id":"structural_copy_number.p2_balanced","tradeoff":"balanced","local_pipeline_family":"frozen_sv_cnv_event_filter","configuration":{"minimum_event_size":50,"minimum_quality":10,"pass_only":true}},
+        {"profile_id":"structural_copy_number.p3_specificity","tradeoff":"breakpoint_precision_favoring","local_pipeline_family":"frozen_sv_cnv_event_filter","configuration":{"minimum_event_size":100,"minimum_quality":20,"pass_only":true}},
+        {"profile_id":"structural_copy_number.p4_consensus","tradeoff":"multi_caller_consensus","local_pipeline_family":"frozen_sv_cnv_consensus","configuration":{"minimum_supporting_callers":2}}
+      ]
+    },
+    {
+      "domain_id": "long_read_phasing",
+      "result_endpoint_id": "phase_accuracy_coverage_hmean",
+      "profiles": [
+        {"profile_id":"long_read_phasing.p1_sensitivity","tradeoff":"phased_heterozygote_recall_favoring","local_pipeline_family":"frozen_phasing_profile","configuration":{"minimum_phase_quality":5,"minimum_block_variants":2}},
+        {"profile_id":"long_read_phasing.p2_balanced","tradeoff":"balanced","local_pipeline_family":"frozen_phasing_profile","configuration":{"minimum_phase_quality":10,"minimum_block_variants":3}},
+        {"profile_id":"long_read_phasing.p3_specificity","tradeoff":"switch_error_avoidance_favoring","local_pipeline_family":"frozen_phasing_profile","configuration":{"minimum_phase_quality":20,"minimum_block_variants":5}},
+        {"profile_id":"long_read_phasing.p4_consensus","tradeoff":"read_backed_phase_consensus","local_pipeline_family":"frozen_phasing_consensus","configuration":{"minimum_phase_quality":10,"minimum_block_variants":3,"minimum_supporting_hp_reads_per_block":4}}
+      ]
+    },
+    {
+      "domain_id": "family_cohort_joint",
+      "result_endpoint_id": "joint_genotype_pedigree_score",
+      "profiles": [
+        {"profile_id":"family_cohort_joint.p1_sensitivity","tradeoff":"joint_genotype_recall_favoring","local_pipeline_family":"frozen_family_joint_filter","configuration":{"minimum_genotype_quality":5,"minimum_depth":3}},
+        {"profile_id":"family_cohort_joint.p2_balanced","tradeoff":"balanced","local_pipeline_family":"frozen_family_joint_filter","configuration":{"minimum_genotype_quality":20,"minimum_depth":8}},
+        {"profile_id":"family_cohort_joint.p3_specificity","tradeoff":"mendelian_consistency_favoring","local_pipeline_family":"frozen_family_joint_filter","configuration":{"minimum_genotype_quality":30,"minimum_depth":12}},
+        {"profile_id":"family_cohort_joint.p4_consensus","tradeoff":"joint_caller_consensus","local_pipeline_family":"frozen_family_joint_consensus","configuration":{"minimum_supporting_callers":2}}
+      ]
+    },
+    {
+      "domain_id": "sample_qc_identity",
+      "result_endpoint_id": "qc_finding_accuracy",
+      "profiles": [
+        {"profile_id":"sample_qc_identity.p1_sensitivity","tradeoff":"qc_alert_recall_favoring","local_pipeline_family":"frozen_qc_classifier","configuration":{"contamination_alert_fraction":0.01,"minimum_mean_coverage":15}},
+        {"profile_id":"sample_qc_identity.p2_balanced","tradeoff":"balanced","local_pipeline_family":"frozen_qc_classifier","configuration":{"contamination_alert_fraction":0.03,"minimum_mean_coverage":20}},
+        {"profile_id":"sample_qc_identity.p3_specificity","tradeoff":"false_alert_avoidance","local_pipeline_family":"frozen_qc_classifier","configuration":{"contamination_alert_fraction":0.05,"minimum_mean_coverage":25}},
+        {"profile_id":"sample_qc_identity.p4_consensus","tradeoff":"multi_metric_consensus","local_pipeline_family":"frozen_qc_consensus","configuration":{"minimum_supporting_metrics":2}}
+      ]
+    },
+    {
+      "domain_id": "annotation_prioritization",
+      "result_endpoint_id": "prioritization_ndcg_at_10",
+      "profiles": [
+        {"profile_id":"annotation_prioritization.p1_sensitivity","tradeoff":"candidate_recall_favoring","local_pipeline_family":"frozen_annotation_ranker","configuration":{"minimum_review_stars":0,"conflict_penalty":0.1}},
+        {"profile_id":"annotation_prioritization.p2_balanced","tradeoff":"balanced","local_pipeline_family":"frozen_annotation_ranker","configuration":{"minimum_review_stars":1,"conflict_penalty":0.5}},
+        {"profile_id":"annotation_prioritization.p3_specificity","tradeoff":"high_evidence_favoring","local_pipeline_family":"frozen_annotation_ranker","configuration":{"minimum_review_stars":2,"conflict_penalty":1}},
+        {"profile_id":"annotation_prioritization.p4_consensus","tradeoff":"source_consensus","local_pipeline_family":"frozen_annotation_consensus","configuration":{"minimum_supporting_sources":2}}
+      ]
+    },
+    {
+      "domain_id": "population_ancestry",
+      "result_endpoint_id": "one_minus_scaled_aggregate_af_mae",
+      "profiles": [
+        {"profile_id":"population_ancestry.p1_sensitivity","tradeoff":"site_retention_favoring","local_pipeline_family":"frozen_aggregate_af","configuration":{"minimum_call_rate":0.8,"minimum_genotype_quality":5}},
+        {"profile_id":"population_ancestry.p2_balanced","tradeoff":"balanced","local_pipeline_family":"frozen_aggregate_af","configuration":{"minimum_call_rate":0.9,"minimum_genotype_quality":20}},
+        {"profile_id":"population_ancestry.p3_specificity","tradeoff":"genotype_quality_favoring","local_pipeline_family":"frozen_aggregate_af","configuration":{"minimum_call_rate":0.98,"minimum_genotype_quality":30}},
+        {"profile_id":"population_ancestry.p4_consensus","tradeoff":"info_and_genotype_recompute_consensus","local_pipeline_family":"frozen_aggregate_af_consensus","configuration":{"maximum_info_recompute_delta":0.01}}
+      ]
+    },
+    {
+      "domain_id": "reference_graph_hard_region",
+      "result_endpoint_id": "hard_region_variant_or_sequence_f1",
+      "profiles": [
+        {"profile_id":"reference_graph_hard_region.p1_sensitivity","tradeoff":"hard_region_recall_favoring","local_pipeline_family":"frozen_hprc_hard_region_filter","configuration":{"candidate_source":"longcallD","minimum_genotype_quality":5,"minimum_depth":0,"pass_only":false}},
+        {"profile_id":"reference_graph_hard_region.p2_balanced","tradeoff":"balanced","local_pipeline_family":"frozen_hprc_hard_region_filter","configuration":{"candidate_source":"DeepVariant","minimum_genotype_quality":20,"minimum_depth":10,"pass_only":true}},
+        {"profile_id":"reference_graph_hard_region.p3_specificity","tradeoff":"hard_region_precision_favoring","local_pipeline_family":"frozen_hprc_hard_region_filter","configuration":{"candidate_source":"DeepVariant","minimum_genotype_quality":30,"minimum_depth":20,"pass_only":true}},
+        {"profile_id":"reference_graph_hard_region.p4_consensus","tradeoff":"caller_consensus","local_pipeline_family":"frozen_hprc_hard_region_consensus","configuration":{"candidate_sources":["DeepVariant","longcallD"],"minimum_supporting_callers":2}}
+      ]
+    },
+    {
+      "domain_id": "workflow_reproducibility",
+      "result_endpoint_id": "replay_complete_artifact_fraction",
+      "profiles": [
+        {"profile_id":"workflow_reproducibility.p1_sensitivity","tradeoff":"maximum_artifact_recovery","local_pipeline_family":"frozen_workflow_replay","configuration":{"repair_missing_index":true,"strict_version_match":false}},
+        {"profile_id":"workflow_reproducibility.p2_balanced","tradeoff":"balanced","local_pipeline_family":"frozen_workflow_replay","configuration":{"repair_missing_index":true,"strict_version_match":true}},
+        {"profile_id":"workflow_reproducibility.p3_specificity","tradeoff":"strict_exact_replay","local_pipeline_family":"frozen_workflow_replay","configuration":{"repair_missing_index":false,"strict_version_match":true}},
+        {"profile_id":"workflow_reproducibility.p4_consensus","tradeoff":"dual_environment_replay_consensus","local_pipeline_family":"frozen_workflow_replay_consensus","configuration":{"required_matching_replays":2}}
+      ]
+    },
+    {
+      "domain_id": "reporting_claim_governance",
+      "result_endpoint_id": "claim_boundary_compliance_fraction",
+      "profiles": [
+        {"profile_id":"reporting_claim_governance.p1_sensitivity","tradeoff":"evidence_inclusion_favoring","local_pipeline_family":"frozen_claim_boundary_renderer","configuration":{"minimum_evidence_tier":"supportive","emit_uncertain_claims":true}},
+        {"profile_id":"reporting_claim_governance.p2_balanced","tradeoff":"balanced","local_pipeline_family":"frozen_claim_boundary_renderer","configuration":{"minimum_evidence_tier":"validated","emit_uncertain_claims":false}},
+        {"profile_id":"reporting_claim_governance.p3_specificity","tradeoff":"overclaim_avoidance","local_pipeline_family":"frozen_claim_boundary_renderer","configuration":{"minimum_evidence_tier":"authoritative","emit_uncertain_claims":false}},
+        {"profile_id":"reporting_claim_governance.p4_consensus","tradeoff":"evidence_and_policy_consensus","local_pipeline_family":"frozen_claim_boundary_consensus","configuration":{"minimum_supporting_policies":2}}
+      ]
+    }
+  ]
+}

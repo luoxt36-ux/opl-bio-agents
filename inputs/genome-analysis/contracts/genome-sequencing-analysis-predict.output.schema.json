@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://one-person-lab.local/contracts/opl-bio-agent/genome-sequencing-analysis-predict.output.schema.json",
+  "title": "OPL-Bio Genome Sequencing Analysis Predict Output",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["status", "agent_id", "case_count"],
+  "properties": {
+    "status": {"const": "completed_genome_sequencing_analysis_smoke"},
+    "agent_id": {"const": "opl_bio_genome_analysis_agent"},
+    "case_count": {"type": "integer", "minimum": 1}
+  }
+}

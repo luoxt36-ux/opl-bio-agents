@@ -1,0 +1,349 @@
+{
+  "contract_kind": "opl_family_runtime_attempt_contract.v1",
+  "owner": "one-person-lab",
+  "scope": "family-level provider-backed stage attempt ledger and projection vocabulary for domain-owned runtime attempts",
+  "provider_model": "provider_backed_stage_attempt_runtime",
+  "stage_route_scheduler_contract_ref": "contracts/opl-framework/stage-route-scheduler-contract.json",
+  "stage_route_boundary": {
+    "stage_is_opl_attempt_unit": true,
+    "route_is_domain_owner_semantic": true,
+    "route_is_small_stage": false,
+    "route_hydrated_into_stage_or_queue_by_opl": true,
+    "route_completion_is_stage_completion": false,
+    "provider_completion_is_owner_receipt": false
+  },
+  "allowed_providers": [
+    "local_sqlite",
+    "temporal"
+  ],
+  "observability_only": true,
+  "opl_runtime_manager_role": [
+    "read domain-owned durable surfaces",
+    "index attempt freshness",
+    "project operator status",
+    "report reconciliation gaps"
+  ],
+  "opl_runtime_manager_non_goals": [
+    "scheduler kernel owner",
+    "session kernel owner",
+    "memory kernel owner",
+    "domain runtime truth owner",
+    "domain quality judgment owner"
+  ],
+  "attempt_states": [
+    "unclaimed",
+    "claimed",
+    "queued",
+    "running",
+    "checkpointed",
+    "retry_queued",
+    "human_gate",
+    "released",
+    "completed",
+    "succeeded",
+    "failed",
+    "blocked",
+    "dead_lettered"
+  ],
+  "required_ledger_fields": [
+    "stage_attempt_id",
+    "provider_kind",
+    "idempotency_key",
+    "workflow_id",
+    "domain_id",
+    "stage_id",
+    "workspace_locator",
+    "source_fingerprint",
+    "owner_route_refs",
+    "typed_blocker_refs",
+    "owner_receipt_refs",
+    "executor_kind",
+    "status",
+    "checkpoint_refs",
+    "closeout_refs",
+    "human_gate_refs",
+    "retry_budget",
+    "attempt_count",
+    "task_id",
+    "blocked_reason",
+    "provider_receipt",
+    "provider_run",
+    "activity_events",
+    "user_instruction_refs",
+    "resume_refs",
+    "consumed_memory_refs",
+    "writeback_receipt_refs",
+    "route_impact",
+    "usage_projection",
+    "closeout_receipt_status",
+    "authority_boundary"
+  ],
+  "required_projection_fields": [
+    "attempt_state",
+    "attempt_count",
+    "retry_policy",
+    "workspace_boundary",
+    "owner_repo",
+    "failure_reason",
+    "reconciliation_status",
+    "current_control_state",
+    "route_hydration_status",
+    "stage_graph_ref",
+    "last_observed_projection",
+    "operator_visibility",
+    "completion_boundary",
+    "owner_route_boundary",
+    "control_loop_summary",
+    "usage_projection",
+    "resource_pressure",
+    "observability_export"
+  ],
+  "route_hydration_contract": {
+    "input_refs": [
+      "owner_route_ref",
+      "owner_route_refs",
+      "typed_blocker_refs",
+      "owner_receipt_refs",
+      "source_refs",
+      "source_fingerprint",
+      "recommended_task_kind",
+      "dispatch_ref"
+    ],
+    "output_records": [
+      "typed_queue_task",
+      "stage_attempt_request",
+      "stage_attempt_ledger_entry",
+      "conflict_or_blocker_envelope",
+      "operator_projection"
+    ],
+    "reconciliation_statuses": [
+      "hydrated_to_queue",
+      "hydrated_to_stage_attempt",
+      "blocked_by_stage_admission",
+      "blocked_by_identity_incomplete",
+      "waiting_for_domain_owner_receipt",
+      "route_back_projected",
+      "dead_lettered"
+    ],
+    "forbidden_semantics": [
+      "route_is_small_stage",
+      "route_executes_without_stage_attempt",
+      "queue_admission_equals_domain_work_done",
+      "provider_completion_equals_owner_receipt",
+      "route_hydration_writes_domain_truth"
+    ]
+  },
+  "provider_lifecycle_contract": {
+    "temporal": {
+      "workflow_name": "StageAttemptWorkflow",
+      "activity_names": [
+        "CodexStageActivity",
+        "DomainSidecarDispatchActivity"
+      ],
+      "signals": [
+        "HumanGateSignal",
+        "UserInstructionSignal",
+        "ResumeSignal"
+      ],
+      "queries": [
+        "StageAttemptQuery"
+      ],
+      "fixture_mode_allowed_without_temporal_server": true
+    },
+    "local_sqlite": {
+      "role": "development_and_offline_provider",
+      "stores": [
+        "attempt_ledger",
+        "signals",
+        "provider_run_receipts",
+        "activity_events",
+        "typed_closeout_receipts"
+      ]
+    }
+  },
+  "typed_closeout_contract": {
+    "accepted_surface_kinds": [
+      "stage_attempt_closeout_packet",
+      "stage_memory_closeout_packet",
+      "domain_stage_closeout_packet"
+    ],
+    "required_for_completed_status": true,
+    "free_text_closeout_accepted": false,
+    "tracked_refs": [
+      "closeout_refs",
+      "consumed_refs",
+      "consumed_memory_refs",
+      "writeback_receipt_refs",
+      "rejected_writes",
+      "route_impact",
+      "next_owner",
+      "domain_ready_verdict"
+    ]
+  },
+  "operator_visibility_fields": [
+    "provider_kind",
+    "attempt_id",
+    "stage_id",
+    "status",
+    "provider_run",
+    "activity_events",
+    "user_instructions",
+    "resume_signals",
+    "heartbeat",
+    "consumed_refs",
+    "consumed_memory_refs",
+    "writeback_receipt_refs",
+    "closeout_refs",
+    "closeout_receipt_status",
+    "route_impact",
+    "usage_projection",
+    "rejected_writes",
+    "next_owner",
+    "human_gate_refs",
+    "dead_letter"
+  ],
+  "current_control_state_projection": {
+    "surface_kind": "opl_current_control_state",
+    "projection_policy": "opl_reconciled_queue_attempt_provider_closeout_projection_only",
+    "required_derivation_sources": [
+      "family_runtime_queue_task",
+      "stage_attempt_ledger",
+      "provider_run_projection",
+      "typed_stage_closeout_ledger"
+    ],
+    "forbidden_derivation_sources": [
+      "mas_latest",
+      "mas_dispatch_latest",
+      "domain_publication_ready_verdict",
+      "domain_artifact_ready_verdict"
+    ],
+    "fail_closed_reasons": [
+      "missing_identity",
+      "stale_route_epoch",
+      "stale_source_fingerprint",
+      "stale_truth_epoch",
+      "provider_completed_without_typed_closeout"
+    ],
+    "temporal_ordering_policy": "newest_queue_or_stage_attempt_wins_over_older_terminal_attempt",
+    "authority_boundary": {
+      "can_claim_domain_ready": false,
+      "can_claim_publication_ready": false,
+      "can_claim_artifact_ready": false,
+      "can_sign_domain_owner_receipt": false,
+      "provider_completion_is_domain_ready": false
+    }
+  },
+  "stability_projection_fields": [
+    "control_loop_summary",
+    "usage_projection",
+    "resource_pressure",
+    "runtime_observability_export"
+  ],
+  "stability_projection_authority_boundary": {
+    "projection_role": "read_only_operator_stability_projection",
+    "can_execute_domain_action": false,
+    "can_change_executor": false,
+    "can_auto_degrade": false,
+    "can_write_domain_truth": false,
+    "can_write_domain_memory_body": false,
+    "can_authorize_domain_ready": false,
+    "can_authorize_quality_verdict": false,
+    "provider_completion_is_domain_ready": false
+  },
+  "external_stability_pattern_policy": {
+    "policy_kind": "opl_external_stability_pattern_intake.v1",
+    "core_runtime_import_allowed": false,
+    "patterns": [
+      {
+        "pattern": "generic_fallback",
+        "allowed_absorption": [
+          "degraded_attempt",
+          "alternative_route_proposal"
+        ],
+        "required_refs": [
+          "blocker_ref",
+          "evidence_gap_ref",
+          "owner_receipt_ref"
+        ],
+        "forbidden_core_semantics": [
+          "fallback_complete",
+          "quality_gate_bypass",
+          "domain_authority_bypass",
+          "silent_success_on_degraded_evidence"
+        ]
+      },
+      {
+        "pattern": "string_rule_retry",
+        "allowed_absorption": [
+          "typed_slo_retry_policy_schema"
+        ],
+        "required_schema_fields": [
+          "trigger_kind",
+          "metric_source",
+          "cooldown",
+          "max_attempts",
+          "owner",
+          "allowed_action",
+          "receipt_refs"
+        ],
+        "parse_failure": "fail_closed"
+      },
+      {
+        "pattern": "generic_event_bus",
+        "allowed_absorption": [
+          "read_only_event_classification_projection"
+        ],
+        "truth_sources": [
+          "opl_stage_attempt_ledger",
+          "temporal_workflow_history",
+          "typed_queue",
+          "typed_closeout_packet",
+          "domain_owned_receipt"
+        ],
+        "forbidden_core_semantics": [
+          "second_truth_source",
+          "event_stream_as_authority",
+          "event_replay_over_domain_receipt"
+        ]
+      },
+      {
+        "pattern": "generic_runtime_adapter",
+        "allowed_absorption": [
+          "explicit_executor_adapter_registry"
+        ],
+        "required_adapter_contract": [
+          "capability_boundary",
+          "receipt_shape",
+          "tool_event_proof",
+          "timeout_rule",
+          "typed_closeout_rule",
+          "fail_closed_gate"
+        ],
+        "forbidden_core_semantics": [
+          "subprocess_started_equals_success",
+          "executor_behavior_equivalence",
+          "executor_quality_equivalence",
+          "resume_equivalence_without_proof"
+        ]
+      }
+    ],
+    "stability_definition": "failure_classified_recoverable_auditable_without_quality_downgrade"
+  },
+  "reconciliation_statuses": [
+    "fresh",
+    "stale",
+    "conflict",
+    "needs_domain_refresh"
+  ],
+  "unsupported_required_entries": [
+    "Linear",
+    "Symphony scheduler",
+    "external issue tracker",
+    "generic persona router"
+  ],
+  "domain_truth_owners": [
+    "med-autoscience",
+    "med-autogrant",
+    "redcube-ai"
+  ]
+}

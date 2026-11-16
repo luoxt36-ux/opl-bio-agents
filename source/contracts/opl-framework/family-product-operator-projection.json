@@ -1,0 +1,94 @@
+{
+  "contract_kind": "opl_family_product_operator_projection.v1",
+  "owner": "one-person-lab",
+  "scope": "operator-facing aggregation of family runtime, quality, and incident source refs",
+  "source_contracts": [
+    "contracts/opl-framework/family-runtime-attempt-contract.json",
+    "contracts/opl-framework/family-domain-quality-projection-contract.json",
+    "contracts/opl-framework/family-incident-learning-loop.json"
+  ],
+  "required_projection_fields": [
+    "domain_id",
+    "active_item",
+    "attempt_summary",
+    "quality_summary",
+    "incident_summary",
+    "current_blocker",
+    "auto_continue",
+    "next_surface_ref",
+    "human_gate_reason",
+    "source_refs",
+    "freshness",
+    "owner_split",
+    "control_loop_summary",
+    "usage_projection",
+    "resource_pressure",
+    "observability_export"
+  ],
+  "runtime_observability_export": {
+    "command": "opl runtime observability-export [--format json|openmetrics]",
+    "formats": [
+      "json",
+      "openmetrics"
+    ],
+    "source_surfaces": [
+      "opl_runtime_ledger",
+      "temporal_provider_proof_receipts",
+      "runtime_tray_snapshot",
+      "stage_attempt_workbench",
+      "domain_owned_projection_refs"
+    ],
+    "authority": "read_only_non_authoritative"
+  },
+  "external_stability_learning_policy": {
+    "allowed_learning": [
+      "control_loop_classification",
+      "observed_usage_budget_projection",
+      "typed_slo_retry_policy_language",
+      "read_only_event_and_alert_projection",
+      "dashboard_grouping_vocabulary"
+    ],
+    "not_core_runtime_mechanisms": [
+      "generic_fallback_completion",
+      "string_rule_retry_execution",
+      "generic_event_bus_as_truth",
+      "generic_runtime_adapter_success_semantics"
+    ],
+    "allowed_degraded_surface": {
+      "surface": "degraded_attempt_or_alternative_route_proposal",
+      "can_mark_success": false,
+      "required_operator_fields": [
+        "blocker",
+        "evidence_gap",
+        "owner_receipt_ref",
+        "next_surface_ref"
+      ]
+    },
+    "operator_stability_definition": "failure_is_classified_recoverable_and_auditable_without_pretending_quality_completion"
+  },
+  "preserved_runtime_semantics": [
+    "Codex-default session/runtime",
+    "explicit domain activation",
+    "explicit runtime switch"
+  ],
+  "non_goals": [
+    "local daemon",
+    "scheduler takeover",
+    "session kernel ownership",
+    "memory kernel ownership",
+    "domain runtime truth ownership",
+    "domain quality authority",
+    "executor auto-degradation",
+    "domain action execution from observability",
+    "generic fallback completion",
+    "string rule retry execution",
+    "generic event bus truth source",
+    "generic runtime adapter success semantics"
+  ],
+  "fail_closed_rules": [
+    "source_refs_required",
+    "freshness_required_for_completed_or_passed",
+    "owner_split_required",
+    "domain_owned_proof_or_eval_required_for_quality_closure"
+  ]
+}

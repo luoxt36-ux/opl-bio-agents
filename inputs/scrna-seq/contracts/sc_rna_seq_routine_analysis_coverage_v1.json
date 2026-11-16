@@ -1,0 +1,75 @@
+{
+  "surface_kind": "opl_bio_sc_rna_seq_routine_analysis_coverage_contract",
+  "version": "opl-bio-sc-rna-seq-routine-analysis-coverage.v2",
+  "owner": "opl-bio-agent",
+  "scope": "core single-cell RNA-seq workflow coverage, with explicit boundaries for specialized modalities",
+  "definition_of_most_routine": "The post-feature-matrix workflow used for count or processed matrices: input/QC, normalization, feature selection, scaling, PCA/UMAP, graph clustering, marker/annotation, sample-aware pseudobulk candidates, condition response, cell composition, cell-cycle and module scoring, pathway candidates, and batch diagnostics. Raw FASTQ alignment/counting is an explicit upstream prerequisite rather than an implied capability.",
+  "research_basis": [
+    {
+      "source": "Scanpy preprocessing and clustering tutorial",
+      "url": "https://scanpy.readthedocs.io/en/stable/tutorials/basics/clustering.html",
+      "supports": ["normalization", "highly_variable_genes", "PCA", "neighbors", "clustering", "marker_genes", "pseudobulk caution"]
+    },
+    {
+      "source": "Seurat v5 integration vignette",
+      "url": "https://satijalab.org/seurat/articles/seurat5_integration.html",
+      "supports": ["batch and donor integration as a distinct workflow concern"]
+    },
+    {
+      "source": "scvi-tools user guide",
+      "url": "https://docs.scvi-tools.org/en/latest/user_guide/",
+      "supports": ["latent dimensionality reduction", "integration", "differential expression", "doublet and velocity model boundaries"]
+    },
+    {
+      "source": "10x Genomics Cell Ranger overview",
+      "url": "https://www.10xgenomics.com/support/software/cell-ranger/7.2/getting-started/cr-what-is-cell-ranger",
+      "supports": ["feature-barcode input and clustering workflow boundary"]
+    }
+  ],
+  "core_capabilities": [
+    {"capability_id": "input_materialization", "status": "verified", "runner_surface": "sc_rna_seq_input_materializer", "evidence_artifact": "input_materialization_receipt.json"},
+    {"capability_id": "qc_metrics_and_filtering", "status": "verified", "runner_surface": "scanpy pp plus qc_metrics.tsv", "evidence_artifact": "qc_metrics.tsv"},
+    {"capability_id": "normalization", "status": "verified", "runner_surface": "Scanpy normalize_total/log1p or deterministic CPM+log1p", "evidence_artifact": "normalized_expression.tsv"},
+    {"capability_id": "highly_variable_genes", "status": "verified_live_scanpy", "runner_surface": "scanpy.pp.highly_variable_genes", "evidence_artifact": "live_scanpy/tables/scanpy_highly_variable_genes.tsv"},
+    {"capability_id": "scaling_and_regression_preparation", "status": "verified", "runner_surface": "deterministic gene-wise z-score matrix", "evidence_artifact": "scaled_expression.tsv"},
+    {"capability_id": "dimensionality_reduction", "status": "verified_live_scanpy", "runner_surface": "scanpy.pp.pca", "evidence_artifact": "live_scanpy/tables/scanpy_pca_coordinates.tsv"},
+    {"capability_id": "umap_embedding_and_visualization", "status": "verified_or_partial_live_scanpy", "runner_surface": "scanpy.tl.umap after neighbors; optional labeled plots", "evidence_artifact": "live_scanpy/tables/scanpy_umap_coordinates.tsv"},
+    {"capability_id": "neighbor_graph_and_clustering", "status": "verified_live_scanpy", "runner_surface": "scanpy.pp.neighbors plus scanpy.tl.leiden", "evidence_artifact": "live_scanpy/tables/scanpy_cluster_assignments.tsv"},
+    {"capability_id": "marker_and_celltype_annotation", "status": "verified", "runner_surface": "Scanpy rank_genes_groups plus policy-bound marker annotation", "evidence_artifact": "marker_table.tsv"},
+    {"capability_id": "sample_aware_pseudobulk_de", "status": "verified_candidate_when_sample_field_present", "runner_surface": "sample x cell-type aggregation, library-size CPM/log1p, case-control effect, Welch test and BH FDR", "evidence_artifact": "live_scanpy/tables/scanpy_pseudobulk_de.tsv"},
+    {"capability_id": "condition_response", "status": "verified", "runner_surface": "cell-level and cell-type projected contrast", "evidence_artifact": "condition_response.tsv"},
+    {"capability_id": "cell_composition_and_differential_abundance", "status": "verified_descriptive", "runner_surface": "sample x cell-type counts and fractions", "evidence_artifact": "cell_composition.tsv"},
+    {"capability_id": "cell_cycle_scoring", "status": "verified_candidate", "runner_surface": "transparent S/G2M marker-module scores", "evidence_artifact": "cell_cycle_scores.tsv"},
+    {"capability_id": "gene_set_module_scoring", "status": "verified_candidate", "runner_surface": "transparent response and marker module means", "evidence_artifact": "module_scores.tsv"},
+    {"capability_id": "batch_effect_diagnostic", "status": "partial_diagnostic_only", "runner_surface": "batch composition and balance receipt", "evidence_artifact": "live_scanpy/batch_diagnostic.json"},
+    {"capability_id": "doublet_screening", "status": "partial_heuristic_only", "runner_surface": "library-size and detected-gene upper-quantile screen", "evidence_artifact": "live_scanpy/tables/doublet_screen.tsv"},
+    {"capability_id": "trajectory_readiness", "status": "partial_proxy_only", "runner_surface": "PC1 ordering proxy; no lineage model", "evidence_artifact": "live_scanpy/tables/trajectory_readiness.tsv"}
+  ],
+  "upstream_boundaries": [
+    {"capability_id": "raw_fastq_to_feature_barcode_matrix", "status": "unsupported", "required_inputs": ["platform-specific aligner/counting pipeline", "reference genome and annotation bundle"], "handoff_target": "Cell Ranger, STARsolo, kallisto-bustools or equivalent validated upstream workflow"}
+  ],
+  "specialized_capabilities": [
+    {"capability_id": "ambient_rna_correction", "status": "unsupported", "required_inputs": ["raw droplet/background information", "ambient RNA model"]},
+    {"capability_id": "rna_velocity", "status": "unsupported", "required_inputs": ["spliced and unspliced count layers"]},
+    {"capability_id": "cnv_inference", "status": "unsupported", "required_inputs": ["genomic location/reference", "dedicated CNV model"]},
+    {"capability_id": "cell_cell_communication", "status": "unsupported", "required_inputs": ["ligand-receptor database", "interaction model"]},
+    {"capability_id": "tcr_bcr_clonotype", "status": "unsupported", "required_inputs": ["V(D)J contigs or clone table"]},
+    {"capability_id": "spatial_or_multiome", "status": "unsupported", "required_inputs": ["spatial coordinates or additional modality"]}
+  ],
+  "acceptance_gates": {
+    "core_capability_count": 17,
+    "minimum_core_capabilities_with_any_evidence": 17,
+    "minimum_verified_or_partial_fraction": 1.0,
+    "raw_read_processing_boundary_must_be_explicit": true,
+    "specialized_capabilities_must_be_explicitly_bounded": true,
+    "article_grade_scientific_validity_claim_allowed": false,
+    "clinical_validity_claim_allowed": false
+  },
+  "authority_boundary": {
+    "coverage_contract_can_claim_core_workflow_support": true,
+    "coverage_contract_can_claim_raw_read_processing": false,
+    "coverage_contract_can_claim_all_scRNA_modalities": false,
+    "coverage_contract_can_claim_article_grade_replay": false,
+    "coverage_contract_can_claim_biological_quality_verdict": false
+  }
+}

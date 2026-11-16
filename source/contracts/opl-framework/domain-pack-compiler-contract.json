@@ -1,0 +1,235 @@
+{
+  "contract_kind": "opl_domain_pack_compiler_contract.v1",
+  "surface_kind": "opl_domain_pack_compiler_contract",
+  "owner": "one-person-lab",
+  "scope": "framework-owned read model that compiles admitted domain packs into generated-surface handoff projections",
+  "contract_version": "opl-domain-pack-compiler.v1",
+  "cli_surfaces": [
+    "opl agents pack-compiler",
+    "opl agents pack-compiler inspect --domain <domain>",
+    "opl agents interfaces (--domain <domain> | --repo-dir <path>) [--format <cli|mcp|skill|product-entry|openai|ai-sdk>]",
+    "opl agents conformance [--repo-dir <path> ...] [--agent <id>=<path> ...]"
+  ],
+  "input_surfaces": [
+    "family_agent_descriptor.entry",
+    "family_agent_descriptor.family_action_catalog",
+    "family_agent_descriptor.family_stage_control_plane",
+    "family_agent_descriptor.domain_memory_descriptor",
+    "family_agent_descriptor.family_transition",
+    "family_agent_descriptor.grant_transition_oracle",
+    "family_agent_descriptor.runtime_surfaces",
+    "family_agent_descriptor.functional_privatization_audit"
+  ],
+  "standard_stage_pack_v2_cross_refs": {
+    "source_contract": "contracts/pack_compiler_input.json#source_refs",
+    "enforcement_contract": "contracts/pack_compiler_input.json#standard_stage_pack_conformance.required",
+    "enforcement_policy": "v2 is required for new OPL-generated scaffolds that explicitly declare standard_stage_pack_conformance.required=true or stage_pack_conformance_version=standard-stage-pack.v2; existing family repos without that declaration report advisory findings until migrated",
+    "required_source_refs": [
+      "stage_graph_source_ref",
+      "quality_gate_source_ref",
+      "executor_policy_source_ref",
+      "functional_privatization_audit_source_ref",
+      "generated_surface_handoff_source_ref"
+    ],
+    "stage_graph_source_ref": "contracts/stage_control_plane.json",
+    "quality_gate_source_ref": "agent/quality_gates/domain_acceptance.md",
+    "executor_policy_source_ref": "contracts/stage_control_plane.json#/stages/*/selected_executor",
+    "functional_privatization_audit_source_ref": "contracts/functional_privatization_audit.json",
+    "generated_surface_handoff_source_ref": "contracts/generated_surface_handoff.json",
+    "authority_boundary": {
+      "cross_refs_can_claim_domain_ready": false,
+      "cross_refs_can_replace_stage_expert_judgment": false,
+      "cross_refs_can_authorize_quality_or_export": false
+    }
+  },
+  "generated_surface_projection": {
+    "surface_kind": "opl_generated_surface_handoff_projection",
+    "generated_surface_owner": "one-person-lab",
+    "domain_repo_can_own_generated_surface": false,
+    "generated_surfaces": [
+      "cli",
+      "mcp",
+      "skill",
+      "product_entry_manifest",
+      "sidecar_export_dispatch",
+      "status_read_model",
+      "workbench_drilldown",
+      "functional_harness_cases"
+    ]
+  },
+  "generated_interface_bundle": {
+    "surface_kind": "opl_generated_agent_interface_bundle",
+    "version": "opl-generated-agent-interface-bundle.v1",
+    "owner": "one-person-lab",
+    "generated_surface_owner": "one-person-lab",
+    "domain_repo_can_own_generated_surface": false,
+    "formats": [
+      "cli",
+      "mcp",
+      "skill",
+      "product-entry",
+      "openai",
+      "ai-sdk"
+    ],
+    "derived_from": [
+      "family_action_catalog",
+      "family_stage_control_plane",
+      "domain_memory_descriptor",
+      "runtime_surfaces",
+      "functional_privatization_audit",
+      "generated_surface_handoff",
+      "product_entry_manifest_descriptor",
+      "sidecar_descriptor"
+    ],
+    "repo_dir_mode": "reads standard contracts/action_catalog.json, contracts/stage_control_plane.json, contracts/generated_surface_handoff.json, contracts/pack_compiler_input.json, contracts/memory_descriptor.json, and contracts/functional_privatization_audit.json without executing target repo private wrappers",
+    "descriptor_blocks": [
+      "cli",
+      "mcp",
+      "skill",
+      "product_entry",
+      "product_status",
+      "product_session",
+      "sidecar",
+      "workbench",
+      "openai_tool",
+      "ai_sdk",
+      "active_caller_target_proof",
+      "source_contract_consumption"
+    ],
+    "authority_boundary": {
+      "generated_interface_can_write_domain_truth": false,
+      "generated_interface_can_write_memory_body": false,
+      "generated_interface_can_authorize_quality_or_export": false,
+      "generated_interface_can_mutate_artifacts": false,
+      "generated_interface_routes_to_minimal_authority_functions_by_receipt_contract": true
+    },
+    "active_caller_target_proof": {
+      "surface_kind": "opl_generated_surface_active_caller_target_proof",
+      "source_surfaces": [
+        "generated_surface_handoff",
+        "functional_privatization_audit"
+      ],
+      "allowed_ready_targets": [
+        "opl_generated_surface",
+        "opl_hosted_surface",
+        "domain_handler_target",
+        "refs_only_domain_adapter_target"
+      ],
+      "authority_boundary": {
+        "opl_can_generate_domain_handler": false,
+        "opl_can_write_domain_truth": false,
+        "opl_can_authorize_quality_or_export": false,
+        "opl_can_mutate_artifacts": false,
+        "domain_handler_target_allowed": true,
+        "refs_only_domain_adapter_target_allowed": true
+      }
+    }
+  },
+  "generated_artifact_drift_manifest": {
+    "surface_kind": "opl_generated_artifact_drift_manifest",
+    "version": "opl-generated-artifact-drift-manifest.v1",
+    "owner": "one-person-lab",
+    "status_values": [
+      "aligned",
+      "drift_detected"
+    ],
+    "fingerprints": {
+      "algorithm": "sha256:stable-json",
+      "domain_pack_source_inputs_fingerprint": "fingerprint over descriptor/source inputs consumed by the pack compiler",
+      "generated_bundle_fingerprint": "fingerprint over the current OPL generated interface bundle"
+    },
+    "generated_from": [
+      "family_action_catalog",
+      "family_stage_control_plane",
+      "domain_memory_descriptor",
+      "runtime_surfaces",
+      "functional_privatization_audit",
+      "generated_surface_handoff",
+      "product_entry_manifest_descriptor",
+      "sidecar_descriptor"
+    ],
+    "drift_detection_policy": "aligned when the current generated bundle is produced from resolved compiler inputs, descriptor-only transition refs, or a domain-declared grant transition oracle evidence gate with matrix_oracle_passed status, and any observed manifest fingerprints match the current fingerprints; drift_detected when compiler blockers exist or observed fingerprints differ",
+    "authority_boundary": {
+      "opl_owns_generated_surfaces": true,
+      "opl_owns_domain_truth": false,
+      "opl_can_write_domain_truth": false,
+      "opl_can_write_memory_body": false,
+      "opl_can_authorize_quality_or_export": false,
+      "opl_can_mutate_domain_artifacts": false
+    }
+  },
+  "standard_agent_conformance_report": {
+    "surface_kind": "opl_standard_domain_agent_conformance_report",
+    "owner": "one-person-lab",
+    "command": "opl agents conformance",
+    "checks": [
+      "standard_domain_agent_scaffold_validation",
+      "pack_compiler_input canonical_semantic_pack_root and legacy root field guard",
+      "required_domain_pack_paths reject README-only semantic anchors",
+      "generated_surface_handoff OPL owner guard",
+      "generated interface readiness and active-caller target proof",
+      "functional_privatization_audit generic runtime owner and active-path scan guard"
+    ],
+    "production_evidence_tail_policy": "reported separately; conformance ready does not claim live soak, production caller migration, App user-path proof, or domain readiness",
+    "authority_boundary": {
+      "opl_can_write_domain_truth": false,
+      "opl_can_write_memory_body": false,
+      "opl_can_authorize_quality_or_export": false,
+      "conformance_report_can_claim_domain_ready": false
+    }
+  },
+  "ready_conditions": [
+    "domain_manifest_resolved",
+    "required_descriptor_surfaces_resolved",
+    "functional_harness_cases may use family_transition matrix/descriptor input or an explicit grant_transition_oracle matrix_oracle_passed evidence gate",
+    "functional_privatization_summary.opl_owned_replacement_count == 0",
+    "functional_privatization_summary.temporary_migration_bridge_count == 0",
+    "functional_privatization_summary.retire_tombstone_count == 0",
+    "functional_privatization_summary.active_private_generic_residue_count == 0",
+    "functional_privatization_summary.blocker_count == 0"
+  ],
+  "blocked_conditions": [
+    "domain_manifest_not_resolved",
+    "missing_descriptor_surface",
+    "functional_privatization_audit_has_generic_residue_or_blocker"
+  ],
+  "framework_owns": [
+    "generated_surface_handoff_projection",
+    "generated_artifact_drift_manifest",
+    "descriptor_surface_readiness_projection",
+    "generated_cli_mcp_product_entry_sidecar_status_workbench_harness_metadata",
+    "generic_runtime_surface_admission_gate",
+    "functional_privatization_blocker_projection"
+  ],
+  "domain_agent_owns": [
+    "domain_truth",
+    "domain_stage_semantics",
+    "domain_transition_table",
+    "quality_verdict",
+    "publication_fundability_visual_verdict",
+    "artifact_authority",
+    "memory_body",
+    "memory_writeback_accept_reject",
+    "owner_receipt",
+    "typed_blocker",
+    "minimal_authority_function_implementation"
+  ],
+  "authority_boundary": {
+    "opl_can_write_domain_truth": false,
+    "opl_can_write_memory_body": false,
+    "opl_can_accept_or_reject_memory_writeback": false,
+    "opl_can_authorize_quality_or_export": false,
+    "opl_can_mutate_artifacts": false,
+    "provider_completion_is_domain_ready": false,
+    "domain_repo_can_own_generated_surface": false,
+    "generated_surface_can_call_minimal_authority_function_with_receipt_contract": true
+  },
+  "non_goals": [
+    "domain handler generation",
+    "domain truth migration",
+    "domain memory body migration",
+    "quality or export verdict generation",
+    "artifact mutation",
+    "production live soak proof"
+  ]
+}

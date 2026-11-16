@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://one-person-lab.local/contracts/opl-bio-agent/bulk-rna-seq-benchmark.input.schema.json",
+  "title": "OPL-Bio Bulk RNA-seq Benchmark Verify Input",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "cases",
+    "predictions"
+  ],
+  "properties": {
+    "cases": {
+      "type": "string",
+      "minLength": 1
+    },
+    "predictions": {
+      "type": "string",
+      "minLength": 1
+    },
+    "oracle": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional private oracle suite used when --cases is a public no-answer-key suite."
+    }
+  }
+}

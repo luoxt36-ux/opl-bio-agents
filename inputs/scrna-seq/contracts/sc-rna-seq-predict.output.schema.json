@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://one-person-lab.local/contracts/opl-bio-agent/sc-rna-seq-predict.output.schema.json",
+  "title": "OPL-Bio scRNA-seq Predict Output",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "surface_kind",
+    "status",
+    "predictions_path",
+    "case_count",
+    "execution_mode",
+    "authority_boundary"
+  ],
+  "properties": {
+    "surface_kind": {
+      "const": "opl_bio_sc_rna_seq_agent_receipt"
+    },
+    "status": {
+      "enum": [
+        "generated",
+        "blocked"
+      ]
+    },
+    "predictions_path": {
+      "type": "string"
+    },
+    "artifact_root": {
+      "type": "string"
+    },
+    "case_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "execution_mode": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority_boundary": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "prediction_can_claim_domain_ready": {
+          "const": false
+        },
+        "prediction_can_claim_biological_quality_verdict": {
+          "const": false
+        },
+        "prediction_can_claim_clinical_validity": {
+          "const": false
+        },
+        "prediction_can_claim_live_geo_download": {
+          "const": false
+        },
+        "prediction_can_claim_seurat_or_scanpy": {
+          "const": false
+        },
+        "prediction_can_claim_article_grade_replay": {
+          "const": false
+        }
+      }
+    }
+  }
+}

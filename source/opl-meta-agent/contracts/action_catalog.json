@@ -1,0 +1,62 @@
+{
+  "surface_kind": "family_action_catalog",
+  "version": "family-action-catalog.v2",
+  "catalog_id": "oma_action_catalog",
+  "target_domain_id": "agent_engineering",
+  "owner": "oma",
+  "authority_boundary": {
+    "domain_truth_owner": "oma",
+    "opl_role": "foundry_runtime_owner",
+    "write_policy": "no_domain_truth_writes",
+    "opl_can_write_domain_truth": false,
+    "opl_can_write_memory_body": false,
+    "opl_can_authorize_target_quality": false,
+    "provider_completion_is_domain_completion": false
+  },
+  "actions": [
+    {
+      "action_id": "engineer-agent",
+      "title": "Engineer Agent",
+      "summary": "Start one OPL-owned FoundryRun that uses OMA semantics to design and evolve an Agent, then OPL to independently evaluate, qualify, and optionally activate it.",
+      "owner": "oma",
+      "effect": "mutating",
+      "execution_binding": {
+        "kind": "foundry_binding",
+        "provider_manifest_ref": "contracts/foundry_provider.json"
+      },
+      "input_schema_ref": "opl://foundry-protocol/DesignRequest",
+      "output_schema_ref": "opl://foundry-control/FoundryRun",
+      "required_fields": [
+        "surface_kind", "version", "request_id", "mode", "target_agent_id", "target_domain_id",
+        "target_version_ref", "objective", "acceptance_criteria", "non_goals", "source_refs", "constraints",
+        "delivery_policy"
+      ],
+      "optional_fields": [],
+      "workspace_locator_fields": [],
+      "human_gate_ids": [],
+      "supported_surfaces": {
+        "cli": {},
+        "mcp": { "tool_name": "oma_engineer_agent" },
+        "skill": { "command_contract_id": "oma.engineer-agent" },
+        "product_entry": { "action_key": "engineer-agent" },
+        "openai": { "tool_name": "oma_engineer_agent" },
+        "ai_sdk": { "tool_name": "oma_engineer_agent" }
+      },
+      "authority_boundary": {
+        "oma_can_write_foundry_run_state": false,
+        "oma_can_materialize_candidate_bytes": false,
+        "oma_can_execute_evaluation": false,
+        "oma_can_view_protected_test_bodies": false,
+        "oma_can_create_agent_version": false,
+        "oma_can_activate_or_rollback": false,
+        "oma_can_write_target_domain_truth": false,
+        "opl_can_write_target_domain_truth": false
+      }
+    }
+  ],
+  "notes": [
+    "engineer-agent is the only public OMA action.",
+    "design and diagnose are internal Foundry provider operations, not public actions.",
+    "domain_truth_owner=oma refers only to Agent engineering semantics; Target Owner retains target-domain truth and OPL writes neither."
+  ]
+}

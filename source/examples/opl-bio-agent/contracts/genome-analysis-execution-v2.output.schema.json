@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "opl://schemas/genome-analysis-execution-v2-output",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["surface_kind", "version", "status", "agent_id", "candidate_version_ref", "execution_requested", "case_count", "cases", "authority_boundary"],
+  "properties": {
+    "surface_kind": { "const": "opl_bio_genome_analysis_execution_predictions_v2" },
+    "version": { "const": "v2" },
+    "status": { "enum": ["preflight_passed", "execution_complete", "execution_complete_with_typed_failures"] },
+    "agent_id": { "const": "opl_bio_genome_analysis_agent" },
+    "candidate_version_ref": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "execution_requested": { "type": "boolean" },
+    "case_count": { "type": "integer", "minimum": 1 },
+    "cases": { "type": "array", "minItems": 1 },
+    "authority_boundary": { "type": "object" }
+  }
+}

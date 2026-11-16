@@ -1,0 +1,27 @@
+{
+  "surface_kind": "opl_bio_genome_sequencing_analysis_smoke_suite",
+  "version": "v1",
+  "state": "synthetic_provenance_tutorial_not_variant_calling",
+  "cases": [
+    {
+      "case_id": "genome_sequencing_analysis_smoke_001",
+      "task_kind": "genome_sequencing_small_variant_readiness",
+      "sample_id": "HG002_FIXTURE",
+      "reference_build": "synthetic_v1",
+      "analysis_region": "chr1:1-1000",
+      "alignment_path": "examples/opl-bio-agent/runtime/fixtures/genome_variant_end_to_end_v1/alignment.sam",
+      "reference_path": "examples/opl-bio-agent/runtime/fixtures/genome_variant_end_to_end_v1/reference.fa",
+      "candidate_vcf_path": "examples/opl-bio-agent/runtime/fixtures/genome_variant_end_to_end_v1/opl_bio_candidate.vcf",
+      "input_format": "SAM_fixture",
+      "caller_policy": {
+        "caller_id": "fixture_snv_caller",
+        "profile_id": "opl_bio_fixture_profile",
+        "automatic_retries": 0
+      },
+      "private_truth_accessed": false,
+      "fixture_only": true,
+      "scientific_claim_allowed": false,
+      "claim_boundary": "orchestration and provenance smoke only; no variant accuracy or clinical claim"
+    }
+  ]
+}

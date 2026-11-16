@@ -1,0 +1,17 @@
+{
+  "name": "opl-meta-agent",
+  "version": "0.4.9",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "repo:hygiene": "scripts/repo-hygiene.sh",
+    "verify": "scripts/verify.sh",
+    "test": "node --test tests/*.test.mjs",
+    "test:contracts": "node --test tests/contracts.test.mjs",
+    "test:full": "node --test tests/*.test.mjs"
+  },
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=24.2.0"
+  }
+}

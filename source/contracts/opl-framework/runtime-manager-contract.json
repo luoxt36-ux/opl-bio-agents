@@ -1,0 +1,390 @@
+{
+  "version": "v2",
+  "contract_id": "opl_runtime_manager_contract",
+  "contract_ref": "contracts/opl-framework/runtime-manager-contract.json",
+  "scope": "opl_product_control_plane_over_provider_backed_family_runtime",
+  "description": "Freezes the OPL Runtime Manager boundary. OPL owns provider selection, typed family queue, stage attempt ledger, dispatch contracts, profile wiring, diagnostics, task registration hydration, status projection, optional native helper catalog, and high-frequency state indexes while domain repositories keep truth and quality authority.",
+  "owner_split": {
+    "product_control_plane_owner": "one-person-lab",
+    "online_runtime_substrate_owner": "provider_backed_family_runtime",
+    "domain_truth_owners": [
+      "med-autoscience",
+      "med-autogrant",
+      "redcube-ai"
+    ],
+    "concrete_executor_owner": "stage_selected_by_domain_contract"
+  },
+  "provider_runtime": {
+    "provider_model": "provider_backed_stage_attempt_runtime",
+    "standard_agent_default_runtime_path": "opl_temporal_hosted_autonomous",
+    "temporal_hosted_autonomy_default_enabled": true,
+    "codex_app_drives_long_running_tasks": false,
+    "allowed_providers": [
+      "local_sqlite",
+      "temporal"
+    ],
+    "default_resolution": {
+      "env": "OPL_FAMILY_RUNTIME_PROVIDER",
+      "fallback": "temporal",
+      "fail_closed_when_temporal_not_ready": true
+    },
+    "production_required_provider": "temporal",
+    "production_candidate": "temporal",
+    "local_provider": "local_sqlite",
+    "local_provider_role": "dev_ci_offline_diagnostic_baseline"
+  },
+  "manager_responsibilities": [
+    "select_supported_family_runtime_provider",
+    "project_provider_readiness_and_stage_attempt_history",
+    "own_typed_family_queue_and_domain_dispatch_contracts",
+    "wire_provider_wakeup_signal_delivery_and_approval_transport",
+    "hydrate_domain_task_registration_contracts",
+    "project_runtime_status_into_opl_sessions_progress_artifacts",
+    "provide_runtime_doctor_repair_resume_entrypoints",
+    "catalog_optional_native_helpers",
+    "catalog_high_frequency_state_indexes"
+  ],
+  "domain_registration_registry": {
+    "surface_kind": "opl_stage_runtime_registration_registry",
+    "version": "v1",
+    "registration_status": "declared_projection_contracts",
+    "source_of_truth_rule": "OPL indexes declared domain registration surfaces and must dereference domain-owned durable truth before acting.",
+    "registered_domains": [
+      "medautoscience",
+      "medautogrant",
+      "redcube"
+    ],
+    "required_domain_registration_fields": [
+      "surface_kind",
+      "registration_id",
+      "domain_id",
+      "domain_owner",
+      "runtime_owner",
+      "domain_entry_surface",
+      "consumable_projection_refs",
+      "state_index_inputs",
+      "non_goals"
+    ],
+    "domain_surface_refs": [
+      "/skill_catalog/skills/0/domain_projection/opl_stage_runtime_registration"
+    ]
+  },
+  "standard_domain_agent_scaffold": {
+    "surface_kind": "opl_standard_domain_agent_scaffold",
+    "version": "standard-domain-agent-scaffold.v1",
+    "owner": "one-person-lab",
+    "state": "template_contract_available",
+    "command": "opl agents scaffold",
+    "contract_ref": "contracts/opl-framework/standard-domain-agent-skeleton-contract.json",
+    "generation_policy": {
+      "scaffold_command_is_read_only": true,
+      "creates_files": false,
+      "default_mode": "describe_without_target_dir",
+      "write_requires_explicit_target_dir": true,
+      "generate_command": "opl agents scaffold --target-dir <path> --domain-id <id>",
+      "validate_command": "opl agents scaffold --validate <repo-dir>",
+      "copy_existing_domain_repo_as_template": false
+    },
+    "authority_boundary": {
+      "opl": "framework_runtime_development_primitives_contracts_read_models_projection_and_checklist_owner",
+      "domain_agent": "domain_truth_quality_export_artifact_memory_body_and_owner_receipt_authority"
+    }
+  },
+  "non_goals": [
+    "not_a_domain_runtime_truth_owner",
+    "not_a_domain_quality_verdict_owner",
+    "not_a_domain_artifact_gate_owner",
+    "not_a_domain_truth_owner",
+    "not_a_concrete_executor",
+    "not_a_private_fork_of_external_executor_runtime",
+    "not_a_domain_temporal_server_owner"
+  ],
+  "native_helper_target": {
+    "status": "contracted_optional_rust_helpers",
+    "language": "rust",
+    "protocol_ref": "contracts/opl-framework/native-helper-contract.json",
+    "allowed_shape": "small_json_stdio_or_cli_helpers_managed_by_opl",
+    "lifecycle": {
+      "status_surface": "native_helper_target.lifecycle",
+      "build_command": "npm run native:build",
+      "prebuild_install_command": "npm run native:prebuild",
+      "prebuild_pack_command": "npm run native:prebuild-pack",
+      "prebuild_check_command": "npm run native:prebuild-check",
+      "doctor_command": "npm run native:doctor",
+      "repair_command": "npm run native:repair",
+      "test_command": "npm run native:test",
+      "packaged_source_files": [
+        "Cargo.toml",
+        "Cargo.lock",
+        "native/opl-native-helper/Cargo.toml",
+        "native/opl-native-helper/src",
+        "scripts/native-helper-doctor.mjs",
+        "scripts/native-helper-prebuild.mjs",
+        "scripts/native-helper-repair.mjs"
+      ],
+      "prebuild_cache_strategy": {
+        "manifest": "native-helper-prebuilds/<target_triple>/<crate_version>/manifest.json",
+        "restore_order": [
+          "OPL_NATIVE_HELPER_PREBUILD_ROOT",
+          "package native-helper-prebuilds",
+          "GHCR one-person-lab-native-helper OCI archive",
+          "local Cargo build fallback"
+        ],
+        "cache_destination": "${OPL_STATE_DIR}/native-helper/bin/<target_triple>/<crate_version>"
+      }
+    },
+    "runtime_invocation": {
+      "status_surface": "native_helper_target.runtime",
+      "discovery_env": "OPL_NATIVE_HELPER_BIN_DIR",
+      "repair_command": "npm run native:repair",
+      "required_runtime_manager_invocations": [
+        "opl-doctor-native",
+        "opl-state-indexer",
+        "opl-artifact-indexer",
+        "opl-runtime-watch"
+      ]
+    },
+    "candidate_helpers": [
+      "opl-sysprobe",
+      "opl-doctor-native",
+      "opl-runtime-watch",
+      "opl-artifact-indexer",
+      "opl-state-indexer"
+    ]
+  },
+  "state_index_target": {
+    "status": "rust_helper_backed_contract_first",
+    "source_of_truth_rule": "indexes project runtime surfaces but never replace domain-owned durable truth",
+    "persistence": {
+      "status_surface": "state_index_target.persistence",
+      "default_index_file": "${OPL_STATE_DIR}/runtime-manager/native-state-index.json",
+      "persisted_surface_kind": "opl_runtime_manager_native_state_projection",
+      "lifecycle_files": {
+        "history_file": "${OPL_STATE_DIR}/runtime-manager/native-state-index-history.jsonl",
+        "failure_file": "${OPL_STATE_DIR}/runtime-manager/native-state-index-failures.jsonl",
+        "last_success_file": "${OPL_STATE_DIR}/runtime-manager/native-state-index-last-success.json"
+      },
+      "freshness_statuses": [
+        "fresh",
+        "stale_last_success_available",
+        "expired_last_success",
+        "unavailable_no_success"
+      ],
+      "diff_summary": {
+        "compared_fields": [
+          "index_key",
+          "helper_id",
+          "result_surface_kind",
+          "status"
+        ],
+        "count_fields": [
+          "previous_index_count",
+          "current_index_count",
+          "added_count",
+          "removed_count",
+          "changed_count",
+          "unchanged_count",
+          "helper_changed_count",
+          "result_surface_changed_count",
+          "status_changed_count"
+        ]
+      },
+      "failure_record": {
+        "required_fields": [
+          "generated_at",
+          "status",
+          "category",
+          "errors",
+          "details"
+        ],
+        "categories": [
+          "helper_unavailable",
+          "helper_error",
+          "write_failed"
+        ]
+      },
+      "history_gc": {
+        "max_history_entries": 50,
+        "reporting_fields": [
+          "retained_history_count",
+          "preserved_count",
+          "removed_count",
+          "history_count_before_gc",
+          "history_count_after_gc"
+        ]
+      }
+    },
+    "candidate_indexes": [
+      "workspace_registry_index",
+      "managed_session_ledger_index",
+      "artifact_projection_index",
+      "attention_queue_index",
+      "runtime_health_snapshot_index"
+    ]
+  },
+  "family_runtime_queue": {
+    "surface_kind": "opl_family_runtime_queue",
+    "contract_ref": "contracts/opl-framework/family-runtime-online-substrate-contract.json",
+    "command": "opl family-runtime status",
+    "state_path": "${OPL_STATE_DIR}/family-runtime/queue.sqlite",
+    "provider_model": "provider_backed_stage_attempt_runtime",
+    "stage_attempt_ledger": "${OPL_STATE_DIR}/family-runtime/queue.sqlite#stage_attempts",
+    "wakeup_bridge": "provider wakeup -> opl family-runtime tick --source <provider> --hydrate",
+    "webhook_bridge": "provider signal/webhook -> opl family-runtime enqueue",
+    "mas_domain_route_projection": {
+      "owner_route_handoff_ref": "mas_runtime_owner_route_handoff",
+      "accepted_runtime_owner_route_ref": "opl_runtime_owner_route",
+      "supported_task_kinds": [
+        "domain_route/reconcile-apply",
+        "publication_aftercare/analysis-queue-progress",
+        "publication_aftercare/reviewer-refresh"
+      ],
+      "action_refs": [
+        "domain_route_reconcile_apply",
+        "ai_reviewer_recheck_execute_dispatch"
+      ],
+      "accepted_runtime_responsibilities": [
+        "generic_runtime_queue",
+        "stage_attempt_ledger",
+        "liveness_projection",
+        "provider_wakeup",
+        "redrive_retry_dead_letter"
+      ],
+      "authority_boundary": "OPL queues and dispatches MAS domain route refs but never writes MAS truth, publication quality, artifact gates, or current_package."
+    }
+  },
+  "family_scheduler_replacement": {
+    "surface_kind": "opl_family_scheduler_replacement",
+    "version": "v1",
+    "owner": "one-person-lab",
+    "scheduler_owner": "opl_provider_runtime_manager",
+    "cadence_owner": "provider_backed_family_runtime",
+    "replacement_status": "replacement_contract_available",
+    "allowed_opl_targets": [
+      "provider_slo_tick",
+      "domain_registration_intake",
+      "family_runtime_tick",
+      "runtime_manager_projection"
+    ],
+    "command_set": {
+      "status": "opl runtime manager",
+      "provider_slo_tick": "opl family-runtime provider-slo tick --provider temporal",
+      "domain_registration_intake": "opl family-runtime intake --domain <domain_id>",
+      "family_runtime_tick": "opl family-runtime tick --source provider-scheduler --hydrate"
+    },
+    "state_refs": {
+      "provider_slo_receipts": "${OPL_STATE_DIR}/family-runtime/provider-slo",
+      "family_runtime_queue": "${OPL_STATE_DIR}/family-runtime/queue.sqlite",
+      "stage_attempt_ledger": "${OPL_STATE_DIR}/family-runtime/queue.sqlite#stage_attempts",
+      "events_ledger": "${OPL_STATE_DIR}/family-runtime/events.jsonl"
+    },
+    "managed_domains": [
+      {
+        "domain_id": "medautoscience",
+        "domain_owner": "med-autoscience",
+        "migration_priority": "p0",
+        "legacy_scheduler_owner": null,
+        "legacy_scheduler_residue_policy": "history_tombstone_or_negative_guard_only",
+        "replacement_role": "OPL owns scheduler lifecycle, cadence, provider SLO tick, queue intake, attempt ledger, and projection; MAS keeps paper-progress SLO semantics, owner receipt, typed blocker, and safe action refs.",
+        "required_domain_refs": [
+          "mas_runtime_owner_route_handoff",
+          "opl_runtime_owner_route",
+          "domain_route/reconcile-apply",
+          "mas_opl_runtime_workbench_projection",
+          "sidecar_owner_receipt_or_typed_blocker",
+          "no_forbidden_write_evidence"
+        ]
+      },
+      {
+        "domain_id": "medautogrant",
+        "domain_owner": "med-autogrant",
+        "migration_priority": "p1",
+        "legacy_scheduler_owner": null,
+        "replacement_role": "MAG consumes OPL scheduler replacement through refs, owner receipts, typed blockers, and guarded grant actions without adding a repo-owned daemon.",
+        "required_domain_refs": [
+          "product_entry_manifest",
+          "grant_owner_receipt_or_typed_blocker",
+          "grant_memory_ref",
+          "no_forbidden_write_evidence"
+        ]
+      },
+      {
+        "domain_id": "redcube",
+        "domain_owner": "redcube-ai",
+        "migration_priority": "p2",
+        "legacy_scheduler_owner": null,
+        "replacement_role": "RCA consumes OPL scheduler replacement through sidecar/action/status refs while keeping visual deliverable sequencing inside domain execution.",
+        "required_domain_refs": [
+          "product_entry_manifest",
+          "visual_owner_receipt_or_typed_blocker",
+          "visual_memory_ref",
+          "no_forbidden_write_evidence"
+        ]
+      }
+    ],
+    "authority_boundary": {
+      "can_write_domain_truth": false,
+      "can_write_domain_memory_body": false,
+      "can_authorize_domain_quality": false,
+      "can_authorize_domain_export": false,
+      "can_install_domain_daemon": false,
+      "can_execute_domain_repair_command_directly": false,
+      "can_enqueue_provider_stage_attempts": true,
+      "can_record_opl_provider_receipts": true,
+      "can_project_operator_workbench": true
+    },
+    "migration_gate": {
+      "active_domain_callers_must_use_replacement_owner": true,
+      "legacy_domain_scheduler_must_be_explicit_diagnostic_or_tombstone": true,
+      "no_active_launchagent_install_from_domain_default": true
+    }
+  },
+  "daemon_policy": {
+    "surface_kind": "opl_runtime_manager_daemon_policy",
+    "local_daemon_added": false,
+    "opl_domain_daemon_installation_allowed": false,
+    "cadence_owner": "provider_backed_family_runtime",
+    "runtime_kernel_owner": "provider_backed_family_runtime",
+    "provider_backed_cadence_surface": "opl family-runtime provider-slo tick --provider temporal",
+    "domain_launchagent_policy": {
+      "medautoscience": "legacy_diagnostic_cleanup_only",
+      "medautogrant": "not_installed_or_maintained_by_opl",
+      "redcube": "not_installed_or_maintained_by_opl"
+    },
+    "allowed_domain_daemon_role": "legacy_diagnostic_cleanup_only",
+    "authority_boundary": {
+      "can_install_opl_daemon": false,
+      "can_install_domain_daemon": false,
+      "can_maintain_domain_daemon": false,
+      "can_start_legacy_domain_launchagent": false,
+      "can_record_provider_cadence_receipt": true
+    }
+  },
+  "tray_snapshot_projection": {
+    "surface_kind": "opl_runtime_tray_snapshot",
+    "schema_version": "runtime_tray_snapshot.v1",
+    "command": "opl runtime snapshot",
+    "consumer": "One Person Lab desktop tray",
+    "source_of_truth_rule": "OPL projects active domain-owned manifest and progress surfaces into tray lanes; cached or indexed values are not authoritative.",
+    "required_fields": [
+      "schema_version",
+      "runtime_health",
+      "last_updated",
+      "running_items",
+      "attention_items",
+      "recent_items",
+      "source_refs"
+    ],
+    "lanes": [
+      "attention_items",
+      "running_items",
+      "recent_items"
+    ],
+    "daemon_policy": {
+      "local_daemon_added": false,
+      "runtime_kernel_owner": "provider_backed_family_runtime",
+      "sidecar_promotion_gate": "Only promote beyond provider adapters if supported providers cannot express required task, wakeup, approval, audit, or product isolation contracts."
+    }
+  },
+  "future_sidecar_promotion_gate": "Only promote beyond provider adapters if supported providers cannot express required task, wakeup, approval, audit, or product isolation contracts."
+}

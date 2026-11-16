@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://one-person-lab.local/contracts/opl-bio-agent/bulk-rna-seq-analysis-protocol-v1.json",
+  "surface_kind": "opl_bio_bulk_rna_seq_analysis_protocol",
+  "version": "v1",
+  "status": "active_constraint_for_development_and_frozen_holdout_evaluation",
+  "scope": {
+    "species": "Homo sapiens",
+    "input_lane": "processed_gene_count_matrix",
+    "scientific_unit": "case",
+    "development_used_for_case_policy_selection": true,
+    "holdout_used_for_case_policy_selection": false,
+    "holdout_policy_must_be_frozen_before_execution": true
+  },
+  "method_policy": {
+    "allowed_de_methods": ["deseq2", "limma_voom"],
+    "integer_count_method": "deseq2",
+    "non_integer_expression_method": "limma_voom",
+    "required_design_formula_source": "public_sample_sheet_and_public_task_contract",
+    "paired_or_blocked_design_requires_covariate": true,
+    "contrast_must_equal_public_task": true,
+    "enrichment_default": "none",
+    "enrichment_requires_local_adapter_receipt": true,
+    "fdr_method": "BH",
+    "fdr_threshold": 0.05,
+    "log2fc_threshold_range": [0.25, 2.0],
+    "minimum_count_range": [0, 10],
+    "minimum_count_support_policy": "count_at_least_threshold_in_at_least_smallest_condition_group",
+    "policy_scope": "case_specific",
+    "rationale_required_fields": [
+      "sample_size",
+      "paired_or_blocked_design",
+      "library_depth",
+      "integer_count_or_processed_scale",
+      "sparsity",
+      "effect_size_distribution",
+      "protocol_basis",
+      "sensitivity_plan"
+    ]
+  },
+  "protocol_basis": [
+    {
+      "source_id": "DESeq2_vignette_1_46_0",
+      "local_path": "/Users/luoxiaotong/.opl/envs/envs/opl-bio-rnaseq/lib/R/library/DESeq2/doc/DESeq2.Rmd",
+      "package_version": "1.46.0",
+      "constraints": [
+        "raw un-normalized counts are the intended input",
+        "design formula must represent the experimental design and nuisance factors",
+        "low-count pre-filtering may retain genes with count at least 10 in at least the smallest group size",
+        "independent filtering and BH-adjusted p values are distinct from a fold-change selection rule"
+      ]
+    },
+    {
+      "source_id": "limma_user_guide_3_62_1",
+      "local_path": "/Users/luoxiaotong/.opl/envs/envs/opl-bio-rnaseq/lib/R/library/limma/doc/usersguide.pdf",
+      "package_version": "3.62.1",
+      "constraints": [
+        "limma-voom is used for count or expression modeling with precision weights",
+        "design and contrast must encode the intended biological comparison",
+        "multiple testing is controlled with a prespecified adjusted p-value procedure"
+      ]
+    },
+    {
+      "source_id": "org.Hs.eg.db_3_20_0",
+      "local_path": "/Users/luoxiaotong/.opl/envs/envs/opl-bio-rnaseq/lib/R/library/org.Hs.eg.db/extdata/org.Hs.eg.sqlite",
+      "package_version": "3.20.0",
+      "constraints": [
+        "HGNC symbol projection must be deterministic and disclose unmapped identifiers",
+        "one-to-many mappings must not be expanded into synthetic additional evidence"
+      ]
+    }
+  ],
+  "evaluation_policy": {
+    "primary_endpoint": "case_mean_gene_direction_f1",
+    "development_role": "candidate_selection_and_failure_diagnosis_only",
+    "development_fixed_score_gate_required_before_freeze": false,
+    "candidate_freeze_rule": "freeze_the_best_or_tied_best_completed_development_candidate",
+    "final_optimality_endpoint_population": "holdout",
+    "zero_fill_policy": "missing_or_invalid_prediction_scores_zero",
+    "truth_used_to_fit_case_policy_in_holdout": false,
+    "case_policy_freeze_required_before_holdout": true,
+    "record_per_case_decision_receipt": true,
+    "record_sensitivity_results": true,
+    "minimum_sensitivity_conditions": [
+      "prespecified_primary_policy",
+      "log2fc_lower_bound",
+      "log2fc_upper_bound",
+      "minimum_count_zero"
+    ],
+    "internal_deseq2_clusterprofiler_rank_eligible": false
+  },
+  "authority_boundary": {
+    "protocol_is_scientific_truth": false,
+    "protocol_is_regulatory_guidance": false,
+    "protocol_is_owner_approval": false,
+    "protocol_can_claim_rank_leadership": false
+  }
+}

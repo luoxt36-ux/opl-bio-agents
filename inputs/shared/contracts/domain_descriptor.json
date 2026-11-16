@@ -1,0 +1,42 @@
+{
+  "surface_kind": "domain_agent_descriptor",
+  "schema_version": 1,
+  "domain_id": "opl-bio-agent",
+  "domain_label": "OPL-Bio Agent",
+  "agent_id": "opl-bio-agent",
+  "state": "candidate_scaffold",
+  "mvp_scope": "literature-grounded gene-set interpretation, curated human Bulk RNA-seq processed-count benchmark, a candidate scRNA-seq processed-matrix marker/condition-response seed, and a bounded genome sequencing analysis lane with alignment/QC and small-variant readiness provenance",
+  "domain_truth_owner": "opl-bio-agent",
+  "default_workflow": "gene_set_and_bulk_rna_seq_mvp",
+  "benchmark_suite_ref": "runtime/fixtures/literature_benchmark_cases.json",
+  "bulk_rna_seq_benchmark_suite_ref": "runtime/fixtures/bulk_rna_seq_benchmark_cases.json",
+  "sc_rna_seq_benchmark_suite_ref": "runtime/fixtures/sc_rna_seq_benchmark_cases.json",
+  "scenario_agent_packs": [
+    {
+      "scenario_agent_id": "opl_bio_bulk_rna_seq_agent",
+      "task_family": "bulk_rna_seq_replay",
+      "pack_ref": "contracts/bulk_rna_seq_scenario_domain_pack.json",
+      "state": "candidate_scenario_pack"
+    },
+    {
+      "scenario_agent_id": "opl_bio_sc_rna_seq_agent",
+      "task_family": "single_cell_rna_seq_replay",
+      "pack_ref": "contracts/sc_rna_seq_scenario_domain_pack.json",
+      "state": "candidate_scenario_pack"
+    },
+    {
+      "scenario_agent_id": "opl_bio_genome_analysis_agent",
+      "task_family": "genome_sequencing_analysis",
+      "pack_ref": "contracts/genome_sequencing_analysis_scenario_domain_pack.json",
+      "state": "frozen_result1_task_pack"
+    }
+  ],
+  "marker": "generated_by_opl_standard_domain_agent_scaffold_v1",
+  "authority_boundary": {
+    "opl_can_write_domain_truth": false,
+    "opl_can_write_memory_body": false,
+    "opl_can_authorize_quality_or_export": false,
+    "domain_owns_truth_quality_artifact_memory_and_receipts": true
+  },
+  "genome_variant_biobench_suite_ref": "runtime/fixtures/genome_variant_biobench_phase1_cases.json"
+}

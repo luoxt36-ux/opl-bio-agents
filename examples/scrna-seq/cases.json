@@ -1,0 +1,96 @@
+{
+  "surface_kind": "opl_bio_sc_rna_seq_public_benchmark_suite",
+  "version": "opl-bio-sc-rna-seq-benchmark.v0.2",
+  "owner": "opl-bio-agent",
+  "state": "public_tutorial_seed_not_manuscript_evaluation",
+  "source_surface_kind": "opl_bio_sc_rna_seq_benchmark_suite",
+  "leakage_policy": {
+    "source_literature_lookup_allowed": false,
+    "source_paper_lookup_allowed": false,
+    "published_findings_lookup_allowed": false,
+    "private_oracle_lookup_allowed": false,
+    "public_input_may_include_dataset_accessions": true,
+    "private_oracle_included": false,
+    "oracle_targets_removed": true,
+    "gold_public_summary_removed": true,
+    "paper_ref_removed": true,
+    "source_literature_removed": true,
+    "published_findings_removed": true,
+    "original_case_ids_removed": true,
+    "external_models_must_not_receive_private_answer_key": true,
+    "external_models_must_not_lookup_source_papers_or_published_findings": true,
+    "public_input_is_blind_to_source_literature_findings": true,
+    "public_input_may_include_user_goal_dataset_refs_and_task_constraints": true
+  },
+  "cases": [
+    {
+      "case_id": "sc_rna_seq_case_001",
+      "benchmark_id": "sc_rna_seq_benchmark_001",
+      "data_ref": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE96583",
+      "scenario": "Analyze the provided human single-cell RNA-seq gene-by-cell matrix and cell metadata for the specified condition contrast, then deliver QC, cell-type marker, condition-response, evidence, review, and report artifacts.",
+      "input_task": {
+        "task_kind": "sc_rna_seq_condition_response_by_celltype",
+        "species": "human",
+        "geo_accession": "GSE96583",
+        "counts_matrix_ref": "GEO accession GSE96583 public processed PBMC single-cell RNA-seq gene-by-cell matrix seed",
+        "cell_metadata_ref": "GEO accession GSE96583 public case 001 cell metadata with condition and cell-type labels",
+        "data_level": "curated processed gene-by-cell count matrix seed",
+        "condition_field": "condition",
+        "cell_type_field": "cell_type",
+        "contrast": {
+          "case_condition": "stimulated",
+          "control_condition": "control"
+        },
+        "analysis_policy": {
+          "preferred_framework": "Seurat or Scanpy",
+          "accepted_runner": "deterministic processed-matrix marker and condition-response smoke runner",
+          "normalization": "library-size CPM plus log1p",
+          "marker_id_policy": "HGNC symbols",
+          "starting_point": "processed gene-by-cell matrix"
+        },
+        "local_inputs": {
+          "counts_tsv": "runtime/fixtures/sc_rna_seq_inputs/public_case_001/counts.tsv",
+          "cell_metadata_tsv": "runtime/fixtures/sc_rna_seq_inputs/public_case_001/cell_metadata.tsv"
+        },
+        "execution_goal": "run_processed_sc_matrix_qc_marker_condition_response_report",
+        "accepted_input_lanes": [
+          "cellranger_feature_barcode_matrix",
+          "h5ad_processed_object",
+          "processed_count_matrix_with_cell_metadata"
+        ],
+        "smoke_fallback_lane": "deterministic_marker_scoring",
+        "article_replay_policy": {
+          "requires_mainstream_toolchain": true,
+          "accepted_frameworks": [
+            "Seurat",
+            "Scanpy",
+            "SingleCellExperiment"
+          ],
+          "fallback_can_claim_article_replay": false
+        },
+        "public_task_prompt": "Use only the provided dataset references, local matrices, metadata, contrast, and tool outputs. Do not look up the source paper or use published findings for this case."
+      },
+      "private_oracle_removed": true,
+      "blinding": {
+        "source_literature_lookup_allowed": false,
+        "source_paper_lookup_allowed": false,
+        "published_findings_lookup_allowed": false,
+        "private_oracle_lookup_allowed": false,
+        "public_input_may_include_dataset_accessions": true,
+        "blind_case_index": 1,
+        "paper_ref_removed": true,
+        "source_literature_removed": true,
+        "published_findings_removed": true,
+        "oracle_targets_removed": true,
+        "gold_public_summary_removed": true,
+        "original_case_id_removed": true,
+        "public_input_is_blind_to_source_literature_findings": true
+      },
+      "authority_boundary": {
+        "public_case_can_claim_gold_target_visibility": false,
+        "public_case_can_claim_source_paper_visibility": false,
+        "public_case_can_claim_biological_quality_verdict": false
+      }
+    }
+  ]
+}

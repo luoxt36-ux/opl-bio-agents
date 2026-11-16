@@ -1,0 +1,7 @@
+{
+  "release_id": "opl-bio-agents-2026.11.16",
+  "scope": "final_three_agents_and_initial_opl_inputs",
+  "intermediate_self_evolution_materials_included": false,
+  "private_scoring_truth_included": false,
+  "model_calls_during_packaging": 0
+}

@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://one-person-lab.local/contracts/opl-bio-agent/bulk-rna-seq-benchmark.output.schema.json",
+  "title": "OPL-Bio Bulk RNA-seq Benchmark Verify Output",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "surface_kind",
+    "version",
+    "owner",
+    "status",
+    "case_count",
+    "passed_count",
+    "blocked_count",
+    "case_results",
+    "authority_boundary"
+  ],
+  "properties": {
+    "surface_kind": {
+      "const": "opl_bio_bulk_rna_seq_benchmark_verification"
+    },
+    "version": {
+      "const": "opl-bio-bulk-rna-seq-benchmark-verifier.v0.1"
+    },
+    "owner": {
+      "const": "opl-bio-agent"
+    },
+    "status": {
+      "enum": [
+        "passed",
+        "blocked"
+      ]
+    },
+    "cases_path": {
+      "type": "string"
+    },
+    "oracle_path": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "predictions_path": {
+      "type": "string"
+    },
+    "case_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "passed_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "blocked_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "case_results": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/case_result"
+      }
+    },
+    "authority_boundary": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "verifier_can_claim_domain_ready": {
+          "const": false
+        },
+        "verifier_can_claim_production_ready": {
+          "const": false
+        },
+        "verifier_can_authorize_biological_quality_verdict": {
+          "const": false
+        },
+        "verifier_can_claim_live_deseq2_replay": {
+          "const": false
+        },
+        "verifier_uses_private_oracle_when_oracle_path_is_present": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "case_result": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "case_id",
+        "status",
+        "gene_direction_recall",
+        "enrichment_recall",
+        "matched_up_genes",
+        "matched_terms",
+        "blockers"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "passed",
+            "blocked"
+          ]
+        },
+        "gene_direction_recall": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "enrichment_recall": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "matched_up_genes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "matched_terms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "blockers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://one-person-lab.local/contracts/opl-bio-agent/genome-sequencing-analysis-verify.output.schema.json",
+  "title": "OPL-Bio Genome Sequencing Analysis Verify Output",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["surface_kind", "status", "agent_id", "case_count", "passed_count", "rows", "claim_boundary"],
+  "properties": {
+    "surface_kind": {"const": "opl_bio_genome_sequencing_analysis_verification_receipt_v1"},
+    "status": {"enum": ["passed", "blocked"]},
+    "agent_id": {"const": "opl_bio_genome_analysis_agent"},
+    "case_count": {"type": "integer", "minimum": 0},
+    "passed_count": {"type": "integer", "minimum": 0},
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["case_id", "status", "checks"],
+        "properties": {
+          "case_id": {"type": "string", "minLength": 1},
+          "status": {"enum": ["passed", "blocked"]},
+          "checks": {"type": "object", "additionalProperties": {"type": "boolean"}}
+        }
+      }
+    },
+    "claim_boundary": {"type": "string", "minLength": 1}
+  }
+}

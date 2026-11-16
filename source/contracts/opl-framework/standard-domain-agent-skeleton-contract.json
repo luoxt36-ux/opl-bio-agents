@@ -1,0 +1,501 @@
+{
+  "contract_kind": "opl_standard_domain_agent_skeleton_contract.v1",
+  "owner": "one-person-lab",
+  "scope": "repo-source skeleton and locator-only artifact boundary for OPL-hosted domain agents",
+  "required_repo_source_dirs": [
+    "agent",
+    "contracts",
+    "runtime",
+    "docs"
+  ],
+  "forbidden_repo_source_dirs": [
+    "artifacts"
+  ],
+  "repo_source_boundary": {
+    "agent": "stage descriptors, prompt refs, skill refs, knowledge refs, and domain entry metadata",
+    "contracts": "machine-readable descriptor, generated-surface handoff, quality gate, receipt, and artifact locator contracts",
+    "runtime": "minimal authority functions, domain handler targets, opaque ref projection outputs, and necessary native helpers only; generated sidecar, status, workbench, lifecycle, queue, ledger, and dispatch shells are OPL-owned",
+    "docs": "human-readable governance, status, roadmap, and migration notes"
+  },
+  "artifact_boundary": {
+    "repo_contains_real_artifacts": false,
+    "artifact_roots_are_locators": true,
+    "real_artifact_owners": [
+      "domain_workspace",
+      "domain_runtime_artifact_root"
+    ],
+    "opl_allowed_content": [
+      "locator_refs",
+      "freshness",
+      "receipt_refs",
+      "restore_proof_refs",
+      "migration_state"
+    ],
+    "opl_forbidden_content": [
+      "domain_truth",
+      "quality_verdict",
+      "canonical_artifact_blob",
+      "publication_or_export_gate"
+    ]
+  },
+  "required_projection_fields": [
+    "descriptor_refs",
+    "sidecar_refs",
+    "quality_gate_refs",
+    "workspace_artifact_locator_refs",
+    "runtime_artifact_locator_refs",
+    "authority_boundary"
+  ],
+  "authority_boundary": {
+    "opl": "framework_transport_and_projection_only",
+    "domain_agent": "truth_quality_artifact_owner"
+  },
+  "new_agent_scaffold": {
+    "surface_kind": "opl_standard_domain_agent_scaffold",
+    "version": "standard-domain-agent-scaffold.v1",
+    "owner": "one-person-lab",
+    "state": "template_contract_available",
+    "command": "opl agents scaffold",
+    "generation_policy": {
+      "scaffold_command_is_read_only": true,
+      "creates_files": false,
+      "default_mode": "describe_without_target_dir",
+      "write_requires_explicit_target_dir": true,
+      "generate_command": "opl agents scaffold --target-dir <path> --domain-id <id>",
+      "validate_command": "opl agents scaffold --validate <repo-dir>",
+      "copy_existing_domain_repo_as_template": false
+    },
+    "docs_taxonomy": [
+      "active",
+      "public",
+      "product",
+      "runtime",
+      "delivery",
+      "source",
+      "policies",
+      "specs",
+      "references",
+      "history"
+    ],
+    "required_contract_surfaces": [
+      "domain_agent_descriptor",
+      "pack_compiler_input",
+      "generated_surface_handoff",
+      "product_entry_manifest",
+      "stage_control_plane",
+      "family_action_catalog",
+      "domain_memory_descriptor_locator",
+      "artifact_locator_contract",
+      "owner_receipt_contract",
+      "quality_or_export_gate_refs",
+      "physical_skeleton_follow_through",
+      "legacy_retirement_tombstone_proof",
+      "private_functional_surface_policy",
+      "functional_privatization_audit",
+      "workspace_lifecycle_policy"
+    ],
+    "opl_owned_generic_primitives": [
+      "scheduler_supervision_cadence",
+      "provider_slo_and_wakeup_transport",
+      "queue_attempt_ledger",
+      "generic_transition_runner",
+      "workspace_source_intake_shell",
+      "memory_locator_writeback_transport",
+      "artifact_package_lifecycle_shell",
+      "operator_workbench_drilldown_shell",
+      "observability_repair_projection",
+      "generic_persistence_store",
+      "runtime_lifecycle_sqlite_index_contract",
+      "native_helper_generic_envelope",
+      "review_repair_transport",
+      "pack_compiler_generated_surface",
+      "functional_privatization_audit_read_model"
+    ],
+    "domain_retained_thin_surfaces": [
+      "domain_truth",
+      "domain_transition_spec",
+      "domain_stage_descriptors",
+      "domain_action_metadata",
+      "quality_or_export_verdict",
+      "artifact_authority",
+      "memory_body",
+      "owner_receipt",
+      "typed_blocker",
+      "domain_handler_target_or_opaque_ref_projection_output",
+      "domain_entry_and_tests"
+    ],
+    "forbidden_domain_generic_owner_roles": [
+      "generic_scheduler_owner",
+      "generic_daemon_owner",
+      "generic_lifecycle_owner",
+      "generic_queue_owner",
+      "generic_attempt_ledger_owner",
+      "generic_state_machine_runner_owner",
+      "generic_workspace_source_intake_owner",
+      "generic_memory_transport_owner",
+      "generic_artifact_gallery_owner",
+      "generic_operator_workbench_owner",
+      "generic_observability_slo_owner",
+      "generic_persistence_engine_owner",
+      "generic_sqlite_lifecycle_owner",
+      "generic_native_helper_envelope_owner",
+      "generic_review_repair_transport_owner",
+      "generic_cli_mcp_product_wrapper_owner",
+      "generic_sidecar_owner",
+      "generic_session_store_owner",
+      "generic_status_workbench_owner",
+      "generated_surface_owner_in_domain_repo"
+    ],
+    "default_runtime_policy": {
+      "surface_kind": "opl_standard_agent_default_runtime_policy",
+      "owner": "one-person-lab",
+      "default_runtime_path": "opl_temporal_hosted_autonomous",
+      "temporal_hosted_autonomy_default_enabled": true,
+      "runtime_owner": "one-person-lab",
+      "provider_owner": "one-person-lab",
+      "provider_kind_required_for_production": "temporal",
+      "default_executor_kind": "codex_cli",
+      "codex_app_drives_long_running_tasks": false,
+      "codex_app_role": "start_observe_intervene_project_only",
+      "provider_managed_surfaces": [
+        "stage_attempt_runtime",
+        "typed_queue",
+        "wakeup",
+        "resume_requery",
+        "retry_dead_letter",
+        "attempt_ledger",
+        "operator_projection"
+      ],
+      "domain_agent_internal_daemon_allowed": false,
+      "domain_agent_internal_scheduler_allowed": false,
+      "domain_agent_internal_attempt_loop_allowed": false,
+      "authority_boundary": {
+        "provider_completion_can_claim_domain_ready": false,
+        "provider_completion_can_claim_quality_or_export_verdict": false,
+        "provider_completion_can_write_domain_truth": false,
+        "provider_completion_can_issue_owner_receipt": false,
+        "domain_agent_can_install_generic_daemon": false
+      }
+    },
+    "retirement_gate_required_evidence": [
+      "replacement_contract_available",
+      "active_callers_migrated",
+      "no_active_default_caller",
+      "direct_and_opl_hosted_parity",
+      "provenance_or_history_tombstone",
+      "no_retained_legacy_compatibility_entry"
+    ],
+    "standard_stage_pack_v2_conformance": {
+      "version": "standard-stage-pack.v2",
+      "enforcement_contract": "contracts/pack_compiler_input.json#standard_stage_pack_conformance.required",
+      "enforcement_policy": "new OPL-generated scaffolds require v2; existing family repos without explicit v2 declaration remain advisory until migrated",
+      "default_selected_executor": "codex_cli",
+      "default_executor_binding_ref": "default_codex_cli",
+      "non_default_executor_policy": "explicit executor_binding_ref plus independent receipt and audit evidence required",
+      "required_stage_fields": [
+        "prompt_refs",
+        "skills",
+        "knowledge_refs",
+        "evaluation",
+        "selected_executor",
+        "stage_contract.requires",
+        "stage_contract.ensures",
+        "stage_contract.expected_receipt_refs",
+        "independent_gate_policy"
+      ],
+      "independent_gate_policy": {
+        "execution_review_separation_required": true,
+        "mechanical_completion_can_close_stage": false,
+        "provider_completion_can_claim_domain_ready": false,
+        "generated_surface_readiness_can_claim_quality_or_export": false
+      }
+    },
+    "required_verification": [
+      "direct_skill_path_parity",
+      "opl_hosted_path_parity",
+      "no_forbidden_write",
+      "no_active_generic_owner_caller",
+      "replacement_or_no_regression_evidence",
+      "receipt_ref_reconciliation",
+      "git_diff_check",
+      "agent_pack_required_paths_resolve",
+      "stage_prompt_skill_knowledge_quality_gate_refs_resolve",
+      "functional_privatization_audit_no_generic_owner",
+      "pack_compiler_input_schema_check",
+      "generated_surface_handoff_parity",
+      "generated_surface_no_domain_owner",
+      "workspace_file_lifecycle_policy_declared"
+    ],
+    "declarative_domain_pack": [
+      "domain_truth_schema",
+      "stage_descriptors",
+      "transition_table",
+      "action_metadata",
+      "knowledge_refs",
+      "prompt_refs",
+      "skill_refs",
+      "policy_tables",
+      "quality_rubric_refs",
+      "artifact_authority_contract",
+      "memory_policy",
+      "owner_receipt_schema",
+      "domain_fixtures"
+    ],
+    "minimal_authority_functions": [
+      "quality_or_export_verdict_authorizer",
+      "artifact_mutation_authorizer",
+      "memory_accept_reject_decider",
+      "source_readiness_verdict",
+      "owner_receipt_signer",
+      "domain_specific_native_helper_implementation"
+    ],
+    "private_functional_surface_admission_policy": {
+      "surface_kind": "opl_domain_private_functional_surface_admission_policy",
+      "version": "opl-domain-private-functional-surface-admission.v1",
+      "owner": "one-person-lab",
+      "default_posture": "forbidden_until_classified_and_receipted",
+      "default_review_view": {
+        "attention_required": [
+          "blocker",
+          "opl_replacement_pending",
+          "migration_bridge_pending",
+          "legacy_tombstone_pending",
+          "diagnostic_cleanup_path_still_active",
+          "tombstone_has_active_caller"
+        ],
+        "hidden_by_default": [
+          "cleared_or_stable_boundary"
+        ],
+        "semantic_equivalence_review_required_when": [
+          "active_caller_status_or_migration_action_says_pending",
+          "active_caller_status_or_migration_action_says_should_move",
+          "active_caller_status_or_migration_action_says_active_private",
+          "active_caller_status_or_migration_action_says_handoff_required"
+        ]
+      },
+      "taxonomy_layers": {
+        "standard_domain_pack_inventory": {
+          "purpose": "Stage/action/transition/policy/schema/knowledge/fixture content that a clean OPL agent is expected to provide.",
+          "private_surface": false,
+          "owner": "domain_agent",
+          "opl_role": "schema_validation_pack_compilation_generated_surface_and_hosted_runtime"
+        },
+        "authority_function_inventory": {
+          "purpose": "Domain decisions that cannot be moved to OPL without moving truth, quality/export verdict, artifact authority, memory body, or owner receipt authority.",
+          "private_surface": false,
+          "owner": "domain_agent",
+          "opl_role": "standard_authority_function_abi_call_envelope_receipt_projection_and_no_forbidden_write_guard",
+          "abi": {
+            "input": [
+              "stage_attempt_ref",
+              "source_refs",
+              "artifact_refs",
+              "memory_refs",
+              "policy_refs",
+              "prior_receipt_refs"
+            ],
+            "output": [
+              "verdict",
+              "owner_receipt",
+              "typed_blocker",
+              "safe_action_refs",
+              "no_forbidden_write_evidence_ref"
+            ],
+            "forbidden_outputs": [
+              "generic_runtime_state",
+              "queue_or_attempt_ledger_mutation",
+              "session_store_mutation",
+              "scheduler_installation",
+              "OPL_lifecycle_store_write"
+            ]
+          }
+        },
+        "private_platform_residue_inventory": {
+          "purpose": "Anything that looks like a private runtime/platform shell and must be generated, hosted, reduced to refs-only output, or retired.",
+          "private_surface": true,
+          "owner": "one-person-lab_or_retirement_gate",
+          "opl_role": "replacement_or_generated_surface_owner"
+        }
+      },
+      "allowed_private_surface_classes": [
+        "minimal_authority_function",
+        "refs_only_domain_adapter",
+        "temporary_migration_bridge",
+        "diagnostic_cleanup_path",
+        "provenance_or_fixture"
+      ],
+      "forbidden_private_surface_classes": [
+        "generic_scheduler_or_daemon",
+        "generic_queue_or_attempt_ledger",
+        "generic_state_machine_runner",
+        "generic_persistence_or_sqlite_lifecycle_engine",
+        "generic_cli_mcp_product_wrapper",
+        "generic_sidecar_or_status_workbench_shell",
+        "generic_session_store",
+        "generic_workspace_source_intake_shell",
+        "generic_memory_transport",
+        "generic_artifact_package_lifecycle_shell",
+        "generic_review_repair_transport",
+        "generic_native_helper_execution_envelope",
+        "generic_observability_slo_runtime"
+      ],
+      "required_evidence_before_retaining_private_surface": [
+        "code_paths",
+        "active_callers",
+        "active_caller_status",
+        "cannot_absorb_reason_or_retirement_gate",
+        "receipt_schema_or_fixture_ref",
+        "no_forbidden_write_evidence",
+        "direct_and_opl_hosted_parity_or_explicit_non_default_diagnostic_scope"
+      ]
+    },
+    "pack_compiler_contract": {
+      "surface_kind": "opl_domain_pack_compiler_contract",
+      "version": "opl-domain-pack-compiler.v1",
+      "owner": "one-person-lab",
+      "generated_surface_owner": "one-person-lab",
+      "input_contract": "contracts/pack_compiler_input.json",
+      "handoff_contract": "contracts/generated_surface_handoff.json",
+      "domain_repo_can_own_generated_surface": false,
+      "generated_surfaces": [
+        "cli",
+        "mcp",
+        "skill",
+        "product_entry_manifest",
+        "sidecar_export_dispatch",
+        "status_read_model",
+        "workbench_drilldown",
+        "functional_harness_cases"
+      ]
+    },
+    "generated_surface_contract": {
+      "surface_kind": "opl_generated_surface_contract",
+      "version": "opl-generated-surface.v1",
+      "owner": "one-person-lab",
+      "generated_surface_owner": "one-person-lab",
+      "domain_repo_can_own_generated_surface": false,
+      "surfaces": [
+        "cli",
+        "mcp",
+        "skill",
+        "product_entry_manifest",
+        "sidecar_export_dispatch",
+        "status_read_model",
+        "workbench_drilldown",
+        "functional_harness_cases"
+      ]
+    },
+    "agent_pack_contract": {
+      "canonical_semantic_pack_root": "agent/",
+      "required_sections": [
+        "agent/prompts",
+        "agent/stages",
+        "agent/skills",
+        "agent/knowledge",
+        "agent/quality_gates"
+      ],
+      "required_domain_pack_paths_field": "contracts/pack_compiler_input.json#/required_domain_pack_paths",
+      "stage_ref_requirements": [
+        "prompt_refs:agent/prompts/*",
+        "skills:agent/skills/* or skill_id",
+        "knowledge_refs:agent/knowledge/*",
+        "evaluation:agent/quality_gates/*",
+        "selected_executor:codex_cli default binding or explicit non-default executor binding",
+        "runtime_policy:opl_temporal_hosted_autonomous default path"
+      ],
+      "validator": "opl agents scaffold --validate <repo-dir>",
+      "empty_agent_directory_policy": "blocked"
+    },
+    "workspace_file_lifecycle_policy": {
+      "surface_kind": "opl_domain_workspace_file_lifecycle_policy",
+      "version": "opl-domain-workspace-file-lifecycle.v1",
+      "policy_owner": "one-person-lab",
+      "structural_gate_only": true,
+      "repo_source_boundaries": {
+        "required_roots": [
+          "agent/",
+          "contracts/",
+          "runtime/authority_functions/",
+          "docs/",
+          "src/ or packages/"
+        ],
+        "source_truth_policy": "repo_source_contains_pack_contracts_authority_functions_and_domain_code_only",
+        "runtime_artifacts_live_in_source_repo": false,
+        "developer_checkout_may_define_app_runtime_without_explicit_override": false,
+        "forbidden_runtime_artifact_roots": [
+          "artifacts/",
+          "workspaces/",
+          "workspace/",
+          "runtime/artifacts/",
+          "runtime/workspaces/"
+        ]
+      },
+      "workspace_runtime_artifact_roots": {
+        "externalized": true,
+        "repo_source_policy": "locator_index_schema_receipt_refs_only",
+        "allowed_authoritative_roots": [
+          "workspace_root",
+          "runtime_artifact_root",
+          "user_runtime_state_root",
+          "OPL_STATE_DIR"
+        ],
+        "required_locator_refs": [
+          "workspace_root_ref",
+          "runtime_artifact_root_ref",
+          "artifact_locator_ref",
+          "restore_or_retention_receipt_ref"
+        ]
+      },
+      "byproduct_policy": {
+        "caches_and_install_artifacts_externalized": true,
+        "ignored_only_is_fallback_not_authority": true,
+        "forbidden_generated_paths": [
+          ".venv/",
+          "__pycache__/",
+          ".pytest_cache/",
+          "*.egg-info/",
+          "dist/",
+          "coverage/",
+          "node_modules/"
+        ]
+      },
+      "lifecycle_authority_split": {
+        "opl_owned_primitives": [
+          "workspace_lifecycle",
+          "file_lifecycle",
+          "artifact_locator_index",
+          "retention_restore_ledger",
+          "migration_ledger",
+          "operator_projection"
+        ],
+        "domain_owned_authority": [
+          "domain_truth",
+          "quality_export_visual_verdict",
+          "artifact_body_authority",
+          "memory_body_accept_reject",
+          "owner_receipt"
+        ]
+      },
+      "authority_boundary": {
+        "policy_can_claim_domain_ready_or_artifact_authority": false,
+        "opl_can_write_domain_truth": false,
+        "opl_can_write_memory_body": false,
+        "opl_can_mutate_domain_artifact_body": false,
+        "opl_can_authorize_quality_or_export": false
+      }
+    },
+    "domain_retained_thin_surfaces_deprecated": [
+      "domain_truth",
+      "domain_transition_spec",
+      "domain_stage_descriptors",
+      "domain_action_metadata",
+      "quality_or_export_verdict",
+      "artifact_authority",
+      "memory_body",
+      "owner_receipt",
+      "typed_blocker",
+      "domain_handler_target_or_opaque_ref_projection_output",
+      "domain_entry_and_tests"
+    ]
+  }
+}

@@ -1,0 +1,763 @@
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { spawnSync } from 'node:child_process';
+
+import { buildOplRecommendedSkillSpecs } from './install-companions/catalog.ts';
+export { buildOplGuiShellSurface } from './install-companions/gui-shell.ts';
+import { runGit } from './system-installation/shared.ts';
+import {
+  ensureMineruOpenApiTool,
+  ensureOfficeCliTool,
+  resolveMineruOpenApiTool,
+  resolveOfficeCliTool,
+  type OplCompanionToolId,
+  type OplCompanionToolSyncItem,
+} from './install-companions-parts/tools.ts';
+
+export type {
+  OplCompanionToolActionStatus,
+  OplCompanionToolId,
+  OplCompanionToolSyncItem,
+} from './install-companions-parts/tools.ts';
+
+export type OplCompanionSkillStatus = 'ready' | 'missing';
+
+type OplCompanionSkillSourceCandidate = {
+  report_path: string;
+  link_path: string;
+};
+export type OplCompanionSkillActionStatus = 'planned' | 'ready' | 'missing_source' | 'synced' | 'available' | 'installed' | 'failed';
+export type OplCompanionSkillApplyMode = 'observe' | 'ask_to_apply' | 'managed';
+export type OplSuperpowersProfile = 'keep' | 'lite' | 'full';
+
+export type OplCompanionSkillSyncItem = {
+  skill_id: string;
+  source_path: string | null;
+  target_path: string;
+  status: OplCompanionSkillActionStatus;
+  action: 'none' | 'symlink' | 'clone_and_symlink' | 'update_and_symlink' | 'discover_only';
+  note: string | null;
+};
+
+export type OplCompanionSkillSyncResult = {
+  surface_id: 'opl_companion_skill_sync';
+  mode: OplCompanionSkillApplyMode;
+  superpowers_profile: OplSuperpowersProfile;
+  codex_skills_dir: string;
+  agents_skills_dir: string;
+  items: OplCompanionSkillSyncItem[];
+  tools: OplCompanionToolSyncItem[];
+  summary: {
+    total: number;
+    ready: number;
+    synced: number;
+    missing_source: number;
+    failed: number;
+    tools_ready: number;
+    tools_total: number;
+  };
+};
+
+export type OplRecommendedSkill = {
+  skill_id: string;
+  label: string;
+  required: boolean;
+  source: 'superpowers' | 'skills_manager' | 'codex_builtin' | 'github';
+  expected_paths: string[];
+  install_source_paths?: string[];
+  status: OplCompanionSkillStatus;
+  required_tools?: OplCompanionToolId[];
+  install_hint: string;
+  update_hint?: string;
+  supports: string[];
+};
+
+export type OplGuiShellSurface = {
+  shell_id: 'opl_aion_shell';
+  label: 'OPL Desktop GUI';
+  owner: 'one-person-lab-app';
+  base_shell: 'aionui';
+  relation_to_opl: 'opl_branded_gui_shell';
+  repo_url: string;
+  active_shell_root: 'shells/aionui';
+  release_repo: string;
+  release_tag: string;
+  opl_release_version: string;
+  sibling_checkout_path: string;
+  sibling_checkout_found: boolean;
+  product_identity: {
+    app_name: string;
+    bundle_name: string;
+    required_branding: string[];
+    hidden_upstream_modules: string[];
+  };
+  release_strategy: 'prefer_prebuilt_release_then_source_build';
+  prebuilt_artifacts: Array<{
+    platform: 'macos' | 'windows' | 'linux';
+    architectures: string[];
+    distributable_patterns: string[];
+    updater_metadata: string[];
+  }>;
+  fallback_build_commands: string[];
+  notes: string[];
+};
+
+function resolveHomeDir() {
+  return process.env.HOME?.trim() || os.homedir();
+}
+
+function pathExists(filePath: string) {
+  return fs.existsSync(filePath);
+}
+
+function buildSkillStatus(expectedPaths: string[]): OplCompanionSkillStatus {
+  return expectedPaths.some((candidate) => resolveSkillSourceCandidate(candidate)) ? 'ready' : 'missing';
+}
+
+function resolveCodexHome(home: string) {
+  return process.env.CODEX_HOME?.trim() || path.join(home, '.codex');
+}
+
+function resolveCodexSkillsDir(home: string) {
+  return path.join(resolveCodexHome(home), 'skills');
+}
+
+function resolveAgentsSkillsDir(home: string) {
+  return path.join(home, '.agents', 'skills');
+}
+
+function resolveSuperpowersRepoDir(home: string) {
+  return process.env.OPL_SUPERPOWERS_DIR?.trim() || path.join(resolveCodexHome(home), 'superpowers');
+}
+
+function resolveCompanionSourcesRoot(home: string) {
+  return process.env.OPL_COMPANION_SOURCES_ROOT?.trim() || path.join(resolveCodexHome(home), 'opl-companion-sources');
+}
+
+function resolvePackagedSkillsRoot() {
+  const explicit = process.env.OPL_PACKAGED_SKILLS_ROOT?.trim();
+  if (explicit) {
+    return explicit;
+  }
+  const runtimeHome = process.env.OPL_FULL_RUNTIME_HOME?.trim();
+  return runtimeHome ? path.join(runtimeHome, 'skills') : null;
+}
+
+function getSuperpowersRepoUrl() {
+  return process.env.OPL_SUPERPOWERS_REPO_URL?.trim() || 'https://github.com/obra/superpowers.git';
+}
+
+function getOfficeCliRepoUrl() {
+  return process.env.OPL_OFFICECLI_REPO_URL?.trim() || 'https://github.com/iOfficeAI/OfficeCLI.git';
+}
+
+function getUiUxProMaxRepoUrl() {
+  return process.env.OPL_UI_UX_PRO_MAX_REPO_URL?.trim() || 'https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git';
+}
+
+function getMineruDocumentExtractorArchiveUrl() {
+  return process.env.OPL_MINERU_DOCUMENT_EXTRACTOR_ARCHIVE_URL?.trim()
+    || 'https://github.com/MinerU-Extract/mineru-document-extractor/archive/refs/heads/main.tar.gz';
+}
+
+function remoteCompanionInstallDisabled() {
+  return process.env.OPL_COMPANION_DISABLE_REMOTE_INSTALL === '1';
+}
+
+function forceSymlinkDirectory(sourcePath: string, targetPath: string) {
+  fs.mkdirSync(path.dirname(targetPath), { recursive: true });
+  fs.rmSync(targetPath, { recursive: true, force: true });
+  fs.symlinkSync(sourcePath, targetPath, 'junction');
+}
+
+function isUserManagedSkillDirectory(targetPath: string) {
+  if (!pathExists(targetPath)) {
+    return false;
+  }
+
+  try {
+    const stat = fs.lstatSync(targetPath);
+    return !stat.isSymbolicLink() && stat.isDirectory() && pathExists(path.join(targetPath, 'SKILL.md'));
+  } catch {
+    return false;
+  }
+}
+
+function isSameResolvedPath(left: string, right: string) {
+  return path.resolve(left) === path.resolve(right);
+}
+
+function removeLegacySuperpowersCodexSkillLink(home: string) {
+  const legacyPath = path.join(resolveCodexSkillsDir(home), 'superpowers');
+  if (!pathExists(legacyPath)) {
+    return;
+  }
+
+  try {
+    const stat = fs.lstatSync(legacyPath);
+    if (stat.isSymbolicLink()) {
+      fs.rmSync(legacyPath, { recursive: true, force: true });
+    }
+  } catch {
+    // Leave non-removable user-managed paths alone; the install report still records the official target.
+  }
+}
+
+function isSuperpowersBundleReady(repoDir: string) {
+  return (
+    pathExists(path.join(repoDir, 'skills', 'using-superpowers', 'SKILL.md'))
+    && pathExists(path.join(repoDir, 'skills', 'verification-before-completion', 'SKILL.md'))
+  );
+}
+
+function resolveSuperpowersSourceCandidate(home: string): OplCompanionSkillSourceCandidate | null {
+  const repoDir = resolveSuperpowersRepoDir(home);
+  if (!isSuperpowersBundleReady(repoDir)) {
+    return null;
+  }
+  return { report_path: repoDir, link_path: path.join(repoDir, 'skills') };
+}
+
+function ensureSuperpowersSource(home: string) {
+  const repoDir = resolveSuperpowersRepoDir(home);
+  const existing = resolveSuperpowersSourceCandidate(home);
+  if (existing) {
+    const pullResult = runGit(['pull', '--ff-only'], repoDir);
+    if (pullResult.exitCode !== 0) {
+      return { source: existing, action: 'symlink' as const, note: pullResult.stderr || pullResult.stdout || 'Superpowers update skipped.' };
+    }
+    return { source: existing, action: 'update_and_symlink' as const, note: null };
+  }
+
+  if (pathExists(repoDir) && !pathExists(path.join(repoDir, '.git'))) {
+    return { source: null, action: 'clone_and_symlink' as const, note: `Superpowers path exists but is not a git checkout: ${repoDir}` };
+  }
+
+  fs.mkdirSync(path.dirname(repoDir), { recursive: true });
+  const cloneResult = runGit(['clone', getSuperpowersRepoUrl(), repoDir]);
+  if (cloneResult.exitCode !== 0) {
+    return { source: null, action: 'clone_and_symlink' as const, note: cloneResult.stderr || cloneResult.stdout || 'Superpowers git clone failed.' };
+  }
+
+  return { source: resolveSuperpowersSourceCandidate(home), action: 'clone_and_symlink' as const, note: null };
+}
+
+function resolveSkillSourceCandidate(candidatePath: string): OplCompanionSkillSourceCandidate | null {
+  if (!pathExists(candidatePath)) {
+    return null;
+  }
+
+  const stat = fs.statSync(candidatePath);
+  if (stat.isDirectory()) {
+    const skillFilePath = path.join(candidatePath, 'SKILL.md');
+    return pathExists(skillFilePath) ? { report_path: candidatePath, link_path: candidatePath } : null;
+  }
+
+  if (stat.isFile() && path.basename(candidatePath) === 'SKILL.md') {
+    return { report_path: candidatePath, link_path: path.dirname(candidatePath) };
+  }
+
+  return null;
+}
+
+function pickFirstExistingSkillSource(paths: string[]) {
+  for (const candidatePath of paths) {
+    const source = resolveSkillSourceCandidate(candidatePath);
+    if (source) {
+      return source;
+    }
+  }
+
+  return null;
+}
+
+function materializeSkillDir(sourceRoot: string, targetRoot: string) {
+  fs.rmSync(targetRoot, { recursive: true, force: true });
+  fs.mkdirSync(targetRoot, { recursive: true });
+  fs.cpSync(sourceRoot, targetRoot, {
+    recursive: true,
+    dereference: true,
+    preserveTimestamps: true,
+  });
+}
+
+function materializeSkillFile(sourceFile: string, targetRoot: string) {
+  fs.rmSync(targetRoot, { recursive: true, force: true });
+  fs.mkdirSync(targetRoot, { recursive: true });
+  fs.copyFileSync(sourceFile, path.join(targetRoot, 'SKILL.md'));
+}
+
+function materializeSingleSkillRoot(sourceRoot: string, targetRoot: string) {
+  fs.rmSync(targetRoot, { recursive: true, force: true });
+  fs.mkdirSync(targetRoot, { recursive: true });
+  fs.copyFileSync(path.join(sourceRoot, 'SKILL.md'), path.join(targetRoot, 'SKILL.md'));
+  const metaPath = path.join(sourceRoot, '_meta.json');
+  if (fs.existsSync(metaPath)) {
+    fs.copyFileSync(metaPath, path.join(targetRoot, '_meta.json'));
+  }
+}
+
+function cloneOrUpdateRepo(repoUrl: string, repoDir: string) {
+  if (fs.existsSync(path.join(repoDir, '.git'))) {
+    const pullResult = runGit(['pull', '--ff-only'], repoDir);
+    return {
+      ok: pullResult.exitCode === 0,
+      note: pullResult.exitCode === 0 ? null : pullResult.stderr || pullResult.stdout || `git pull failed for ${repoDir}`,
+    };
+  }
+  if (fs.existsSync(repoDir)) {
+    return {
+      ok: false,
+      note: `Companion source path exists but is not a git checkout: ${repoDir}`,
+    };
+  }
+  fs.mkdirSync(path.dirname(repoDir), { recursive: true });
+  const cloneResult = runGit(['clone', '--depth', '1', repoUrl, repoDir]);
+  return {
+    ok: cloneResult.exitCode === 0,
+    note: cloneResult.exitCode === 0 ? null : cloneResult.stderr || cloneResult.stdout || `git clone failed for ${repoUrl}`,
+  };
+}
+
+function downloadArchiveToDirectory(archiveUrl: string, targetRoot: string) {
+  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'opl-companion-archive-'));
+  const archivePath = path.join(tempRoot, 'source.tar.gz');
+  const unpackRoot = path.join(tempRoot, 'unpack');
+  try {
+    const curlResult = spawnSync('curl', ['-fsSL', archiveUrl, '-o', archivePath], {
+      encoding: 'utf8',
+      stdio: 'pipe',
+    });
+    if (curlResult.status !== 0) {
+      return false;
+    }
+    fs.mkdirSync(unpackRoot, { recursive: true });
+    const tarResult = spawnSync('tar', ['-xzf', archivePath, '-C', unpackRoot], {
+      encoding: 'utf8',
+      stdio: 'pipe',
+    });
+    if (tarResult.status !== 0) {
+      return false;
+    }
+    const unpackedRoot = fs.readdirSync(unpackRoot)
+      .map((entry) => path.join(unpackRoot, entry))
+      .find((entryPath) => fs.statSync(entryPath).isDirectory());
+    if (!unpackedRoot || !fs.existsSync(path.join(unpackedRoot, 'SKILL.md'))) {
+      return false;
+    }
+    fs.rmSync(targetRoot, { recursive: true, force: true });
+    fs.mkdirSync(path.dirname(targetRoot), { recursive: true });
+    fs.cpSync(unpackedRoot, targetRoot, {
+      recursive: true,
+      dereference: true,
+      preserveTimestamps: true,
+    });
+    return true;
+  } finally {
+    fs.rmSync(tempRoot, { recursive: true, force: true });
+  }
+}
+
+function resolveOfficeCliSourceRoot(home: string) {
+  return process.env.OPL_OFFICECLI_SOURCE_ROOT?.trim() || path.join(resolveCompanionSourcesRoot(home), 'OfficeCLI');
+}
+
+function resolveUiUxProMaxSourceRoot(home: string) {
+  return process.env.OPL_UI_UX_PRO_MAX_SOURCE_ROOT?.trim() || path.join(resolveCompanionSourcesRoot(home), 'ui-ux-pro-max-skill');
+}
+
+function resolveMineruDocumentExtractorSourceRoot(home: string) {
+  return process.env.OPL_MINERU_DOCUMENT_EXTRACTOR_SOURCE_ROOT?.trim()
+    || path.join(resolveCompanionSourcesRoot(home), 'mineru-document-extractor');
+}
+
+function materializeOfficeCliSkillSource(home: string, skillId: string) {
+  const repoDir = resolveOfficeCliSourceRoot(home);
+  if (!fs.existsSync(repoDir) && !remoteCompanionInstallDisabled()) {
+    cloneOrUpdateRepo(getOfficeCliRepoUrl(), repoDir);
+  }
+  const materializedRoot = path.join(resolveCompanionSourcesRoot(home), 'materialized', skillId);
+  const sourceRoot = skillId === 'officecli'
+    ? repoDir
+    : path.join(repoDir, 'skills', skillId);
+  if (!fs.existsSync(repoDir) || !fs.existsSync(path.join(sourceRoot, 'SKILL.md'))) {
+    return null;
+  }
+  if (skillId === 'officecli') {
+    materializeSkillFile(path.join(sourceRoot, 'SKILL.md'), materializedRoot);
+  } else {
+    materializeSkillDir(sourceRoot, materializedRoot);
+  }
+  return resolveSkillSourceCandidate(materializedRoot);
+}
+
+function materializeUiUxProMaxSkillSource(home: string) {
+  const repoDir = resolveUiUxProMaxSourceRoot(home);
+  if (!fs.existsSync(repoDir) && !remoteCompanionInstallDisabled()) {
+    cloneOrUpdateRepo(getUiUxProMaxRepoUrl(), repoDir);
+  }
+  const skillFile = path.join(repoDir, '.claude', 'skills', 'ui-ux-pro-max', 'SKILL.md');
+  const sourceRoot = path.join(repoDir, 'src', 'ui-ux-pro-max');
+  if (!fs.existsSync(skillFile) || !fs.existsSync(sourceRoot)) {
+    return null;
+  }
+  const materializedRoot = path.join(resolveCompanionSourcesRoot(home), 'materialized', 'ui-ux-pro-max');
+  fs.rmSync(materializedRoot, { recursive: true, force: true });
+  fs.mkdirSync(materializedRoot, { recursive: true });
+  fs.copyFileSync(skillFile, path.join(materializedRoot, 'SKILL.md'));
+  for (const entry of ['data', 'scripts', 'templates']) {
+    const source = path.join(sourceRoot, entry);
+    if (fs.existsSync(source)) {
+      fs.cpSync(source, path.join(materializedRoot, entry), {
+        recursive: true,
+        dereference: true,
+        preserveTimestamps: true,
+      });
+    }
+  }
+  return resolveSkillSourceCandidate(materializedRoot);
+}
+
+function materializeMineruDocumentExtractorSkillSource(home: string) {
+  const repoDir = resolveMineruDocumentExtractorSourceRoot(home);
+  if (!fs.existsSync(repoDir) && !remoteCompanionInstallDisabled()) {
+    downloadArchiveToDirectory(getMineruDocumentExtractorArchiveUrl(), repoDir);
+  }
+  if (!fs.existsSync(path.join(repoDir, 'SKILL.md'))) {
+    return null;
+  }
+  const materializedRoot = path.join(resolveCompanionSourcesRoot(home), 'materialized', 'mineru-document-extractor');
+  materializeSingleSkillRoot(repoDir, materializedRoot);
+  return resolveSkillSourceCandidate(materializedRoot);
+}
+
+function ensureRecommendedSkillSource(home: string, skill: OplRecommendedSkill) {
+  const existing = pickFirstExistingSkillSource(skill.install_source_paths ?? skill.expected_paths);
+  if (existing) {
+    return existing;
+  }
+  if (skill.skill_id === 'ui-ux-pro-max') {
+    return materializeUiUxProMaxSkillSource(home);
+  }
+  if (skill.skill_id === 'officecli' || skill.skill_id.startsWith('officecli-')) {
+    return materializeOfficeCliSkillSource(home, skill.skill_id);
+  }
+  if (skill.skill_id === 'mineru-document-extractor') {
+    return materializeMineruDocumentExtractorSkillSource(home);
+  }
+  return null;
+}
+
+function resolveSuperpowersLiteSource(home: string): OplCompanionSkillSourceCandidate | null {
+  const liteSkillPath = path.join(home, '.skills-manager', 'skills', 'superpowers-lite');
+  return resolveSkillSourceCandidate(liteSkillPath);
+}
+
+function resolveRecommendedSkillTarget(home: string, skill: OplRecommendedSkill, superpowersProfile: OplSuperpowersProfile) {
+  if (skill.source !== 'superpowers') {
+    return path.join(resolveCodexSkillsDir(home), skill.skill_id);
+  }
+  if (superpowersProfile === 'lite') {
+    return path.join(resolveAgentsSkillsDir(home), 'superpowers-lite');
+  }
+  if (superpowersProfile === 'full') {
+    return path.join(resolveAgentsSkillsDir(home), 'superpowers');
+  }
+  return path.join(resolveAgentsSkillsDir(home), 'superpowers');
+}
+
+function buildObservedCompanionItem(
+  home: string,
+  skill: OplRecommendedSkill,
+  superpowersProfile: OplSuperpowersProfile,
+): OplCompanionSkillSyncItem {
+  const targetPath = resolveRecommendedSkillTarget(home, skill, superpowersProfile);
+  const source = skill.source === 'superpowers'
+    ? (superpowersProfile === 'lite' ? resolveSuperpowersLiteSource(home) : resolveSuperpowersSourceCandidate(home))
+    : pickFirstExistingSkillSource(skill.expected_paths);
+
+  return {
+    skill_id: skill.skill_id,
+    source_path: source?.report_path ?? null,
+    target_path: targetPath,
+    status: skill.status === 'ready' ? 'ready' : 'planned',
+    action: skill.source === 'codex_builtin' ? 'discover_only' : 'none',
+    note: skill.status === 'ready' ? null : skill.install_hint,
+  };
+}
+
+function buildNoApplyCompanionResult(
+  home: string,
+  mode: OplCompanionSkillApplyMode,
+  superpowersProfile: OplSuperpowersProfile,
+): OplCompanionSkillSyncResult {
+  const items = buildOplRecommendedSkills(home).map((skill) => buildObservedCompanionItem(home, skill, superpowersProfile));
+  return buildCompanionResult(home, mode, superpowersProfile, items);
+}
+
+function buildCompanionResult(
+  home: string,
+  mode: OplCompanionSkillApplyMode,
+  superpowersProfile: OplSuperpowersProfile,
+  items: OplCompanionSkillSyncItem[],
+  tools: OplCompanionToolSyncItem[] = [
+    resolveOfficeCliTool(home) ?? {
+      tool_id: 'officecli',
+      binary_path: null,
+      version: null,
+      status: 'missing',
+      action: 'none',
+      note: 'officecli binary is not available.',
+    },
+    resolveMineruOpenApiTool(home) ?? {
+      tool_id: 'mineru-open-api',
+      binary_path: null,
+      version: null,
+      status: 'missing',
+      action: 'none',
+      note: 'mineru-open-api binary is not available.',
+    },
+  ],
+): OplCompanionSkillSyncResult {
+  return {
+    surface_id: 'opl_companion_skill_sync',
+    mode,
+    superpowers_profile: superpowersProfile,
+    codex_skills_dir: resolveCodexSkillsDir(home),
+    agents_skills_dir: resolveAgentsSkillsDir(home),
+    items,
+    tools,
+    summary: {
+      total: items.length,
+      ready: items.filter((entry) => entry.status === 'ready' || entry.status === 'available').length,
+      synced: items.filter((entry) => entry.status === 'synced' || entry.status === 'installed' || entry.status === 'available').length,
+      missing_source: items.filter((entry) => entry.status === 'missing_source').length,
+      failed: items.filter((entry) => entry.status === 'failed').length,
+      tools_ready: tools.filter((entry) => entry.status === 'ready' || entry.status === 'installed').length,
+      tools_total: tools.length,
+    },
+  };
+}
+
+export function syncOplCompanionSkills(
+  home = resolveHomeDir(),
+  options: Partial<{
+    mode: OplCompanionSkillApplyMode;
+    superpowersProfile: OplSuperpowersProfile;
+  }> = {},
+): OplCompanionSkillSyncResult {
+  const mode = options.mode ?? 'observe';
+  const superpowersProfile = options.superpowersProfile ?? 'keep';
+  if (mode !== 'managed') {
+    return buildNoApplyCompanionResult(home, mode, superpowersProfile);
+  }
+
+  const codexSkillsDir = resolveCodexSkillsDir(home);
+  const recommendedSkills = buildOplRecommendedSkills(home);
+  const items: OplCompanionSkillSyncItem[] = [];
+  const tools = [ensureOfficeCliTool(home), ensureMineruOpenApiTool(home)];
+
+  for (const skill of recommendedSkills) {
+    if (skill.source === 'superpowers') {
+      const targetPath = resolveRecommendedSkillTarget(home, skill, superpowersProfile);
+      if (superpowersProfile === 'keep') {
+        items.push(buildObservedCompanionItem(home, skill, superpowersProfile));
+        continue;
+      }
+      if (superpowersProfile === 'lite') {
+        const source = resolveSuperpowersLiteSource(home);
+        if (!source) {
+          items.push({
+            skill_id: skill.skill_id,
+            source_path: null,
+            target_path: targetPath,
+            status: 'missing_source',
+            action: 'symlink',
+            note: 'Superpowers lite profile requires ~/.skills-manager/skills/superpowers-lite.',
+          });
+          continue;
+        }
+        try {
+          forceSymlinkDirectory(source.link_path, targetPath);
+          items.push({
+            skill_id: skill.skill_id,
+            source_path: source.report_path,
+            target_path: targetPath,
+            status: 'synced',
+            action: 'symlink',
+            note: 'Preserved lite Superpowers profile instead of enabling upstream using-superpowers.',
+          });
+        } catch (error) {
+          items.push({
+            skill_id: skill.skill_id,
+            source_path: source.report_path,
+            target_path: targetPath,
+            status: 'failed',
+            action: 'symlink',
+            note: error instanceof Error ? error.message : String(error),
+          });
+        }
+        continue;
+      }
+
+      const ensured = ensureSuperpowersSource(home);
+      if (!ensured.source) {
+        items.push({
+          skill_id: skill.skill_id,
+          source_path: null,
+          target_path: targetPath,
+          status: 'missing_source',
+          action: ensured.action,
+          note: ensured.note || skill.install_hint,
+        });
+        continue;
+      }
+
+      try {
+        forceSymlinkDirectory(ensured.source.link_path, targetPath);
+        removeLegacySuperpowersCodexSkillLink(home);
+        items.push({
+          skill_id: skill.skill_id,
+          source_path: ensured.source.report_path,
+          target_path: targetPath,
+          status: ensured.action === 'clone_and_symlink' ? 'installed' : 'synced',
+          action: ensured.action,
+          note: ensured.note,
+        });
+      } catch (error) {
+        items.push({
+          skill_id: skill.skill_id,
+          source_path: ensured.source.report_path,
+          target_path: targetPath,
+          status: 'failed',
+          action: ensured.action,
+          note: error instanceof Error ? error.message : String(error),
+        });
+      }
+      continue;
+    }
+
+    const source = ensureRecommendedSkillSource(home, skill);
+    const targetPath = path.join(codexSkillsDir, skill.skill_id);
+    if (!source) {
+      if (resolveSkillSourceCandidate(targetPath)) {
+        items.push({
+          skill_id: skill.skill_id,
+          source_path: targetPath,
+          target_path: targetPath,
+          status: 'ready',
+          action: 'none',
+          note: 'Existing Codex skill is already available.',
+        });
+        continue;
+      }
+
+      items.push({
+        skill_id: skill.skill_id,
+        source_path: null,
+        target_path: targetPath,
+        status: 'missing_source',
+        action: 'symlink',
+        note: skill.install_hint,
+      });
+      continue;
+    }
+
+    try {
+      if (skill.source === 'codex_builtin') {
+        fs.rmSync(targetPath, { recursive: true, force: true });
+        items.push({
+          skill_id: skill.skill_id,
+          source_path: source.report_path,
+          target_path: targetPath,
+          status: 'available',
+          action: 'discover_only',
+          note: 'Codex bundled skills are discovered from the plugin cache and are not mirrored into ~/.codex/skills.',
+        });
+      } else if (isSameResolvedPath(source.link_path, targetPath)) {
+        items.push({
+          skill_id: skill.skill_id,
+          source_path: source.report_path,
+          target_path: targetPath,
+          status: 'ready',
+          action: 'none',
+          note: 'Existing Codex skill is already installed at the target path.',
+        });
+      } else if (isUserManagedSkillDirectory(targetPath)) {
+        items.push({
+          skill_id: skill.skill_id,
+          source_path: targetPath,
+          target_path: targetPath,
+          status: 'ready',
+          action: 'none',
+          note: 'Preserved existing user-managed Codex skill directory.',
+        });
+      } else {
+        forceSymlinkDirectory(source.link_path, targetPath);
+        items.push({
+          skill_id: skill.skill_id,
+          source_path: source.report_path,
+          target_path: targetPath,
+          status: 'synced',
+          action: 'symlink',
+          note: null,
+        });
+      }
+    } catch (error) {
+      items.push({
+        skill_id: skill.skill_id,
+        source_path: source.report_path,
+        target_path: targetPath,
+        status: 'failed',
+        action: 'symlink',
+        note: error instanceof Error ? error.message : String(error),
+      });
+    }
+  }
+
+  return buildCompanionResult(home, mode, superpowersProfile, items, tools);
+}
+
+export function buildOplRecommendedSkills(home = resolveHomeDir()): OplRecommendedSkill[] {
+  const codexHome = resolveCodexHome(home);
+  const superpowersRepoDir = resolveSuperpowersRepoDir(home);
+  const agentsSuperpowersDir = path.join(resolveAgentsSkillsDir(home), 'superpowers');
+  const skillsManagerHome = path.join(home, '.skills-manager');
+  const packagedSkillsRoot = resolvePackagedSkillsRoot();
+  const toolReadyById: Record<OplCompanionToolId, boolean> = {
+    officecli: Boolean(resolveOfficeCliTool(home)),
+    'mineru-open-api': Boolean(resolveMineruOpenApiTool(home)),
+  };
+
+  const specs = buildOplRecommendedSkillSpecs({
+    codexHome,
+    superpowersRepoDir,
+    agentsSuperpowersDir,
+    skillsManagerHome,
+    packagedSkillsRoot,
+  });
+
+  return specs.map((spec) => {
+    const expectedPaths = spec.source === 'codex_builtin' || spec.source === 'superpowers'
+      ? spec.expected_paths
+      : [
+        ...spec.expected_paths,
+        path.join(codexHome, 'skills', spec.skill_id, 'SKILL.md'),
+      ];
+    const installSourcePaths = spec.source === 'codex_builtin' || spec.source === 'superpowers'
+      ? spec.expected_paths
+      : [
+        ...expectedPaths,
+        ...(packagedSkillsRoot ? [path.join(packagedSkillsRoot, spec.skill_id, 'SKILL.md')] : []),
+      ];
+    const skillStatus = buildSkillStatus(expectedPaths);
+    const toolStatus = spec.required_tools?.every((toolId) => toolReadyById[toolId]) ?? true;
+    return {
+      ...spec,
+      expected_paths: expectedPaths,
+      install_source_paths: installSourcePaths,
+      status: skillStatus === 'ready' && toolStatus ? 'ready' : 'missing',
+    };
+  });
+}

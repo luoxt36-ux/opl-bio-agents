@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opl.bio/contracts/genome_analysis_execution_profile_decision_v3.schema.json",
+  "title": "OPL-Bio Genome Analysis execution-profile decision v3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "decision_version",
+    "task_id",
+    "domain_id",
+    "system_id",
+    "execution_profile_id",
+    "required_qc",
+    "rationale",
+    "fallback_action",
+    "truth_accessed"
+  ],
+  "properties": {
+    "decision_version": {
+      "const": "genome_analysis_execution_profile_decision_v3"
+    },
+    "task_id": {
+      "type": "string",
+      "pattern": "^(?:real_domain_[0-9]{2}_[a-z0-9_]+|confirmation_[a-z_]+_0[12])$"
+    },
+    "domain_id": {
+      "$ref": "#/$defs/domain_id"
+    },
+    "system_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "execution_profile_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+\\.p[1-4]_[a-z0-9_]+$"
+    },
+    "required_qc": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 20
+    },
+    "fallback_action": {
+      "const": "emit_typed_terminal_null"
+    },
+    "truth_accessed": {
+      "const": false
+    }
+  },
+  "$defs": {
+    "domain_id": {
+      "enum": [
+        "germline_small_variant",
+        "somatic_tumor_normal",
+        "structural_copy_number",
+        "long_read_phasing",
+        "family_cohort_joint",
+        "sample_qc_identity",
+        "annotation_prioritization",
+        "population_ancestry",
+        "reference_graph_hard_region",
+        "workflow_reproducibility",
+        "reporting_claim_governance"
+      ]
+    }
+  }
+}

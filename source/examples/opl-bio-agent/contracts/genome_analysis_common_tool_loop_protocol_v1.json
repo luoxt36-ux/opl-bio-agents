@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "surface_kind": "opl_bio_genome_analysis_common_tool_loop_protocol_v1",
+  "version": "v1",
+  "status": "frozen_before_common_tool_loop_outputs",
+  "purpose": "Evaluate all model and agent positions under the same visible inputs, tool permissions, global budget, failure feedback and final-delivery contract.",
+  "evidence_class": "post_reveal_protocol_replay_on_five_pedigree_panel",
+  "case_suite": "outputs/opl-bio-genome-pedigree-expansion-v1/suite-manifest.json",
+  "system_panel": [
+    "opl_bio_genome_analysis_agent",
+    "gflab_gpt_5_5",
+    "claude_sonnet_4_6",
+    "gemini_3_5_flash",
+    "modelarts_glm_5_1",
+    "modelarts_deepseek_v4_pro",
+    "modelarts_kimi_k2_6",
+    "modelarts_qwen3_32b",
+    "codex_gpt_5_6_sol",
+    "biomni_gpt_5_5"
+  ],
+  "common_visible_inputs": [
+    "alignment BAM",
+    "alignment BAI",
+    "GRCh38 reference FASTA",
+    "reference FAI",
+    "truth-free public case metadata",
+    "same tool catalog and protocol prompt"
+  ],
+  "forbidden_visible_inputs": [
+    "truth VCF",
+    "truth index",
+    "confident BED",
+    "expected metrics",
+    "private verifier",
+    "other system outputs"
+  ],
+  "tool_allowlist": [
+    "samtools",
+    "bcftools",
+    "tabix",
+    "bgzip"
+  ],
+  "tool_protocol": {
+    "call": { "action": "tool", "tool": "one allowlisted tool", "args": ["arguments passed without a shell"], "reason": "decision rationale" },
+    "pipeline": { "action": "pipeline", "steps": [{ "tool": "one allowlisted tool", "args": ["arguments passed without a shell"] }], "reason": "decision rationale" },
+    "finish": { "action": "finish", "vcf": "workspace-relative BGZF VCF", "index": "workspace-relative TBI", "summary": "delivery summary" }
+  },
+  "global_budget": {
+    "maximum_model_turns": 10,
+    "maximum_tool_calls": 10,
+    "maximum_runtime_seconds": 1800,
+    "maximum_output_tokens_per_turn": 3000,
+    "external_network": false
+  },
+  "execution_contract": {
+    "same_isolated_workspace_template": true,
+    "same_tool_binaries_and_arguments_only": true,
+    "no_arbitrary_shell": true,
+    "model_receives_stdout_stderr_and_exit_code": true,
+    "model_may_recover_after_tool_failure": true,
+    "all_commands_recorded": true,
+    "global_wall_clock_enforced": true,
+    "global_tool_call_budget_enforced": true,
+    "final_vcf_and_index_required": true,
+    "truth_scored_only_after_finish": true
+  },
+  "authority_boundary": {
+    "post_reveal_replay": true,
+    "strict_untouched_confirmation": false,
+    "same_tool_permissions": true,
+    "same_budget": true,
+    "technical_failures_zero_imputed": false,
+    "cannot_claim_untouched_superiority": true,
+    "figure_2_update_allowed": false
+  }
+}

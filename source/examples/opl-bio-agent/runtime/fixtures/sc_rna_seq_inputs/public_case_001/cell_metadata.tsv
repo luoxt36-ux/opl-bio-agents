@@ -1,0 +1,13 @@
+cell_id	condition	cell_type	donor	batch
+ctrl_t_1	control	T_cell	donor_a	batch_seed
+ctrl_t_2	control	T_cell	donor_b	batch_seed
+ctrl_b_1	control	B_cell	donor_a	batch_seed
+ctrl_b_2	control	B_cell	donor_b	batch_seed
+ctrl_mono_1	control	monocyte	donor_a	batch_seed
+ctrl_mono_2	control	monocyte	donor_b	batch_seed
+stim_t_1	stimulated	T_cell	donor_a	batch_seed
+stim_t_2	stimulated	T_cell	donor_b	batch_seed
+stim_b_1	stimulated	B_cell	donor_a	batch_seed
+stim_b_2	stimulated	B_cell	donor_b	batch_seed
+stim_mono_1	stimulated	monocyte	donor_a	batch_seed
+stim_mono_2	stimulated	monocyte	donor_b	batch_seed

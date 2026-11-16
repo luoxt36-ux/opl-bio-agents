@@ -1,0 +1,10 @@
+.codegraph/
+node_modules/
+dist/
+target/
+__pycache__/
+*.pyc
+.DS_Store
+.env
+.env.local
+local-runs/

@@ -1,0 +1,35 @@
+{
+  "surface_kind": "opl_bio_scrna_public_tool_description",
+  "version": "opl-bio-scrna-public-tool-description.v1",
+  "registered_tool_ref": "opl://tools/opl-bio/scrna/refinement/inspect_label_marker_support",
+  "action": "inspect_label_marker_support",
+  "protocol": "opl-bio-scrna-public-refinement.v1",
+  "implementation": {
+    "path": "scripts/opl-bio-scrna-refinement-protocol-v5.mjs",
+    "export_name": "executePublicAction",
+    "skill_ref": "examples/opl-bio-agent/contracts/sc_rna_seq_public_label_marker_skill_v1.json"
+  },
+  "purpose": "Return compact public marker-panel support for allowed labels on requested parent clusters without assigning labels.",
+  "input": {
+    "required_exact_fields": ["bundle_id", "action", "parent_cluster_ids", "cell_ids"],
+    "action": "inspect_label_marker_support",
+    "parent_cluster_ids": "A nonempty array of unique parent identifiers in the current public context.",
+    "cell_ids": "Must be an empty array.",
+    "additional_fields_allowed": false
+  },
+  "output": {
+    "label_marker_support": "One row per requested parent and its observed subclusters. Each row contains at most four labels with supported public marker evidence, positive-marker count, panel size, coverage, support status, and at most three matched markers.",
+    "unsupported_labels": "Absent labels are not treated as negative evidence."
+  },
+  "execution_boundary": {
+    "interpreter": "The common benchmark runner calls executePublicAction for every system.",
+    "data_scope": "Current public context and matching precomputed public marker store only.",
+    "read_only": true,
+    "external_calls": false,
+    "truth_access": false,
+    "prediction_access": false,
+    "label_assignment": false,
+    "grants_permissions": false,
+    "shared_across_systems": true
+  }
+}

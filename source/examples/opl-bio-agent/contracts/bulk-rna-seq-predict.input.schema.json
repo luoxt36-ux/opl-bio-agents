@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://one-person-lab.local/contracts/opl-bio-agent/bulk-rna-seq-predict.input.schema.json",
+  "title": "OPL-Bio Bulk RNA-seq Predict Input",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "cases",
+    "out"
+  ],
+  "properties": {
+    "cases": {
+      "type": "string",
+      "minLength": 1
+    },
+    "out": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact_root": {
+      "type": "string",
+      "minLength": 1
+    },
+    "env_bin": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional conda/micromamba environment bin directory containing Rscript and R/Bioconductor packages for the live DESeq2/clusterProfiler lane."
+    }
+  }
+}

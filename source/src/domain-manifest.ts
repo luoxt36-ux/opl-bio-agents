@@ -1,0 +1,20 @@
+export { buildDomainManifestCatalog } from './domain-manifest/catalog-builder.ts';
+export type {
+  DomainManifestCatalogEntry,
+  DomainManifestStatus,
+  NormalizedArtifactFileDescriptor,
+  NormalizedArtifactInventory,
+  NormalizedAutomationCatalog,
+  NormalizedAutomationDescriptor,
+  NormalizedCheckpointSummary,
+  NormalizedDomainManifest,
+  NormalizedProgressProjection,
+  NormalizedRuntimeControl,
+  NormalizedRuntimeInventory,
+  NormalizedSessionContinuity,
+  NormalizedSkillCatalog,
+  NormalizedSkillDescriptor,
+  NormalizedSurfaceRef,
+  NormalizedTaskLifecycle,
+  NormalizedTaskSurfaceDescriptor,
+} from './domain-manifest/types.ts';

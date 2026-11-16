@@ -1,0 +1,28 @@
+{
+  "decisions": [
+    {
+      "decision_version": "bulk_rna_analysis_decision_v1",
+      "case_id": "bulk_rna_seq_case_001",
+      "system_id": "opl_bio_bulk_rna_seq_agent",
+      "selected_de_method": "deseq2",
+      "selected_enrichment_method": "none",
+      "design_formula": "~ condition",
+      "contrast": {
+        "case_condition": "Series6_A549-ACE2_SARS-CoV-2",
+        "control_condition": "Series6_A549-ACE2_Mock"
+      },
+      "parameters": {
+        "fdr_threshold": 0.05,
+        "log2fc_threshold": 1.25,
+        "minimum_count": 10,
+        "p_adjust_method": "BH"
+      },
+      "recovery_policy": {
+        "on_missing_input": "typed_terminal_null",
+        "on_tool_failure": "typed_terminal_null"
+      },
+      "rationale": "Frozen numerical policy for a local tutorial seed; no model inference.",
+      "truth_accessed": false
+    }
+  ]
+}

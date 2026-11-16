@@ -1,0 +1,843 @@
+{
+  "surface_kind": "family_action_catalog",
+  "version": "family-action-catalog.v1",
+  "catalog_id": "opl-bio-agent.action-catalog.v1",
+  "target_domain_id": "opl-bio-agent",
+  "owner": "opl-bio-agent",
+  "domain_id": "opl-bio-agent",
+  "authority_boundary": {
+    "domain_truth_owner": "opl-bio-agent",
+    "opl_role": "projection_consumer_only",
+    "write_policy": "no_domain_truth_writes"
+  },
+  "actions": [
+    {
+      "action_id": "gene_set_predict",
+      "title": "Gene-set prediction agent",
+      "summary": "Generate an OPL-Bio gene-set interpretation prediction suite from benchmark case inputs.",
+      "owner": "opl-bio-agent",
+      "effect": "mutating",
+      "source_command": {
+        "command": "node runtime/agent_runner/gene_set_prediction_agent.mjs --cases <cases.json> --out <predictions.json>",
+        "surface_kind": "domain_cli"
+      },
+      "input_schema_ref": "contracts/gene-set-predict.input.schema.json",
+      "output_schema_ref": "contracts/gene-set-predict.output.schema.json",
+      "workspace_locator_fields": [
+        "cases",
+        "out"
+      ],
+      "human_gate_ids": [
+        "domain_owner_review"
+      ],
+      "supported_surfaces": {
+        "cli": {
+          "command": "node runtime/agent_runner/gene_set_prediction_agent.mjs --cases <cases.json> --out <predictions.json>",
+          "surface_kind": "domain_cli"
+        },
+        "skill": {
+          "command_contract_id": "opl-bio-agent.gene_set_predict",
+          "surface_kind": "domain_skill_contract"
+        },
+        "mcp": {
+          "tool_name": "opl_bio_agent_gene_set_predict",
+          "surface_kind": "domain_mcp_descriptor",
+          "descriptor_only": true,
+          "public_runtime": false
+        },
+        "product_entry": {
+          "action_key": "gene_set_predict",
+          "command": "node runtime/agent_runner/gene_set_prediction_agent.mjs --cases <cases.json> --out <predictions.json>",
+          "surface_kind": "domain_product_entry"
+        },
+        "openai": {
+          "tool_name": "opl_bio_agent_gene_set_predict"
+        },
+        "ai_sdk": {
+          "tool_name": "opl_bio_agent_gene_set_predict"
+        }
+      },
+      "authority_boundary": {
+        "opl_can_write_domain_truth": false,
+        "opl_can_write_memory_body": false,
+        "opl_can_authorize_quality_or_export": false,
+        "domain_owner_receipt_or_typed_blocker_required": true,
+        "prediction_can_claim_domain_ready": false
+      }
+    },
+    {
+      "action_id": "gene_set_benchmark_verify",
+      "title": "Gene-set benchmark verify",
+      "summary": "Verify an OPL-Bio gene-set interpretation prediction against literature-grounded benchmark gold result refs.",
+      "owner": "opl-bio-agent",
+      "effect": "read_only",
+      "source_command": {
+        "command": "node runtime/authority_functions/gene_set_benchmark_verifier.mjs --cases <cases.json> --predictions <predictions.json>",
+        "surface_kind": "domain_cli"
+      },
+      "input_schema_ref": "contracts/gene-set-benchmark.input.schema.json",
+      "output_schema_ref": "contracts/gene-set-benchmark.output.schema.json",
+      "workspace_locator_fields": [
+        "cases",
+        "predictions"
+      ],
+      "human_gate_ids": [
+        "domain_owner_review"
+      ],
+      "supported_surfaces": {
+        "cli": {
+          "command": "node runtime/authority_functions/gene_set_benchmark_verifier.mjs --cases <cases.json> --predictions <predictions.json>",
+          "surface_kind": "domain_cli"
+        },
+        "skill": {
+          "command_contract_id": "opl-bio-agent.gene_set_benchmark_verify",
+          "surface_kind": "domain_skill_contract"
+        },
+        "mcp": {
+          "tool_name": "opl_bio_agent_gene_set_benchmark_verify",
+          "surface_kind": "domain_mcp_descriptor",
+          "descriptor_only": true,
+          "public_runtime": false
+        },
+        "product_entry": {
+          "action_key": "gene_set_benchmark_verify",
+          "command": "node runtime/authority_functions/gene_set_benchmark_verifier.mjs --cases <cases.json> --predictions <predictions.json>",
+          "surface_kind": "domain_product_entry"
+        },
+        "openai": {
+          "tool_name": "opl_bio_agent_gene_set_benchmark_verify"
+        },
+        "ai_sdk": {
+          "tool_name": "opl_bio_agent_gene_set_benchmark_verify"
+        }
+      },
+      "authority_boundary": {
+        "opl_can_write_domain_truth": false,
+        "opl_can_write_memory_body": false,
+        "opl_can_authorize_quality_or_export": false,
+        "domain_owner_receipt_or_typed_blocker_required": true,
+        "verifier_can_claim_production_ready": false
+      }
+    },
+    {
+      "action_id": "gprofiler_enrichment_replay",
+      "title": "g:Profiler enrichment replay",
+      "summary": "Run g:Profiler g:GOSt enrichment for OPL-Bio benchmark gene sets and write a replay receipt outside the source checkout.",
+      "owner": "opl-bio-agent",
+      "effect": "mutating",
+      "source_command": {
+        "command": "node runtime/tool_adapters/gprofiler_enrichment.mjs --cases <cases.json> --out <enrichment.json>",
+        "surface_kind": "domain_cli"
+      },
+      "input_schema_ref": "contracts/public-replay.input.schema.json",
+      "output_schema_ref": "contracts/gprofiler-enrichment.output.schema.json",
+      "workspace_locator_fields": [
+        "cases",
+        "out"
+      ],
+      "human_gate_ids": [
+        "domain_owner_review"
+      ],
+      "supported_surfaces": {
+        "cli": {
+          "command": "node runtime/tool_adapters/gprofiler_enrichment.mjs --cases <cases.json> --out <enrichment.json>",
+          "surface_kind": "domain_cli"
+        },
+        "skill": {
+          "command_contract_id": "opl-bio-agent.gprofiler_enrichment_replay",
+          "surface_kind": "domain_skill_contract"
+        },
+        "mcp": {
+          "tool_name": "opl_bio_agent_gprofiler_enrichment_replay",
+          "surface_kind": "domain_mcp_descriptor",
+          "descriptor_only": true,
+          "public_runtime": false
+        },
+        "product_entry": {
+          "action_key": "gprofiler_enrichment_replay",
+          "command": "node runtime/tool_adapters/gprofiler_enrichment.mjs --cases <cases.json> --out <enrichment.json>",
+          "surface_kind": "domain_product_entry"
+        },
+        "openai": {
+          "tool_name": "opl_bio_agent_gprofiler_enrichment_replay"
+        },
+        "ai_sdk": {
+          "tool_name": "opl_bio_agent_gprofiler_enrichment_replay"
+        }
+      },
+      "authority_boundary": {
+        "opl_can_write_domain_truth": false,
+        "opl_can_write_memory_body": false,
+        "opl_can_authorize_quality_or_export": false,
+        "domain_owner_receipt_or_typed_blocker_required": true,
+        "replay_can_claim_domain_ready": false
+      }
+    },
+    {
+      "action_id": "geo_public_data_replay",
+      "title": "GEO public data replay",
+      "summary": "Resolve benchmark GEO accessions through NCBI E-utilities and write a public-data replay receipt outside the source checkout.",
+      "owner": "opl-bio-agent",
+      "effect": "mutating",
+      "source_command": {
+        "command": "node runtime/tool_adapters/geo_public_replay.mjs --cases <cases.json> --out <geo-replay.json>",
+        "surface_kind": "domain_cli"
+      },
+      "input_schema_ref": "contracts/public-replay.input.schema.json",
+      "output_schema_ref": "contracts/geo-public-replay.output.schema.json",
+      "workspace_locator_fields": [
+        "cases",
+        "out"
+      ],
+      "human_gate_ids": [
+        "domain_owner_review"
+      ],
+      "supported_surfaces": {
+        "cli": {
+          "command": "node runtime/tool_adapters/geo_public_replay.mjs --cases <cases.json> --out <geo-replay.json>",
+          "surface_kind": "domain_cli"
+        },
+        "skill": {
+          "command_contract_id": "opl-bio-agent.geo_public_data_replay",
+          "surface_kind": "domain_skill_contract"
+        },
+        "mcp": {
+          "tool_name": "opl_bio_agent_geo_public_data_replay",
+          "surface_kind": "domain_mcp_descriptor",
+          "descriptor_only": true,
+          "public_runtime": false
+        },
+        "product_entry": {
+          "action_key": "geo_public_data_replay",
+          "command": "node runtime/tool_adapters/geo_public_replay.mjs --cases <cases.json> --out <geo-replay.json>",
+          "surface_kind": "domain_product_entry"
+        },
+        "openai": {
+          "tool_name": "opl_bio_agent_geo_public_data_replay"
+        },
+        "ai_sdk": {
+          "tool_name": "opl_bio_agent_geo_public_data_replay"
+        }
+      },
+      "authority_boundary": {
+        "opl_can_write_domain_truth": false,
+        "opl_can_write_memory_body": false,
+        "opl_can_authorize_quality_or_export": false,
+        "domain_owner_receipt_or_typed_blocker_required": true,
+        "replay_can_claim_domain_ready": false
+      }
+    },
+    {
+      "action_id": "bulk_rna_seq_predict",
+      "title": "Bulk RNA-seq prediction agent",
+      "summary": "Generate an OPL-Bio Bulk RNA-seq benchmark prediction suite for curated GEO replay cases.",
+      "owner": "opl-bio-agent",
+      "effect": "mutating",
+      "source_command": {
+        "command": "node runtime/agent_runner/bulk_rna_seq_agent.mjs --cases <cases.json> --out <predictions.json> --artifact-root <artifact-root> [--env-bin <conda-env-bin>]",
+        "surface_kind": "domain_cli"
+      },
+      "input_schema_ref": "contracts/bulk-rna-seq-predict.input.schema.json",
+      "output_schema_ref": "contracts/bulk-rna-seq-predict.output.schema.json",
+      "workspace_locator_fields": [
+        "cases",
+        "out"
+      ],
+      "human_gate_ids": [
+        "domain_owner_review"
+      ],
+      "supported_surfaces": {
+        "cli": {
+          "command": "node runtime/agent_runner/bulk_rna_seq_agent.mjs --cases <cases.json> --out <predictions.json> --artifact-root <artifact-root> [--env-bin <conda-env-bin>]",
+          "surface_kind": "domain_cli"
+        },
+        "skill": {
+          "command_contract_id": "opl-bio-agent.bulk_rna_seq_predict",
+          "surface_kind": "domain_skill_contract"
+        },
+        "mcp": {
+          "tool_name": "opl_bio_agent_bulk_rna_seq_predict",
+          "surface_kind": "domain_mcp_descriptor",
+          "descriptor_only": true,
+          "public_runtime": false
+        },
+        "product_entry": {
+          "action_key": "bulk_rna_seq_predict",
+          "command": "node runtime/agent_runner/bulk_rna_seq_agent.mjs --cases <cases.json> --out <predictions.json> --artifact-root <artifact-root> [--env-bin <conda-env-bin>]",
+          "surface_kind": "domain_product_entry"
+        },
+        "openai": {
+          "tool_name": "opl_bio_agent_bulk_rna_seq_predict"
+        },
+        "ai_sdk": {
+          "tool_name": "opl_bio_agent_bulk_rna_seq_predict"
+        }
+      },
+      "authority_boundary": {
+        "opl_can_write_domain_truth": false,
+        "opl_can_write_memory_body": false,
+        "opl_can_authorize_quality_or_export": false,
+        "domain_owner_receipt_or_typed_blocker_required": true,
+        "prediction_can_claim_domain_ready": false,
+        "prediction_can_claim_live_deseq2_replay": "receipt_gated",
+        "prediction_can_claim_deseq2": "receipt_gated",
+        "prediction_can_claim_clusterprofiler": "receipt_gated"
+      }
+    },
+    {
+      "action_id": "bulk_rna_seq_benchmark_verify",
+      "title": "Bulk RNA-seq benchmark verify",
+      "summary": "Verify an OPL-Bio Bulk RNA-seq prediction against curated GEO scenario oracle targets.",
+      "owner": "opl-bio-agent",
+      "effect": "read_only",
+      "source_command": {
+        "command": "node runtime/authority_functions/bulk_rna_seq_benchmark_verifier.mjs --cases <cases.json> --predictions <predictions.json>",
+        "surface_kind": "domain_cli"
+      },
+      "input_schema_ref": "contracts/bulk-rna-seq-benchmark.input.schema.json",
+      "output_schema_ref": "contracts/bulk-rna-seq-benchmark.output.schema.json",
+      "workspace_locator_fields": [
+        "cases",
+        "predictions"
+      ],
+      "human_gate_ids": [
+        "domain_owner_review"
+      ],
+      "supported_surfaces": {
+        "cli": {
+          "command": "node runtime/authority_functions/bulk_rna_seq_benchmark_verifier.mjs --cases <cases.json> --predictions <predictions.json>",
+          "surface_kind": "domain_cli"
+        },
+        "skill": {
+          "command_contract_id": "opl-bio-agent.bulk_rna_seq_benchmark_verify",
+          "surface_kind": "domain_skill_contract"
+        },
+        "mcp": {
+          "tool_name": "opl_bio_agent_bulk_rna_seq_benchmark_verify",
+          "surface_kind": "domain_mcp_descriptor",
+          "descriptor_only": true,
+          "public_runtime": false
+        },
+        "product_entry": {
+          "action_key": "bulk_rna_seq_benchmark_verify",
+          "command": "node runtime/authority_functions/bulk_rna_seq_benchmark_verifier.mjs --cases <cases.json> --predictions <predictions.json>",
+          "surface_kind": "domain_product_entry"
+        },
+        "openai": {
+          "tool_name": "opl_bio_agent_bulk_rna_seq_benchmark_verify"
+        },
+        "ai_sdk": {
+          "tool_name": "opl_bio_agent_bulk_rna_seq_benchmark_verify"
+        }
+      },
+      "authority_boundary": {
+        "opl_can_write_domain_truth": false,
+        "opl_can_write_memory_body": false,
+        "opl_can_authorize_quality_or_export": false,
+        "domain_owner_receipt_or_typed_blocker_required": true,
+        "verifier_can_claim_production_ready": false,
+        "verifier_can_claim_live_deseq2_replay": false
+      }
+    },
+    {
+      "action_id": "sc_rna_seq_predict",
+      "title": "scRNA-seq prediction agent",
+      "summary": "Generate an OPL-Bio scRNA-seq benchmark prediction suite for curated processed-matrix single-cell replay cases.",
+      "owner": "opl-bio-agent",
+      "effect": "mutating",
+      "source_command": {
+        "command": "node runtime/agent_runner/sc_rna_seq_agent.mjs --cases <cases.json> --out <predictions.json> --artifact-root <artifact-root>",
+        "surface_kind": "domain_cli"
+      },
+      "input_schema_ref": "contracts/sc-rna-seq-predict.input.schema.json",
+      "output_schema_ref": "contracts/sc-rna-seq-predict.output.schema.json",
+      "workspace_locator_fields": [
+        "cases",
+        "out"
+      ],
+      "human_gate_ids": [
+        "domain_owner_review"
+      ],
+      "supported_surfaces": {
+        "cli": {
+          "command": "node runtime/agent_runner/sc_rna_seq_agent.mjs --cases <cases.json> --out <predictions.json> --artifact-root <artifact-root>",
+          "surface_kind": "domain_cli"
+        },
+        "skill": {
+          "command_contract_id": "opl-bio-agent.sc_rna_seq_predict",
+          "surface_kind": "domain_skill_contract"
+        },
+        "mcp": {
+          "tool_name": "opl_bio_agent_sc_rna_seq_predict",
+          "surface_kind": "domain_mcp_descriptor",
+          "descriptor_only": true,
+          "public_runtime": false
+        },
+        "product_entry": {
+          "action_key": "sc_rna_seq_predict",
+          "command": "node runtime/agent_runner/sc_rna_seq_agent.mjs --cases <cases.json> --out <predictions.json> --artifact-root <artifact-root>",
+          "surface_kind": "domain_product_entry"
+        },
+        "openai": {
+          "tool_name": "opl_bio_agent_sc_rna_seq_predict"
+        },
+        "ai_sdk": {
+          "tool_name": "opl_bio_agent_sc_rna_seq_predict"
+        }
+      },
+      "authority_boundary": {
+        "opl_can_write_domain_truth": false,
+        "opl_can_write_memory_body": false,
+        "opl_can_authorize_quality_or_export": false,
+        "domain_owner_receipt_or_typed_blocker_required": true,
+        "prediction_can_claim_domain_ready": false,
+        "prediction_can_claim_seurat_or_scanpy": false,
+        "prediction_can_claim_article_grade_replay": false,
+        "prediction_can_claim_clinical_validity": false
+      }
+    },
+    {
+      "action_id": "sc_rna_seq_benchmark_verify",
+      "title": "scRNA-seq benchmark verify",
+      "summary": "Verify an OPL-Bio scRNA-seq prediction against curated single-cell scenario oracle targets.",
+      "owner": "opl-bio-agent",
+      "effect": "read_only",
+      "source_command": {
+        "command": "node runtime/authority_functions/sc_rna_seq_benchmark_verifier.mjs --cases <cases.json> --predictions <predictions.json>",
+        "surface_kind": "domain_cli"
+      },
+      "input_schema_ref": "contracts/sc-rna-seq-benchmark.input.schema.json",
+      "output_schema_ref": "contracts/sc-rna-seq-benchmark.output.schema.json",
+      "workspace_locator_fields": [
+        "cases",
+        "predictions"
+      ],
+      "human_gate_ids": [
+        "domain_owner_review"
+      ],
+      "supported_surfaces": {
+        "cli": {
+          "command": "node runtime/authority_functions/sc_rna_seq_benchmark_verifier.mjs --cases <cases.json> --predictions <predictions.json>",
+          "surface_kind": "domain_cli"
+        },
+        "skill": {
+          "command_contract_id": "opl-bio-agent.sc_rna_seq_benchmark_verify",
+          "surface_kind": "domain_skill_contract"
+        },
+        "mcp": {
+          "tool_name": "opl_bio_agent_sc_rna_seq_benchmark_verify",
+          "surface_kind": "domain_mcp_descriptor",
+          "descriptor_only": true,
+          "public_runtime": false
+        },
+        "product_entry": {
+          "action_key": "sc_rna_seq_benchmark_verify",
+          "command": "node runtime/authority_functions/sc_rna_seq_benchmark_verifier.mjs --cases <cases.json> --predictions <predictions.json>",
+          "surface_kind": "domain_product_entry"
+        },
+        "openai": {
+          "tool_name": "opl_bio_agent_sc_rna_seq_benchmark_verify"
+        },
+        "ai_sdk": {
+          "tool_name": "opl_bio_agent_sc_rna_seq_benchmark_verify"
+        }
+      },
+      "authority_boundary": {
+        "opl_can_write_domain_truth": false,
+        "opl_can_write_memory_body": false,
+        "opl_can_authorize_quality_or_export": false,
+        "domain_owner_receipt_or_typed_blocker_required": true,
+        "verifier_can_claim_production_ready": false,
+        "verifier_can_claim_seurat_or_scanpy": false,
+        "verifier_can_claim_article_grade_replay": false
+      }
+    },
+    {
+      "action_id": "sc_rna_seq_routine_analysis_predict",
+      "title": "scRNA routine-analysis Agent",
+      "summary": "Run the 17-capability post-feature-matrix scRNA-seq routine workflow with QC, normalization, HVG selection, scaling preparation, PCA/UMAP, graph clustering, marker/candidate annotation, sample-aware pseudobulk differential-expression candidates, condition response, composition, cell-cycle and module/pathway scores, plus bounded batch, doublet and trajectory diagnostics and explicit upstream/specialized-modality boundaries.",
+      "owner": "opl-bio-agent",
+      "effect": "mutating",
+      "source_command": {
+        "command": "node runtime/agent_runner/sc_rna_seq_agent.mjs --cases <cases.json> --out <predictions.json> --artifact-root <artifact-root> --python-bin <python>",
+        "surface_kind": "domain_cli"
+      },
+      "input_schema_ref": "contracts/sc-rna-seq-predict.input.schema.json",
+      "output_schema_ref": "contracts/sc-rna-seq-predict.output.schema.json",
+      "workspace_locator_fields": ["cases", "out", "artifact_root", "python_bin"],
+      "human_gate_ids": ["domain_owner_review"],
+      "supported_surfaces": {
+        "cli": {"command": "node runtime/agent_runner/sc_rna_seq_agent.mjs --cases <cases.json> --out <predictions.json> --artifact-root <artifact-root> --python-bin <python>", "surface_kind": "domain_cli"},
+        "skill": {"command_contract_id": "opl-bio-agent.sc_rna_seq_routine_analysis_predict", "surface_kind": "domain_skill_contract"},
+        "mcp": {"tool_name": "opl_bio_agent_sc_rna_seq_routine_analysis_predict", "surface_kind": "domain_mcp_descriptor", "descriptor_only": true, "public_runtime": false},
+        "product_entry": {"action_key": "sc_rna_seq_routine_analysis_predict", "command": "node runtime/agent_runner/sc_rna_seq_agent.mjs --cases <cases.json> --out <predictions.json> --artifact-root <artifact-root> --python-bin <python>", "surface_kind": "domain_product_entry"},
+        "openai": {"tool_name": "opl_bio_agent_sc_rna_seq_routine_analysis_predict"},
+        "ai_sdk": {"tool_name": "opl_bio_agent_sc_rna_seq_routine_analysis_predict"}
+      },
+      "authority_boundary": {
+        "opl_can_write_domain_truth": false,
+        "opl_can_write_memory_body": false,
+        "opl_can_authorize_quality_or_export": false,
+        "domain_owner_receipt_or_typed_blocker_required": true,
+        "prediction_can_claim_core_scrna_workflow_support": false,
+        "prediction_can_claim_article_grade_replay": false,
+        "prediction_can_claim_specialized_modality_support": false
+      }
+    },
+    {
+      "action_id": "sc_rna_seq_routine_analysis_verify",
+      "title": "scRNA routine-analysis verify",
+      "summary": "Verify the core scRNA-seq routine-analysis coverage receipt and all explicit specialized-modality boundaries.",
+      "owner": "opl-bio-agent",
+      "effect": "read_only",
+      "source_command": {
+        "command": "node runtime/authority_functions/sc_rna_seq_routine_analysis_verifier.mjs --cases <cases.json> --predictions <predictions.json>",
+        "surface_kind": "domain_cli"
+      },
+      "input_schema_ref": "contracts/sc-rna-seq-benchmark.input.schema.json",
+      "output_schema_ref": "contracts/sc-rna-seq-routine-analysis-verification.output.schema.json",
+      "workspace_locator_fields": ["cases", "predictions"],
+      "human_gate_ids": ["domain_owner_review"],
+      "supported_surfaces": {
+        "cli": {"command": "node runtime/authority_functions/sc_rna_seq_routine_analysis_verifier.mjs --cases <cases.json> --predictions <predictions.json>", "surface_kind": "domain_cli"},
+        "skill": {"command_contract_id": "opl-bio-agent.sc_rna_seq_routine_analysis_verify", "surface_kind": "domain_skill_contract"},
+        "mcp": {"tool_name": "opl_bio_agent_sc_rna_seq_routine_analysis_verify", "surface_kind": "domain_mcp_descriptor", "descriptor_only": true, "public_runtime": false},
+        "product_entry": {"action_key": "sc_rna_seq_routine_analysis_verify", "command": "node runtime/authority_functions/sc_rna_seq_routine_analysis_verifier.mjs --cases <cases.json> --predictions <predictions.json>", "surface_kind": "domain_product_entry"},
+        "openai": {"tool_name": "opl_bio_agent_sc_rna_seq_routine_analysis_verify"},
+        "ai_sdk": {"tool_name": "opl_bio_agent_sc_rna_seq_routine_analysis_verify"}
+      },
+      "authority_boundary": {
+        "opl_can_write_domain_truth": false,
+        "opl_can_write_memory_body": false,
+        "opl_can_authorize_quality_or_export": false,
+        "domain_owner_receipt_or_typed_blocker_required": true,
+        "verifier_can_claim_core_scrna_workflow_support": false,
+        "verifier_can_claim_article_grade_replay": false,
+        "verifier_can_claim_specialized_modality_support": false
+      }
+    },
+    {
+      "action_id": "bulk_rna_seq_toolchain_doctor",
+      "title": "Bulk RNA-seq toolchain doctor",
+      "summary": "Check mainstream Bulk RNA-seq command and R/Bioconductor package readiness before article-grade replay attempts.",
+      "owner": "opl-bio-agent",
+      "effect": "mutating",
+      "source_command": {
+        "command": "node runtime/tool_adapters/bulk_rna_seq_toolchain_doctor.mjs --profile <profile.json> --out <toolchain-doctor.json> --env-bin <conda-env-bin>",
+        "surface_kind": "domain_cli"
+      },
+      "input_schema_ref": "contracts/bulk-rna-seq-toolchain-doctor.input.schema.json",
+      "output_schema_ref": "contracts/bulk-rna-seq-toolchain-doctor.output.schema.json",
+      "workspace_locator_fields": [
+        "profile",
+        "out",
+        "env_bin"
+      ],
+      "human_gate_ids": [
+        "domain_owner_review"
+      ],
+      "supported_surfaces": {
+        "cli": {
+          "command": "node runtime/tool_adapters/bulk_rna_seq_toolchain_doctor.mjs --profile <profile.json> --out <toolchain-doctor.json> --env-bin <conda-env-bin>",
+          "surface_kind": "domain_cli"
+        },
+        "skill": {
+          "command_contract_id": "opl-bio-agent.bulk_rna_seq_toolchain_doctor",
+          "surface_kind": "domain_skill_contract"
+        },
+        "mcp": {
+          "tool_name": "opl_bio_agent_bulk_rna_seq_toolchain_doctor",
+          "surface_kind": "domain_mcp_descriptor",
+          "descriptor_only": true,
+          "public_runtime": false
+        },
+        "product_entry": {
+          "action_key": "bulk_rna_seq_toolchain_doctor",
+          "command": "node runtime/tool_adapters/bulk_rna_seq_toolchain_doctor.mjs --profile <profile.json> --out <toolchain-doctor.json> --env-bin <conda-env-bin>",
+          "surface_kind": "domain_product_entry"
+        },
+        "openai": {
+          "tool_name": "opl_bio_agent_bulk_rna_seq_toolchain_doctor"
+        },
+        "ai_sdk": {
+          "tool_name": "opl_bio_agent_bulk_rna_seq_toolchain_doctor"
+        }
+      },
+      "authority_boundary": {
+        "opl_can_write_domain_truth": false,
+        "opl_can_write_memory_body": false,
+        "opl_can_authorize_quality_or_export": false,
+        "domain_owner_receipt_or_typed_blocker_required": true,
+        "doctor_can_claim_article_replay_ready": false,
+        "doctor_can_claim_domain_ready": false,
+        "doctor_can_claim_clinical_validity": false
+      }
+    },
+    {
+      "action_id": "bioc_annotation_data_install",
+      "title": "Bioconductor annotation data install",
+      "summary": "Install and verify Bioconductor foundation and organism annotation data packages required by DESeq2 and clusterProfiler lanes.",
+      "owner": "opl-bio-agent",
+      "effect": "mutating",
+      "source_command": {
+        "command": "node runtime/tool_adapters/install_bioc_annotation_data.mjs --env-bin <conda-env-bin> --out <receipt.json> --preset <preset> --url-priority bioconductor_first",
+        "surface_kind": "domain_cli"
+      },
+      "input_schema_ref": "contracts/bioc-annotation-data-install.input.schema.json",
+      "output_schema_ref": "contracts/bioc-annotation-data-install.output.schema.json",
+      "workspace_locator_fields": [
+        "env_bin",
+        "out",
+        "preset",
+        "packages",
+        "download_root",
+        "url_priority",
+        "download_mode"
+      ],
+      "human_gate_ids": [
+        "domain_owner_review"
+      ],
+      "supported_surfaces": {
+        "cli": {
+          "command": "node runtime/tool_adapters/install_bioc_annotation_data.mjs --env-bin <conda-env-bin> --out <receipt.json> --preset <preset> --url-priority bioconductor_first",
+          "surface_kind": "domain_cli"
+        },
+        "skill": {
+          "command_contract_id": "opl-bio-agent.bioc_annotation_data_install",
+          "surface_kind": "domain_skill_contract"
+        },
+        "mcp": {
+          "tool_name": "opl_bio_agent_bioc_annotation_data_install",
+          "surface_kind": "domain_mcp_descriptor",
+          "descriptor_only": true,
+          "public_runtime": false
+        },
+        "product_entry": {
+          "action_key": "bioc_annotation_data_install",
+          "command": "node runtime/tool_adapters/install_bioc_annotation_data.mjs --env-bin <conda-env-bin> --out <receipt.json> --preset <preset> --url-priority bioconductor_first",
+          "surface_kind": "domain_product_entry"
+        },
+        "openai": {
+          "tool_name": "opl_bio_agent_bioc_annotation_data_install"
+        },
+        "ai_sdk": {
+          "tool_name": "opl_bio_agent_bioc_annotation_data_install"
+        }
+      },
+      "authority_boundary": {
+        "opl_can_write_domain_truth": false,
+        "opl_can_write_memory_body": false,
+        "opl_can_authorize_quality_or_export": false,
+        "domain_owner_receipt_or_typed_blocker_required": true,
+        "installer_can_claim_annotation_available": true,
+        "installer_can_claim_article_replay_ready": false,
+        "installer_can_claim_domain_ready": false,
+        "installer_can_claim_clinical_validity": false
+      }
+    },
+    {
+      "action_id": "genome_variant_biobench_predict",
+      "title": "Genome Variant BioBench prediction agent",
+      "summary": "Generate an OPL-Bio Genome Variant BioBench Phase 1 prediction and evidence-governance package.",
+      "owner": "opl-bio-agent",
+      "effect": "mutating",
+      "source_command": {
+        "command": "node runtime/agent_runner/genome_variant_biobench_agent.mjs --cases <cases.json> --out <predictions.json> --artifact-root <artifact-root> --domain-pack contracts/genome_variant_biobench_phase1_domain_pack.json",
+        "surface_kind": "domain_cli"
+      },
+      "input_schema_ref": "contracts/genome-variant-biobench-predict.input.schema.json",
+      "output_schema_ref": "contracts/genome-variant-biobench-predict.output.schema.json",
+      "workspace_locator_fields": [
+        "cases",
+        "out"
+      ],
+      "human_gate_ids": [
+        "domain_owner_review"
+      ],
+      "supported_surfaces": {
+        "cli": {
+          "command": "node runtime/agent_runner/genome_variant_biobench_agent.mjs --cases <cases.json> --out <predictions.json> --artifact-root <artifact-root> --domain-pack contracts/genome_variant_biobench_phase1_domain_pack.json",
+          "surface_kind": "domain_cli"
+        },
+        "skill": {
+          "command_contract_id": "opl-bio-agent.genome_variant_biobench_predict",
+          "surface_kind": "domain_skill_contract"
+        },
+        "mcp": {
+          "tool_name": "opl_bio_agent_genome_variant_biobench_predict",
+          "surface_kind": "domain_mcp_descriptor",
+          "descriptor_only": true,
+          "public_runtime": false
+        },
+        "product_entry": {
+          "action_key": "genome_variant_biobench_predict",
+          "command": "node runtime/agent_runner/genome_variant_biobench_agent.mjs --cases <cases.json> --out <predictions.json> --artifact-root <artifact-root> --domain-pack contracts/genome_variant_biobench_phase1_domain_pack.json",
+          "surface_kind": "domain_product_entry"
+        },
+        "openai": {
+          "tool_name": "opl_bio_agent_genome_variant_biobench_predict"
+        },
+        "ai_sdk": {
+          "tool_name": "opl_bio_agent_genome_variant_biobench_predict"
+        }
+      },
+      "authority_boundary": {
+        "opl_can_write_domain_truth": false,
+        "opl_can_write_memory_body": false,
+        "opl_can_authorize_quality_or_export": false,
+        "domain_owner_receipt_or_typed_blocker_required": true,
+        "prediction_can_claim_domain_ready": false,
+        "prediction_can_claim_variant_caller_superiority": false,
+        "prediction_can_claim_clinical_validity": false,
+        "prediction_can_claim_confident_bed_sealed_completion": false
+      }
+    },
+    {
+      "action_id": "genome_variant_biobench_benchmark_verify",
+      "title": "Genome Variant BioBench benchmark verify",
+      "summary": "Verify an OPL-Bio Genome Variant BioBench Phase 1 prediction package against bounded governance gates.",
+      "owner": "opl-bio-agent",
+      "effect": "read_only",
+      "source_command": {
+        "command": "node runtime/authority_functions/genome_variant_biobench_verifier.mjs --cases <cases.json> --predictions <predictions.json>",
+        "surface_kind": "domain_cli"
+      },
+      "input_schema_ref": "contracts/genome-variant-biobench-benchmark.input.schema.json",
+      "output_schema_ref": "contracts/genome-variant-biobench-benchmark.output.schema.json",
+      "workspace_locator_fields": [
+        "cases",
+        "predictions"
+      ],
+      "human_gate_ids": [
+        "domain_owner_review"
+      ],
+      "supported_surfaces": {
+        "cli": {
+          "command": "node runtime/authority_functions/genome_variant_biobench_verifier.mjs --cases <cases.json> --predictions <predictions.json>",
+          "surface_kind": "domain_cli"
+        },
+        "skill": {
+          "command_contract_id": "opl-bio-agent.genome_variant_biobench_benchmark_verify",
+          "surface_kind": "domain_skill_contract"
+        },
+        "mcp": {
+          "tool_name": "opl_bio_agent_genome_variant_biobench_benchmark_verify",
+          "surface_kind": "domain_mcp_descriptor",
+          "descriptor_only": true,
+          "public_runtime": false
+        },
+        "product_entry": {
+          "action_key": "genome_variant_biobench_benchmark_verify",
+          "command": "node runtime/authority_functions/genome_variant_biobench_verifier.mjs --cases <cases.json> --predictions <predictions.json>",
+          "surface_kind": "domain_product_entry"
+        },
+        "openai": {
+          "tool_name": "opl_bio_agent_genome_variant_biobench_benchmark_verify"
+        },
+        "ai_sdk": {
+          "tool_name": "opl_bio_agent_genome_variant_biobench_benchmark_verify"
+        }
+      },
+      "authority_boundary": {
+        "opl_can_write_domain_truth": false,
+        "opl_can_write_memory_body": false,
+        "opl_can_authorize_quality_or_export": false,
+        "domain_owner_receipt_or_typed_blocker_required": true,
+        "verifier_can_claim_domain_ready": false,
+        "verifier_can_claim_production_ready": false,
+        "verifier_can_claim_variant_caller_superiority": false,
+        "verifier_can_claim_clinical_validity": false
+      }
+    },
+    {
+      "action_id": "genome_sequencing_analysis_predict",
+      "title": "Genome sequencing analysis prediction agent",
+      "summary": "Analyze public genome sequencing alignment/reference inputs, select a bounded method, and emit a provenance-complete candidate analysis.",
+      "owner": "opl-bio-agent",
+      "effect": "mutating",
+      "source_command": {
+        "command": "node runtime/agent_runner/genome_analysis_agent.mjs --cases <cases.json> --out <predictions.json> --artifact-root <artifact-root>",
+        "surface_kind": "domain_cli"
+      },
+      "input_schema_ref": "contracts/genome-sequencing-analysis-predict.input.schema.json",
+      "output_schema_ref": "contracts/genome-sequencing-analysis-predict.output.schema.json",
+      "workspace_locator_fields": ["cases", "out", "artifact-root"],
+      "human_gate_ids": ["domain_owner_review"],
+      "supported_surfaces": {
+        "cli": {"command": "node runtime/agent_runner/genome_analysis_agent.mjs --cases <cases.json> --out <predictions.json> --artifact-root <artifact-root>", "surface_kind": "domain_cli"},
+        "skill": {"command_contract_id": "opl-bio-agent.genome_sequencing_analysis_predict", "surface_kind": "domain_skill_contract"},
+        "mcp": {"tool_name": "opl_bio_agent_genome_sequencing_analysis_predict", "surface_kind": "domain_mcp_descriptor", "descriptor_only": true, "public_runtime": false},
+        "product_entry": {"action_key": "genome_sequencing_analysis_predict", "command": "node runtime/agent_runner/genome_analysis_agent.mjs --cases <cases.json> --out <predictions.json> --artifact-root <artifact-root>", "surface_kind": "domain_product_entry"},
+        "openai": {"tool_name": "opl_bio_agent_genome_sequencing_analysis_predict"},
+        "ai_sdk": {"tool_name": "opl_bio_agent_genome_sequencing_analysis_predict"}
+      },
+      "authority_boundary": {
+        "opl_can_write_domain_truth": false,
+        "opl_can_write_memory_body": false,
+        "opl_can_authorize_quality_or_export": false,
+        "domain_owner_receipt_or_typed_blocker_required": true,
+        "prediction_can_claim_variant_caller_accuracy": false,
+        "prediction_can_claim_clinical_validity": false,
+        "prediction_can_claim_production_ready": false
+      }
+    },
+    {
+      "action_id": "genome_sequencing_analysis_verify",
+      "title": "Genome sequencing analysis verify",
+      "summary": "Independently verify genome sequencing analysis smoke output identity, provenance, and claim boundaries.",
+      "owner": "opl-bio-agent",
+      "effect": "read_only",
+      "source_command": {
+        "command": "node runtime/authority_functions/genome_analysis_verifier.mjs --cases <cases.json> --predictions <predictions.json>",
+        "surface_kind": "domain_cli"
+      },
+      "input_schema_ref": "contracts/genome-sequencing-analysis-verify.input.schema.json",
+      "output_schema_ref": "contracts/genome-sequencing-analysis-verify.output.schema.json",
+      "workspace_locator_fields": ["cases", "predictions"],
+      "human_gate_ids": ["domain_owner_review"],
+      "supported_surfaces": {
+        "cli": {"command": "node runtime/authority_functions/genome_analysis_verifier.mjs --cases <cases.json> --predictions <predictions.json>", "surface_kind": "domain_cli"},
+        "skill": {"command_contract_id": "opl-bio-agent.genome_sequencing_analysis_verify", "surface_kind": "domain_skill_contract"},
+        "mcp": {"tool_name": "opl_bio_agent_genome_sequencing_analysis_verify", "surface_kind": "domain_mcp_descriptor", "descriptor_only": true, "public_runtime": false},
+        "product_entry": {"action_key": "genome_sequencing_analysis_verify", "command": "node runtime/authority_functions/genome_analysis_verifier.mjs --cases <cases.json> --predictions <predictions.json>", "surface_kind": "domain_product_entry"},
+        "openai": {"tool_name": "opl_bio_agent_genome_sequencing_analysis_verify"},
+        "ai_sdk": {"tool_name": "opl_bio_agent_genome_sequencing_analysis_verify"}
+      },
+      "authority_boundary": {
+        "opl_can_write_domain_truth": false,
+        "opl_can_write_memory_body": false,
+        "opl_can_authorize_quality_or_export": false,
+        "domain_owner_receipt_or_typed_blocker_required": true,
+        "verifier_can_claim_variant_caller_accuracy": false,
+        "verifier_can_claim_clinical_validity": false,
+        "verifier_can_claim_publication_ready": false
+      }
+    }
+  ],
+  "forbidden_generic_owner_roles": [
+    "generic_scheduler_owner",
+    "generic_daemon_owner",
+    "generic_lifecycle_owner",
+    "generic_queue_owner",
+    "generic_attempt_ledger_owner",
+    "generic_state_machine_runner_owner",
+    "generic_cli_mcp_product_wrapper_owner",
+    "generic_sidecar_owner",
+    "generic_session_store_owner",
+    "generic_status_workbench_owner",
+    "generic_workspace_source_intake_owner",
+    "generic_memory_transport_owner",
+    "generic_artifact_gallery_owner",
+    "generic_operator_workbench_owner",
+    "generic_observability_slo_owner",
+    "generic_persistence_engine_owner",
+    "generic_sqlite_lifecycle_owner",
+    "generic_native_helper_envelope_owner",
+    "generic_review_repair_transport_owner",
+    "generated_surface_owner_in_domain_repo"
+  ],
+  "notes": [
+    "MVP actions generate benchmark predictions, verify benchmark predictions, and replay public enrichment/data refs; none authorize bioinformatics quality verdicts."
+  ],
+  "marker": "generated_by_opl_standard_domain_agent_scaffold_v1"
+}

@@ -1,0 +1,65 @@
+{
+  "active_truth_owner": "docs/active/oma-ideal-state-gap-plan.md",
+  "canonical_docs": [
+    {
+      "path": "README.md",
+      "role": "root_entry"
+    },
+    {
+      "path": "AGENTS.md",
+      "role": "repo_agent_working_rules"
+    },
+    {
+      "path": "docs/README.md",
+      "role": "docs_entry"
+    },
+    {
+      "path": "docs/project.md",
+      "role": "project_positioning"
+    },
+    {
+      "path": "docs/status.md",
+      "role": "current_status"
+    },
+    {
+      "path": "docs/architecture.md",
+      "role": "architecture_boundary"
+    },
+    {
+      "path": "docs/invariants.md",
+      "role": "hard_constraints"
+    },
+    {
+      "path": "docs/decisions.md",
+      "role": "active_decision_record"
+    }
+  ],
+  "doc_profile": "opl_meta_agent",
+  "flow_profile": "opl_meta_agent",
+  "machine_truth_surfaces": [
+    "contracts",
+    "tests",
+    "package.json"
+  ],
+  "owned_by_repo": [
+    "contracts/**",
+    "src/**",
+    "tests/**",
+    "docs/status.md",
+    "docs/active/oma-ideal-state-gap-plan.md"
+  ],
+  "plugin_native_status": "profile_declared",
+  "repo_id": "opl-meta-agent",
+  "repo_profile": "opl_meta_agent",
+  "schema": "opl_native_profile.v1",
+  "taxonomy_dirs": [
+    "docs/active",
+    "docs/history"
+  ],
+  "verification_commands": [
+    "scripts/verify.sh",
+    "package.json:scripts.verify",
+    "package.json:scripts.test",
+    "package.json:scripts.test:full"
+  ]
+}

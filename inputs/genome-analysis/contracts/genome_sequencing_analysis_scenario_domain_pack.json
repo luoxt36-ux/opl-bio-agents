@@ -1,0 +1,57 @@
+{
+  "surface_kind": "opl_bio_scenario_domain_pack",
+  "version": "opl-bio-genome-sequencing-analysis-scenario-pack.v1",
+  "owner": "opl-bio-agent",
+  "state": "frozen_result1_task_pack",
+  "scenario_agent_id": "opl_bio_genome_analysis_agent",
+  "task_family": "genome_sequencing_analysis",
+  "purpose": "Generate an OPL-governed genome sequencing analysis Agent for alignment QC, method selection, and bounded small-variant readiness analysis.",
+  "framework_boundary": {
+    "generated_from": "OPL stage runtime plus OPL-Bio domain pack",
+    "opl_owns": ["stage lifecycle", "executor activation", "attempt ledger", "receipt projection", "six interface descriptors"],
+    "opl_bio_owns": ["sequencing input policy", "caller/method policy", "analysis interpretation", "artifact authority", "verification", "domain review"]
+  },
+  "input_contract": {
+    "accepted_task_kinds": ["genome_sequencing_alignment_qc", "genome_sequencing_small_variant_readiness"],
+    "required_public_inputs": ["case_id", "sample_id", "reference_build", "alignment or read artifact", "reference sequence", "analysis region", "caller policy"],
+    "accepted_input_lanes": ["BAM_or_CRAM_with_index", "SAM_fixture_with_reference", "public_VCF_plus_alignment_provenance"],
+    "current_verified_lane": "SAM_fixture_with_reference"
+  },
+  "stage_contracts": [
+    {"stage_id": "intake_scope", "requires": ["case identity", "task kind", "analysis region"], "ensures": ["scope receipt", "claim boundary"]},
+    {"stage_id": "input_qc", "requires": ["public alignment", "reference"], "ensures": ["alignment and reference QC", "input hash records"]},
+    {"stage_id": "method_selection", "requires": ["caller policy", "visible QC"], "ensures": ["one frozen method decision", "fail-closed fallback"]},
+    {"stage_id": "execution_monitoring", "requires": ["frozen method", "public inputs"], "ensures": ["tool invocation receipt", "candidate output"]},
+    {"stage_id": "normalization_harmonization", "requires": ["candidate output"], "ensures": ["normalized variant records", "stable metric names"]},
+    {"stage_id": "verification_evaluation", "requires": ["analysis output", "independent verifier rules"], "ensures": ["verifier receipt", "typed blockers"]},
+    {"stage_id": "reporting_provenance", "requires": ["all stage receipts"], "ensures": ["analysis report", "provenance-complete delivery"]}
+  ],
+  "required_delivery_artifacts": ["domain_pack_snapshot", "analysis_report", "method_decision", "tool_invocation_receipt", "run_receipt", "verification_receipt", "delivery_readme"],
+  "tool_policy": {
+    "preferred_alignment_tools": ["samtools", "bcftools"],
+    "preferred_variant_callers": ["bcftools_multiallelic_call", "varscan_mpileup2cns"],
+    "smoke_fixture_policy": "The self-contained smoke may use a checked-in SAM/reference/VCF fixture to validate orchestration. It cannot support accuracy, superiority, clinical validity, or whole-genome claims."
+  },
+  "benchmark_policy": {
+    "public_private_split_required": true,
+    "private_truth_visible_to_agent": false,
+    "smoke_fixture_is_not_scientific_performance": true,
+    "automatic_retries": 0
+  },
+  "claim_boundary": {
+    "supports": ["bounded genome sequencing analysis Agent identity", "alignment/QC and method-selection workflow", "candidate variant artifact provenance", "independent shape and claim-boundary verification"],
+    "does_not_support": ["variant-caller accuracy", "caller superiority", "clinical validity", "pathogenicity", "whole-genome completeness", "production readiness"]
+  },
+  "manual_specialization": {
+    "domain_pack_authorship": "opl-bio-agent domain-owned",
+    "runner_authorship": "opl-bio-agent domain-owned",
+    "verifier_authorship": "opl-bio-agent domain-owned",
+    "opl_role": "compile interface descriptors, bind package identity, host governed execution"
+  },
+  "frozen_inputs": {
+    "smoke_suite": "examples/opl-bio-agent/runtime/fixtures/genome_sequencing_analysis_smoke_cases.json",
+    "fixture_root": "examples/opl-bio-agent/runtime/fixtures/genome_variant_end_to_end_v1",
+    "real_domain_capability_reference": "examples/opl-bio-agent/scripts/run-opl-bio-genome-real-domain-task-v1.mjs",
+    "real_domain_capability_reference_role": "separate source-verifiable BAM/CRAM execution lane; not substituted for this Result 1 smoke"
+  }
+}

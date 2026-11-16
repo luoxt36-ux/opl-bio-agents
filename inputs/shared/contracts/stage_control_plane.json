@@ -1,0 +1,1386 @@
+{
+  "surface_kind": "family_stage_control_plane",
+  "version": "family-stage-control-plane.v1",
+  "plane_id": "opl-bio-agent.stage-control-plane.v1",
+  "target_domain_id": "opl-bio-agent",
+  "owner": "opl-bio-agent",
+  "domain_id": "opl-bio-agent",
+  "stage_pack_conformance_version": "standard-stage-pack.v2",
+  "authority_boundary": {
+    "domain_truth_owner": "opl-bio-agent",
+    "opl_role": "projection_consumer_only",
+    "opl_can_write_domain_truth": false,
+    "opl_can_authorize_quality_or_export": false
+  },
+  "scenario_agent_bindings": [
+    {
+      "scenario_agent_id": "opl_bio_sc_rna_seq_agent",
+      "task_family": "single_cell_rna_seq_replay",
+      "pack_ref": "contracts/sc_rna_seq_scenario_domain_pack.json",
+      "runner_ref": "runtime/agent_runner/sc_rna_seq_agent.mjs",
+      "verifier_ref": "runtime/authority_functions/sc_rna_seq_routine_analysis_verifier.mjs",
+      "predict_action": "sc_rna_seq_routine_analysis_predict",
+      "verify_action": "sc_rna_seq_routine_analysis_verify",
+      "result1_role": "primary_scrna_routine_analysis_agent",
+      "claim_boundary": "core routine workflow coverage only; specialized modalities, article-grade replay and clinical validity remain out of scope"
+    },
+    {
+      "scenario_agent_id": "opl_bio_genome_analysis_agent",
+      "task_family": "genome_sequencing_analysis",
+      "pack_ref": "contracts/genome_sequencing_analysis_scenario_domain_pack.json",
+      "runner_ref": "runtime/agent_runner/genome_analysis_agent.mjs",
+      "verifier_ref": "runtime/authority_functions/genome_analysis_verifier.mjs",
+      "predict_action": "genome_sequencing_analysis_predict",
+      "verify_action": "genome_sequencing_analysis_verify",
+      "result1_role": "primary_genome_analysis_agent",
+      "claim_boundary": "qualification smoke and provenance only; no variant accuracy, superiority, clinical validity, or publication authority"
+    }
+  ],
+  "stages": [
+    {
+      "stage_id": "intake_and_scope",
+      "stage_kind": "intake",
+      "title": "Intake and scope",
+      "summary": "Turn the user request, species, gene identifiers, and experiment context into a non-clinical gene-set analysis scope.",
+      "goal": "Intake and scope returns domain refs or typed blockers without granting OPL bioinformatics quality authority.",
+      "owner": "opl-bio-agent",
+      "stage_pack_conformance_version": "standard-stage-pack.v2",
+      "selected_executor": {
+        "executor_kind": "codex_cli",
+        "default_executor": true,
+        "executor_binding_ref": "default_codex_cli",
+        "binding_policy": "default_first_class_executor_for_ai_first_stage_execution",
+        "required_capabilities": [
+          "repo_context_reading",
+          "domain_skill_invocation",
+          "receipt_or_typed_blocker_return",
+          "no_forbidden_write_guard"
+        ]
+      },
+      "domain_stage_refs": [
+        "intake_and_scope"
+      ],
+      "inputs": [],
+      "knowledge_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/domain_boundary.md",
+          "role": "domain_pack_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/literature_benchmark_v0_1.md",
+          "role": "benchmark_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/bulk_rna_seq_benchmark_v0_1.md",
+          "role": "bulk_rna_seq_benchmark_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "contracts/sc_rna_seq_scenario_domain_pack.json",
+          "role": "sc_rna_seq_scenario_domain_pack"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "contracts/genome_variant_biobench_phase1_domain_pack.json",
+          "role": "genome_variant_biobench_scenario_domain_pack"
+        }
+      ],
+      "skills": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/gene_set_mvp.md",
+          "role": "domain_pack_skill_policy"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/bulk_rna_seq_mvp.md",
+          "role": "bulk_rna_seq_skill_policy"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/sc_rna_seq_mvp.md",
+          "role": "sc_rna_seq_skill_policy"
+        }
+      ],
+      "prompt_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/prompts/gene_set_mvp.md",
+          "role": "stage_prompt"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/prompts/bulk_rna_seq_mvp.md",
+          "role": "bulk_rna_seq_stage_prompt"
+        }
+      ],
+      "allowed_action_refs": [
+        "gene_set_predict",
+        "gene_set_benchmark_verify",
+        "bulk_rna_seq_benchmark_verify",
+        "bulk_rna_seq_predict",
+        "sc_rna_seq_predict",
+        "sc_rna_seq_benchmark_verify",
+        "sc_rna_seq_routine_analysis_predict",
+        "sc_rna_seq_routine_analysis_verify",
+        "genome_sequencing_analysis_predict",
+        "genome_sequencing_analysis_verify",
+        "genome_variant_biobench_predict",
+        "genome_variant_biobench_benchmark_verify"
+      ],
+      "outputs": [
+        {
+          "ref_kind": "domain_ref",
+          "ref": [
+            "scope_ref_or_typed_blocker_ref",
+            "next_stage_recommendation_ref",
+            "authority_boundary_ref",
+            "non_clinical_scope_guard_ref"
+          ],
+          "role": "intake_and_scope_refs"
+        }
+      ],
+      "evaluation": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/quality_gates/domain_acceptance.md",
+          "role": "agent_quality_gate"
+        }
+      ],
+      "independent_gate_policy": {
+        "gate_ref": "agent/quality_gates/domain_acceptance.md",
+        "gate_owner": "opl-bio-agent",
+        "execution_review_separation_required": true,
+        "mechanical_completion_can_close_stage": false,
+        "provider_completion_can_claim_domain_ready": false,
+        "generated_surface_readiness_can_claim_quality_or_export": false
+      },
+      "stage_contract": {
+        "requires": [
+          "task_kind_ref",
+          "species_ref",
+          "gene_id_type_ref",
+          "input_gene_list_or_case_ref"
+        ],
+        "ensures": [
+          "scope_ref_or_typed_blocker_ref",
+          "next_stage_recommendation_ref",
+          "authority_boundary_ref",
+          "non_clinical_scope_guard_ref"
+        ],
+        "expected_receipt_refs": [
+          {
+            "ref_kind": "domain_ref",
+            "ref": "intake_and_scope_receipt_ref",
+            "role": "domain_owner_receipt"
+          },
+          {
+            "ref_kind": "domain_ref",
+            "ref": "typed_blocker_ref",
+            "role": "route_back_or_blocker"
+          }
+        ]
+      },
+      "handoff": {
+        "next_owner": "opl-bio-agent",
+        "next_stage_refs": [
+          "data_readiness"
+        ]
+      },
+      "source_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/stages/intake_and_scope.md",
+          "role": "stage_policy"
+        }
+      ],
+      "authority_boundary": {
+        "domain_truth_owner": "opl-bio-agent",
+        "opl_role": "projection_consumer_only",
+        "opl_can_write_domain_truth": false,
+        "opl_can_authorize_quality_or_export": false
+      }
+    },
+    {
+      "stage_id": "data_readiness",
+      "stage_kind": "source_preparation",
+      "title": "Data readiness",
+      "summary": "Normalize gene identifiers, check species/background fit, and record data quality blockers.",
+      "goal": "Data readiness returns domain refs or typed blockers without granting OPL bioinformatics quality authority.",
+      "owner": "opl-bio-agent",
+      "stage_pack_conformance_version": "standard-stage-pack.v2",
+      "selected_executor": {
+        "executor_kind": "codex_cli",
+        "default_executor": true,
+        "executor_binding_ref": "default_codex_cli",
+        "binding_policy": "default_first_class_executor_for_ai_first_stage_execution",
+        "required_capabilities": [
+          "repo_context_reading",
+          "domain_skill_invocation",
+          "receipt_or_typed_blocker_return",
+          "no_forbidden_write_guard"
+        ]
+      },
+      "domain_stage_refs": [
+        "data_readiness"
+      ],
+      "inputs": [],
+      "knowledge_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/domain_boundary.md",
+          "role": "domain_pack_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/literature_benchmark_v0_1.md",
+          "role": "benchmark_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/bulk_rna_seq_benchmark_v0_1.md",
+          "role": "bulk_rna_seq_benchmark_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "contracts/sc_rna_seq_scenario_domain_pack.json",
+          "role": "sc_rna_seq_scenario_domain_pack"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "contracts/genome_variant_biobench_phase1_domain_pack.json",
+          "role": "genome_variant_biobench_scenario_domain_pack"
+        }
+      ],
+      "skills": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/gene_set_mvp.md",
+          "role": "domain_pack_skill_policy"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/bulk_rna_seq_mvp.md",
+          "role": "bulk_rna_seq_skill_policy"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/sc_rna_seq_mvp.md",
+          "role": "sc_rna_seq_skill_policy"
+        }
+      ],
+      "prompt_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/prompts/gene_set_mvp.md",
+          "role": "stage_prompt"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/prompts/bulk_rna_seq_mvp.md",
+          "role": "bulk_rna_seq_stage_prompt"
+        }
+      ],
+      "allowed_action_refs": [
+        "gene_set_predict",
+        "gene_set_benchmark_verify",
+        "bulk_rna_seq_benchmark_verify",
+        "bulk_rna_seq_predict",
+        "sc_rna_seq_predict",
+        "sc_rna_seq_benchmark_verify",
+        "sc_rna_seq_routine_analysis_predict",
+        "sc_rna_seq_routine_analysis_verify",
+        "genome_sequencing_analysis_predict",
+        "genome_sequencing_analysis_verify",
+        "genome_variant_biobench_predict",
+        "genome_variant_biobench_benchmark_verify"
+      ],
+      "outputs": [
+        {
+          "ref_kind": "domain_ref",
+          "ref": [
+            "mapping_report_ref_or_typed_blocker_ref",
+            "normalized_genes_ref",
+            "background_universe_policy_ref",
+            "data_readiness_receipt_ref"
+          ],
+          "role": "data_readiness_refs"
+        }
+      ],
+      "evaluation": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/quality_gates/domain_acceptance.md",
+          "role": "agent_quality_gate"
+        }
+      ],
+      "independent_gate_policy": {
+        "gate_ref": "agent/quality_gates/domain_acceptance.md",
+        "gate_owner": "opl-bio-agent",
+        "execution_review_separation_required": true,
+        "mechanical_completion_can_close_stage": false,
+        "provider_completion_can_claim_domain_ready": false,
+        "generated_surface_readiness_can_claim_quality_or_export": false
+      },
+      "stage_contract": {
+        "requires": [
+          "scope_ref",
+          "input_gene_list_or_case_ref",
+          "species_ref",
+          "gene_id_type_ref"
+        ],
+        "ensures": [
+          "mapping_report_ref_or_typed_blocker_ref",
+          "normalized_genes_ref",
+          "background_universe_policy_ref",
+          "data_readiness_receipt_ref"
+        ],
+        "expected_receipt_refs": [
+          {
+            "ref_kind": "domain_ref",
+            "ref": "data_readiness_receipt_ref",
+            "role": "domain_owner_receipt"
+          },
+          {
+            "ref_kind": "domain_ref",
+            "ref": "typed_blocker_ref",
+            "role": "route_back_or_blocker"
+          }
+        ]
+      },
+      "handoff": {
+        "next_owner": "opl-bio-agent",
+        "next_stage_refs": [
+          "analysis_plan"
+        ]
+      },
+      "source_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/stages/data_readiness.md",
+          "role": "stage_policy"
+        }
+      ],
+      "authority_boundary": {
+        "domain_truth_owner": "opl-bio-agent",
+        "opl_role": "projection_consumer_only",
+        "opl_can_write_domain_truth": false,
+        "opl_can_authorize_quality_or_export": false
+      }
+    },
+    {
+      "stage_id": "analysis_plan",
+      "stage_kind": "planning",
+      "title": "Analysis plan",
+      "summary": "Pre-register enrichment databases, thresholds, background policy, and expected artifacts before execution.",
+      "goal": "Analysis plan returns domain refs or typed blockers without granting OPL bioinformatics quality authority.",
+      "owner": "opl-bio-agent",
+      "stage_pack_conformance_version": "standard-stage-pack.v2",
+      "selected_executor": {
+        "executor_kind": "codex_cli",
+        "default_executor": true,
+        "executor_binding_ref": "default_codex_cli",
+        "binding_policy": "default_first_class_executor_for_ai_first_stage_execution",
+        "required_capabilities": [
+          "repo_context_reading",
+          "domain_skill_invocation",
+          "receipt_or_typed_blocker_return",
+          "no_forbidden_write_guard"
+        ]
+      },
+      "domain_stage_refs": [
+        "analysis_plan"
+      ],
+      "inputs": [],
+      "knowledge_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/domain_boundary.md",
+          "role": "domain_pack_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/literature_benchmark_v0_1.md",
+          "role": "benchmark_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/bulk_rna_seq_benchmark_v0_1.md",
+          "role": "bulk_rna_seq_benchmark_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "contracts/sc_rna_seq_scenario_domain_pack.json",
+          "role": "sc_rna_seq_scenario_domain_pack"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "contracts/genome_variant_biobench_phase1_domain_pack.json",
+          "role": "genome_variant_biobench_scenario_domain_pack"
+        }
+      ],
+      "skills": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/gene_set_mvp.md",
+          "role": "domain_pack_skill_policy"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/bulk_rna_seq_mvp.md",
+          "role": "bulk_rna_seq_skill_policy"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/sc_rna_seq_mvp.md",
+          "role": "sc_rna_seq_skill_policy"
+        }
+      ],
+      "prompt_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/prompts/gene_set_mvp.md",
+          "role": "stage_prompt"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/prompts/bulk_rna_seq_mvp.md",
+          "role": "bulk_rna_seq_stage_prompt"
+        }
+      ],
+      "allowed_action_refs": [
+        "gene_set_predict",
+        "gene_set_benchmark_verify",
+        "bulk_rna_seq_benchmark_verify",
+        "bulk_rna_seq_predict",
+        "sc_rna_seq_predict",
+        "sc_rna_seq_benchmark_verify",
+        "sc_rna_seq_routine_analysis_predict",
+        "sc_rna_seq_routine_analysis_verify",
+        "genome_sequencing_analysis_predict",
+        "genome_sequencing_analysis_verify",
+        "genome_variant_biobench_predict",
+        "genome_variant_biobench_benchmark_verify"
+      ],
+      "outputs": [
+        {
+          "ref_kind": "domain_ref",
+          "ref": [
+            "analysis_plan_ref",
+            "tool_invocation_plan_ref",
+            "expected_artifact_manifest_ref",
+            "analysis_plan_receipt_ref"
+          ],
+          "role": "analysis_plan_refs"
+        }
+      ],
+      "evaluation": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/quality_gates/domain_acceptance.md",
+          "role": "agent_quality_gate"
+        }
+      ],
+      "independent_gate_policy": {
+        "gate_ref": "agent/quality_gates/domain_acceptance.md",
+        "gate_owner": "opl-bio-agent",
+        "execution_review_separation_required": true,
+        "mechanical_completion_can_close_stage": false,
+        "provider_completion_can_claim_domain_ready": false,
+        "generated_surface_readiness_can_claim_quality_or_export": false
+      },
+      "stage_contract": {
+        "requires": [
+          "data_readiness_receipt_ref",
+          "normalized_genes_ref",
+          "allowed_database_policy_ref",
+          "benchmark_case_ref"
+        ],
+        "ensures": [
+          "analysis_plan_ref",
+          "tool_invocation_plan_ref",
+          "expected_artifact_manifest_ref",
+          "analysis_plan_receipt_ref"
+        ],
+        "expected_receipt_refs": [
+          {
+            "ref_kind": "domain_ref",
+            "ref": "analysis_plan_receipt_ref",
+            "role": "domain_owner_receipt"
+          },
+          {
+            "ref_kind": "domain_ref",
+            "ref": "typed_blocker_ref",
+            "role": "route_back_or_blocker"
+          }
+        ]
+      },
+      "handoff": {
+        "next_owner": "opl-bio-agent",
+        "next_stage_refs": [
+          "execution"
+        ]
+      },
+      "source_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/stages/analysis_plan.md",
+          "role": "stage_policy"
+        }
+      ],
+      "authority_boundary": {
+        "domain_truth_owner": "opl-bio-agent",
+        "opl_role": "projection_consumer_only",
+        "opl_can_write_domain_truth": false,
+        "opl_can_authorize_quality_or_export": false
+      }
+    },
+    {
+      "stage_id": "execution",
+      "stage_kind": "creation",
+      "title": "Execution",
+      "summary": "Run or simulate gene-set enrichment and produce result tables, term clusters, tool logs, and artifact refs.",
+      "goal": "Execution returns domain refs or typed blockers without granting OPL bioinformatics quality authority.",
+      "owner": "opl-bio-agent",
+      "stage_pack_conformance_version": "standard-stage-pack.v2",
+      "selected_executor": {
+        "executor_kind": "codex_cli",
+        "default_executor": true,
+        "executor_binding_ref": "default_codex_cli",
+        "binding_policy": "default_first_class_executor_for_ai_first_stage_execution",
+        "required_capabilities": [
+          "repo_context_reading",
+          "domain_skill_invocation",
+          "receipt_or_typed_blocker_return",
+          "no_forbidden_write_guard"
+        ]
+      },
+      "domain_stage_refs": [
+        "execution"
+      ],
+      "inputs": [],
+      "knowledge_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/domain_boundary.md",
+          "role": "domain_pack_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/literature_benchmark_v0_1.md",
+          "role": "benchmark_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/bulk_rna_seq_benchmark_v0_1.md",
+          "role": "bulk_rna_seq_benchmark_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "contracts/sc_rna_seq_scenario_domain_pack.json",
+          "role": "sc_rna_seq_scenario_domain_pack"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "contracts/genome_variant_biobench_phase1_domain_pack.json",
+          "role": "genome_variant_biobench_scenario_domain_pack"
+        }
+      ],
+      "skills": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/gene_set_mvp.md",
+          "role": "domain_pack_skill_policy"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/bulk_rna_seq_mvp.md",
+          "role": "bulk_rna_seq_skill_policy"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/sc_rna_seq_mvp.md",
+          "role": "sc_rna_seq_skill_policy"
+        }
+      ],
+      "prompt_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/prompts/gene_set_mvp.md",
+          "role": "stage_prompt"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/prompts/bulk_rna_seq_mvp.md",
+          "role": "bulk_rna_seq_stage_prompt"
+        }
+      ],
+      "allowed_action_refs": [
+        "gene_set_predict",
+        "gene_set_benchmark_verify",
+        "bulk_rna_seq_benchmark_verify",
+        "bulk_rna_seq_predict",
+        "gprofiler_enrichment_replay",
+        "geo_public_data_replay",
+        "sc_rna_seq_predict",
+        "sc_rna_seq_benchmark_verify",
+        "sc_rna_seq_routine_analysis_predict",
+        "sc_rna_seq_routine_analysis_verify",
+        "genome_sequencing_analysis_predict",
+        "genome_sequencing_analysis_verify",
+        "genome_variant_biobench_predict",
+        "genome_variant_biobench_benchmark_verify"
+      ],
+      "outputs": [
+        {
+          "ref_kind": "domain_ref",
+          "ref": [
+            "enrichment_results_ref",
+            "term_clusters_ref",
+            "tool_version_manifest_ref",
+            "execution_receipt_ref"
+          ],
+          "role": "execution_refs"
+        }
+      ],
+      "evaluation": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/quality_gates/domain_acceptance.md",
+          "role": "agent_quality_gate"
+        }
+      ],
+      "independent_gate_policy": {
+        "gate_ref": "agent/quality_gates/domain_acceptance.md",
+        "gate_owner": "opl-bio-agent",
+        "execution_review_separation_required": true,
+        "mechanical_completion_can_close_stage": false,
+        "provider_completion_can_claim_domain_ready": false,
+        "generated_surface_readiness_can_claim_quality_or_export": false
+      },
+      "stage_contract": {
+        "requires": [
+          "analysis_plan_ref",
+          "normalized_genes_ref",
+          "background_universe_policy_ref",
+          "tool_catalog_ref"
+        ],
+        "ensures": [
+          "enrichment_results_ref",
+          "term_clusters_ref",
+          "tool_version_manifest_ref",
+          "execution_receipt_ref"
+        ],
+        "expected_receipt_refs": [
+          {
+            "ref_kind": "domain_ref",
+            "ref": "execution_receipt_ref",
+            "role": "domain_owner_receipt"
+          },
+          {
+            "ref_kind": "domain_ref",
+            "ref": "typed_blocker_ref",
+            "role": "route_back_or_blocker"
+          }
+        ]
+      },
+      "handoff": {
+        "next_owner": "opl-bio-agent",
+        "next_stage_refs": [
+          "evidence_audit"
+        ]
+      },
+      "source_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/stages/execution.md",
+          "role": "stage_policy"
+        }
+      ],
+      "authority_boundary": {
+        "domain_truth_owner": "opl-bio-agent",
+        "opl_role": "projection_consumer_only",
+        "opl_can_write_domain_truth": false,
+        "opl_can_authorize_quality_or_export": false
+      }
+    },
+    {
+      "stage_id": "evidence_audit",
+      "stage_kind": "review",
+      "title": "Evidence audit",
+      "summary": "Bind top terms, driving genes, database refs, literature refs, weak evidence, and conflicts into an evidence ledger.",
+      "goal": "Evidence audit returns domain refs or typed blockers without granting OPL bioinformatics quality authority.",
+      "owner": "opl-bio-agent",
+      "stage_pack_conformance_version": "standard-stage-pack.v2",
+      "selected_executor": {
+        "executor_kind": "codex_cli",
+        "default_executor": true,
+        "executor_binding_ref": "default_codex_cli",
+        "binding_policy": "default_first_class_executor_for_ai_first_stage_execution",
+        "required_capabilities": [
+          "repo_context_reading",
+          "domain_skill_invocation",
+          "receipt_or_typed_blocker_return",
+          "no_forbidden_write_guard"
+        ]
+      },
+      "domain_stage_refs": [
+        "evidence_audit"
+      ],
+      "inputs": [],
+      "knowledge_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/domain_boundary.md",
+          "role": "domain_pack_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/literature_benchmark_v0_1.md",
+          "role": "benchmark_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/bulk_rna_seq_benchmark_v0_1.md",
+          "role": "bulk_rna_seq_benchmark_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "contracts/sc_rna_seq_scenario_domain_pack.json",
+          "role": "sc_rna_seq_scenario_domain_pack"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "contracts/genome_variant_biobench_phase1_domain_pack.json",
+          "role": "genome_variant_biobench_scenario_domain_pack"
+        }
+      ],
+      "skills": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/gene_set_mvp.md",
+          "role": "domain_pack_skill_policy"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/bulk_rna_seq_mvp.md",
+          "role": "bulk_rna_seq_skill_policy"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/sc_rna_seq_mvp.md",
+          "role": "sc_rna_seq_skill_policy"
+        }
+      ],
+      "prompt_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/prompts/gene_set_mvp.md",
+          "role": "stage_prompt"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/prompts/bulk_rna_seq_mvp.md",
+          "role": "bulk_rna_seq_stage_prompt"
+        }
+      ],
+      "allowed_action_refs": [
+        "gene_set_predict",
+        "gene_set_benchmark_verify",
+        "bulk_rna_seq_benchmark_verify",
+        "bulk_rna_seq_predict",
+        "gprofiler_enrichment_replay",
+        "geo_public_data_replay",
+        "sc_rna_seq_predict",
+        "sc_rna_seq_benchmark_verify",
+        "sc_rna_seq_routine_analysis_predict",
+        "sc_rna_seq_routine_analysis_verify",
+        "genome_sequencing_analysis_predict",
+        "genome_sequencing_analysis_verify",
+        "genome_variant_biobench_predict",
+        "genome_variant_biobench_benchmark_verify"
+      ],
+      "outputs": [
+        {
+          "ref_kind": "domain_ref",
+          "ref": [
+            "evidence_ledger_ref",
+            "unsupported_claims_ref",
+            "conflict_list_ref",
+            "evidence_audit_receipt_ref"
+          ],
+          "role": "evidence_audit_refs"
+        }
+      ],
+      "evaluation": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/quality_gates/domain_acceptance.md",
+          "role": "agent_quality_gate"
+        }
+      ],
+      "independent_gate_policy": {
+        "gate_ref": "agent/quality_gates/domain_acceptance.md",
+        "gate_owner": "opl-bio-agent",
+        "execution_review_separation_required": true,
+        "mechanical_completion_can_close_stage": false,
+        "provider_completion_can_claim_domain_ready": false,
+        "generated_surface_readiness_can_claim_quality_or_export": false
+      },
+      "stage_contract": {
+        "requires": [
+          "enrichment_results_ref",
+          "term_clusters_ref",
+          "benchmark_case_ref",
+          "literature_refs"
+        ],
+        "ensures": [
+          "evidence_ledger_ref",
+          "unsupported_claims_ref",
+          "conflict_list_ref",
+          "evidence_audit_receipt_ref"
+        ],
+        "expected_receipt_refs": [
+          {
+            "ref_kind": "domain_ref",
+            "ref": "evidence_audit_receipt_ref",
+            "role": "domain_owner_receipt"
+          },
+          {
+            "ref_kind": "domain_ref",
+            "ref": "typed_blocker_ref",
+            "role": "route_back_or_blocker"
+          }
+        ]
+      },
+      "handoff": {
+        "next_owner": "opl-bio-agent",
+        "next_stage_refs": [
+          "biological_interpretation"
+        ]
+      },
+      "source_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/stages/evidence_audit.md",
+          "role": "stage_policy"
+        }
+      ],
+      "authority_boundary": {
+        "domain_truth_owner": "opl-bio-agent",
+        "opl_role": "projection_consumer_only",
+        "opl_can_write_domain_truth": false,
+        "opl_can_authorize_quality_or_export": false
+      }
+    },
+    {
+      "stage_id": "biological_interpretation",
+      "stage_kind": "domain_specific",
+      "title": "Biological interpretation",
+      "summary": "Generate evidence-bound biological interpretation, claim table, caveats, and limitations.",
+      "goal": "Biological interpretation returns domain refs or typed blockers without granting OPL bioinformatics quality authority.",
+      "owner": "opl-bio-agent",
+      "stage_pack_conformance_version": "standard-stage-pack.v2",
+      "selected_executor": {
+        "executor_kind": "codex_cli",
+        "default_executor": true,
+        "executor_binding_ref": "default_codex_cli",
+        "binding_policy": "default_first_class_executor_for_ai_first_stage_execution",
+        "required_capabilities": [
+          "repo_context_reading",
+          "domain_skill_invocation",
+          "receipt_or_typed_blocker_return",
+          "no_forbidden_write_guard"
+        ]
+      },
+      "domain_stage_refs": [
+        "biological_interpretation"
+      ],
+      "inputs": [],
+      "knowledge_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/domain_boundary.md",
+          "role": "domain_pack_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/literature_benchmark_v0_1.md",
+          "role": "benchmark_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/bulk_rna_seq_benchmark_v0_1.md",
+          "role": "bulk_rna_seq_benchmark_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "contracts/sc_rna_seq_scenario_domain_pack.json",
+          "role": "sc_rna_seq_scenario_domain_pack"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "contracts/genome_variant_biobench_phase1_domain_pack.json",
+          "role": "genome_variant_biobench_scenario_domain_pack"
+        }
+      ],
+      "skills": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/gene_set_mvp.md",
+          "role": "domain_pack_skill_policy"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/bulk_rna_seq_mvp.md",
+          "role": "bulk_rna_seq_skill_policy"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/sc_rna_seq_mvp.md",
+          "role": "sc_rna_seq_skill_policy"
+        }
+      ],
+      "prompt_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/prompts/gene_set_mvp.md",
+          "role": "stage_prompt"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/prompts/bulk_rna_seq_mvp.md",
+          "role": "bulk_rna_seq_stage_prompt"
+        }
+      ],
+      "allowed_action_refs": [
+        "gene_set_predict",
+        "gene_set_benchmark_verify",
+        "bulk_rna_seq_benchmark_verify",
+        "bulk_rna_seq_predict",
+        "gprofiler_enrichment_replay",
+        "geo_public_data_replay",
+        "sc_rna_seq_predict",
+        "sc_rna_seq_benchmark_verify",
+        "sc_rna_seq_routine_analysis_predict",
+        "sc_rna_seq_routine_analysis_verify",
+        "genome_sequencing_analysis_predict",
+        "genome_sequencing_analysis_verify",
+        "genome_variant_biobench_predict",
+        "genome_variant_biobench_benchmark_verify"
+      ],
+      "outputs": [
+        {
+          "ref_kind": "domain_ref",
+          "ref": [
+            "interpretation_ref",
+            "claim_table_ref",
+            "limitations_ref",
+            "interpretation_receipt_ref"
+          ],
+          "role": "biological_interpretation_refs"
+        }
+      ],
+      "evaluation": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/quality_gates/domain_acceptance.md",
+          "role": "agent_quality_gate"
+        }
+      ],
+      "independent_gate_policy": {
+        "gate_ref": "agent/quality_gates/domain_acceptance.md",
+        "gate_owner": "opl-bio-agent",
+        "execution_review_separation_required": true,
+        "mechanical_completion_can_close_stage": false,
+        "provider_completion_can_claim_domain_ready": false,
+        "generated_surface_readiness_can_claim_quality_or_export": false
+      },
+      "stage_contract": {
+        "requires": [
+          "enrichment_results_ref",
+          "evidence_ledger_ref",
+          "experiment_context_ref",
+          "claim_guard_policy_ref"
+        ],
+        "ensures": [
+          "interpretation_ref",
+          "claim_table_ref",
+          "limitations_ref",
+          "interpretation_receipt_ref"
+        ],
+        "expected_receipt_refs": [
+          {
+            "ref_kind": "domain_ref",
+            "ref": "biological_interpretation_receipt_ref",
+            "role": "domain_owner_receipt"
+          },
+          {
+            "ref_kind": "domain_ref",
+            "ref": "typed_blocker_ref",
+            "role": "route_back_or_blocker"
+          }
+        ]
+      },
+      "handoff": {
+        "next_owner": "opl-bio-agent",
+        "next_stage_refs": [
+          "review_and_red_team"
+        ]
+      },
+      "source_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/stages/biological_interpretation.md",
+          "role": "stage_policy"
+        }
+      ],
+      "authority_boundary": {
+        "domain_truth_owner": "opl-bio-agent",
+        "opl_role": "projection_consumer_only",
+        "opl_can_write_domain_truth": false,
+        "opl_can_authorize_quality_or_export": false
+      }
+    },
+    {
+      "stage_id": "review_and_red_team",
+      "stage_kind": "review",
+      "title": "Review and red team",
+      "summary": "Independently review mapping, statistics, evidence grounding, overclaim, negative controls, and benchmark rubric.",
+      "goal": "Review and red team returns domain refs or typed blockers without granting OPL bioinformatics quality authority.",
+      "owner": "opl-bio-agent",
+      "stage_pack_conformance_version": "standard-stage-pack.v2",
+      "selected_executor": {
+        "executor_kind": "codex_cli",
+        "default_executor": true,
+        "executor_binding_ref": "default_codex_cli",
+        "binding_policy": "default_first_class_executor_for_ai_first_stage_execution",
+        "required_capabilities": [
+          "repo_context_reading",
+          "domain_skill_invocation",
+          "receipt_or_typed_blocker_return",
+          "no_forbidden_write_guard"
+        ]
+      },
+      "domain_stage_refs": [
+        "review_and_red_team"
+      ],
+      "inputs": [],
+      "knowledge_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/domain_boundary.md",
+          "role": "domain_pack_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/literature_benchmark_v0_1.md",
+          "role": "benchmark_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/bulk_rna_seq_benchmark_v0_1.md",
+          "role": "bulk_rna_seq_benchmark_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "contracts/sc_rna_seq_scenario_domain_pack.json",
+          "role": "sc_rna_seq_scenario_domain_pack"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "contracts/genome_variant_biobench_phase1_domain_pack.json",
+          "role": "genome_variant_biobench_scenario_domain_pack"
+        }
+      ],
+      "skills": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/gene_set_mvp.md",
+          "role": "domain_pack_skill_policy"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/bulk_rna_seq_mvp.md",
+          "role": "bulk_rna_seq_skill_policy"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/sc_rna_seq_mvp.md",
+          "role": "sc_rna_seq_skill_policy"
+        }
+      ],
+      "prompt_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/prompts/gene_set_mvp.md",
+          "role": "stage_prompt"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/prompts/bulk_rna_seq_mvp.md",
+          "role": "bulk_rna_seq_stage_prompt"
+        }
+      ],
+      "allowed_action_refs": [
+        "gene_set_predict",
+        "gene_set_benchmark_verify",
+        "bulk_rna_seq_benchmark_verify",
+        "bulk_rna_seq_predict",
+        "gprofiler_enrichment_replay",
+        "geo_public_data_replay",
+        "sc_rna_seq_predict",
+        "sc_rna_seq_benchmark_verify",
+        "sc_rna_seq_routine_analysis_predict",
+        "sc_rna_seq_routine_analysis_verify",
+        "genome_sequencing_analysis_predict",
+        "genome_sequencing_analysis_verify",
+        "genome_variant_biobench_predict",
+        "genome_variant_biobench_benchmark_verify"
+      ],
+      "outputs": [
+        {
+          "ref_kind": "domain_ref",
+          "ref": [
+            "review_receipt_ref",
+            "critical_blockers_ref",
+            "route_back_ref",
+            "no_regression_evidence_ref"
+          ],
+          "role": "review_and_red_team_refs"
+        }
+      ],
+      "evaluation": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/quality_gates/domain_acceptance.md",
+          "role": "agent_quality_gate"
+        }
+      ],
+      "independent_gate_policy": {
+        "gate_ref": "agent/quality_gates/domain_acceptance.md",
+        "gate_owner": "opl-bio-agent",
+        "execution_review_separation_required": true,
+        "mechanical_completion_can_close_stage": false,
+        "provider_completion_can_claim_domain_ready": false,
+        "generated_surface_readiness_can_claim_quality_or_export": false
+      },
+      "stage_contract": {
+        "requires": [
+          "all_prior_stage_receipts_ref",
+          "artifact_manifest_ref",
+          "benchmark_rubric_ref",
+          "claim_table_ref"
+        ],
+        "ensures": [
+          "review_receipt_ref",
+          "critical_blockers_ref",
+          "route_back_ref",
+          "no_regression_evidence_ref"
+        ],
+        "expected_receipt_refs": [
+          {
+            "ref_kind": "domain_ref",
+            "ref": "review_and_red_team_receipt_ref",
+            "role": "domain_owner_receipt"
+          },
+          {
+            "ref_kind": "domain_ref",
+            "ref": "typed_blocker_ref",
+            "role": "route_back_or_blocker"
+          }
+        ]
+      },
+      "handoff": {
+        "next_owner": "opl-bio-agent",
+        "next_stage_refs": [
+          "delivery"
+        ]
+      },
+      "source_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/stages/review_and_red_team.md",
+          "role": "stage_policy"
+        }
+      ],
+      "authority_boundary": {
+        "domain_truth_owner": "opl-bio-agent",
+        "opl_role": "projection_consumer_only",
+        "opl_can_write_domain_truth": false,
+        "opl_can_authorize_quality_or_export": false
+      }
+    },
+    {
+      "stage_id": "delivery",
+      "stage_kind": "packaging",
+      "title": "Delivery",
+      "summary": "Assemble final report, run summary, artifact manifest, benchmark scorecard, and closeout refs.",
+      "goal": "Delivery returns domain refs or typed blockers without granting OPL bioinformatics quality authority.",
+      "owner": "opl-bio-agent",
+      "stage_pack_conformance_version": "standard-stage-pack.v2",
+      "selected_executor": {
+        "executor_kind": "codex_cli",
+        "default_executor": true,
+        "executor_binding_ref": "default_codex_cli",
+        "binding_policy": "default_first_class_executor_for_ai_first_stage_execution",
+        "required_capabilities": [
+          "repo_context_reading",
+          "domain_skill_invocation",
+          "receipt_or_typed_blocker_return",
+          "no_forbidden_write_guard"
+        ]
+      },
+      "domain_stage_refs": [
+        "delivery"
+      ],
+      "inputs": [],
+      "knowledge_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/domain_boundary.md",
+          "role": "domain_pack_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/literature_benchmark_v0_1.md",
+          "role": "benchmark_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/knowledge/bulk_rna_seq_benchmark_v0_1.md",
+          "role": "bulk_rna_seq_benchmark_knowledge"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "contracts/sc_rna_seq_scenario_domain_pack.json",
+          "role": "sc_rna_seq_scenario_domain_pack"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "contracts/genome_variant_biobench_phase1_domain_pack.json",
+          "role": "genome_variant_biobench_scenario_domain_pack"
+        }
+      ],
+      "skills": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/gene_set_mvp.md",
+          "role": "domain_pack_skill_policy"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/bulk_rna_seq_mvp.md",
+          "role": "bulk_rna_seq_skill_policy"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/skills/sc_rna_seq_mvp.md",
+          "role": "sc_rna_seq_skill_policy"
+        }
+      ],
+      "prompt_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/prompts/gene_set_mvp.md",
+          "role": "stage_prompt"
+        },
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/prompts/bulk_rna_seq_mvp.md",
+          "role": "bulk_rna_seq_stage_prompt"
+        }
+      ],
+      "allowed_action_refs": [
+        "gene_set_predict",
+        "gene_set_benchmark_verify",
+        "bulk_rna_seq_benchmark_verify",
+        "bulk_rna_seq_predict",
+        "gprofiler_enrichment_replay",
+        "geo_public_data_replay",
+        "sc_rna_seq_predict",
+        "sc_rna_seq_benchmark_verify",
+        "sc_rna_seq_routine_analysis_predict",
+        "sc_rna_seq_routine_analysis_verify",
+        "genome_sequencing_analysis_predict",
+        "genome_sequencing_analysis_verify",
+        "genome_variant_biobench_predict",
+        "genome_variant_biobench_benchmark_verify"
+      ],
+      "outputs": [
+        {
+          "ref_kind": "domain_ref",
+          "ref": [
+            "report_ref",
+            "artifact_manifest_ref",
+            "benchmark_scorecard_ref",
+            "domain_closeout_receipt_ref"
+          ],
+          "role": "delivery_refs"
+        }
+      ],
+      "evaluation": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/quality_gates/domain_acceptance.md",
+          "role": "agent_quality_gate"
+        }
+      ],
+      "independent_gate_policy": {
+        "gate_ref": "agent/quality_gates/domain_acceptance.md",
+        "gate_owner": "opl-bio-agent",
+        "execution_review_separation_required": true,
+        "mechanical_completion_can_close_stage": false,
+        "provider_completion_can_claim_domain_ready": false,
+        "generated_surface_readiness_can_claim_quality_or_export": false
+      },
+      "stage_contract": {
+        "requires": [
+          "review_receipt_ref",
+          "artifact_manifest_ref",
+          "report_body_ref",
+          "run_summary_ref"
+        ],
+        "ensures": [
+          "report_ref",
+          "artifact_manifest_ref",
+          "benchmark_scorecard_ref",
+          "domain_closeout_receipt_ref"
+        ],
+        "expected_receipt_refs": [
+          {
+            "ref_kind": "domain_ref",
+            "ref": "delivery_receipt_ref",
+            "role": "domain_owner_receipt"
+          },
+          {
+            "ref_kind": "domain_ref",
+            "ref": "typed_blocker_ref",
+            "role": "route_back_or_blocker"
+          }
+        ]
+      },
+      "handoff": {
+        "next_owner": "opl-bio-agent",
+        "next_stage_refs": []
+      },
+      "source_refs": [
+        {
+          "ref_kind": "repo_path",
+          "ref": "agent/stages/delivery.md",
+          "role": "stage_policy"
+        }
+      ],
+      "authority_boundary": {
+        "domain_truth_owner": "opl-bio-agent",
+        "opl_role": "projection_consumer_only",
+        "opl_can_write_domain_truth": false,
+        "opl_can_authorize_quality_or_export": false
+      }
+    }
+  ],
+  "marker": "generated_by_opl_standard_domain_agent_scaffold_v1"
+}

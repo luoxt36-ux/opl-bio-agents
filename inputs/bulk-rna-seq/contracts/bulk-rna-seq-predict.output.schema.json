@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://one-person-lab.local/contracts/opl-bio-agent/bulk-rna-seq-predict.output.schema.json",
+  "title": "OPL-Bio Bulk RNA-seq Predict Output",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "surface_kind",
+    "status",
+    "predictions_path",
+    "case_count",
+    "execution_mode",
+    "authority_boundary"
+  ],
+  "properties": {
+    "surface_kind": {
+      "const": "opl_bio_bulk_rna_seq_agent_receipt"
+    },
+    "status": {
+      "enum": [
+        "generated",
+        "blocked"
+      ]
+    },
+    "predictions_path": {
+      "type": "string"
+    },
+    "artifact_root": {
+      "type": "string"
+    },
+    "env_bin": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "case_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "execution_mode": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority_boundary": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "prediction_can_claim_domain_ready": {
+          "const": false
+        },
+        "prediction_can_claim_biological_quality_verdict": {
+          "const": false
+        },
+        "prediction_can_claim_clinical_validity": {
+          "const": false
+        },
+        "prediction_can_claim_live_deseq2_replay": {
+          "type": "boolean",
+          "description": "May be true only when every case prediction carries a live DESeq2 runner receipt."
+        },
+        "prediction_can_claim_deseq2": {
+          "type": "boolean",
+          "description": "May be true only when every case prediction carries a live DESeq2 runner receipt."
+        },
+        "prediction_can_claim_clusterprofiler": {
+          "type": "boolean",
+          "description": "May be true only when every case prediction carries a live clusterProfiler runner receipt."
+        }
+      }
+    }
+  }
+}

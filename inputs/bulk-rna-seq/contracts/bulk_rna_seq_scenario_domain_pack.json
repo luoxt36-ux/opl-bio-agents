@@ -1,0 +1,213 @@
+{
+  "surface_kind": "opl_bio_scenario_domain_pack",
+  "version": "opl-bio-bulk-rna-seq-scenario-pack.v0.1",
+  "owner": "opl-bio-agent",
+  "state": "candidate_scenario_pack",
+  "scenario_agent_id": "opl_bio_bulk_rna_seq_agent",
+  "task_family": "bulk_rna_seq_replay",
+  "purpose": "Generate OPL-governed Bulk RNA-seq scenario agents for curated public omics replay and knowledge-delivery benchmark cases.",
+  "framework_boundary": {
+    "generated_from": "OPL stage runtime plus OPL-Bio domain pack",
+    "opl_owns": [
+      "stage lifecycle",
+      "executor activation",
+      "attempt ledger",
+      "receipt projection"
+    ],
+    "opl_bio_owns": [
+      "bioinformatics tool policy",
+      "data interpretation",
+      "artifact authority",
+      "benchmark verdict",
+      "domain review"
+    ]
+  },
+  "input_contract": {
+    "accepted_task_kinds": [
+      "bulk_rna_seq_de_enrichment",
+      "bulk_rna_seq_paired_de_enrichment",
+      "bulk_rna_seq_stage_trend_de_enrichment",
+      "bulk_rna_seq_drug_perturbation_de_enrichment",
+      "bulk_rna_seq_case_control_de_enrichment",
+      "bulk_rna_seq_cell_type_signature_de_enrichment",
+      "bulk_rna_seq_timecourse_perturbation_de_enrichment",
+      "bulk_rna_seq_infection_pbmc_de_enrichment",
+      "bulk_rna_seq_skin_inflammation_de_enrichment",
+      "bulk_rna_seq_lung_fibrosis_regional_de_enrichment"
+    ],
+    "required_public_inputs": [
+      "case_id",
+      "species",
+      "geo_accession or local dataset ref",
+      "expression_matrix_ref",
+      "design_formula",
+      "contrast",
+      "local counts_tsv for current seed lane",
+      "local sample_sheet_tsv for current seed lane"
+    ],
+    "accepted_input_lanes": [
+      "fastq_alignment_counts",
+      "fastq_transcript_quant",
+      "processed_count_matrix"
+    ],
+    "current_verified_lane": "processed_count_matrix"
+  },
+  "stage_contracts": [
+    {
+      "stage_id": "data_readiness",
+      "requires": [
+        "dataset refs",
+        "sample metadata",
+        "count matrix"
+      ],
+      "ensures": [
+        "dataset_manifest.json",
+        "sample_sheet.tsv",
+        "data blockers or ready receipt"
+      ]
+    },
+    {
+      "stage_id": "analysis_plan",
+      "requires": [
+        "data_readiness receipt",
+        "contrast",
+        "tool policy"
+      ],
+      "ensures": [
+        "analysis_plan.json",
+        "design formula",
+        "selected execution lane"
+      ]
+    },
+    {
+      "stage_id": "execution",
+      "requires": [
+        "analysis_plan",
+        "counts",
+        "sample_sheet",
+        "tool environment"
+      ],
+      "ensures": [
+        "normalized_counts.tsv",
+        "de_results.tsv",
+        "enrichment_results.tsv",
+        "run_receipt.json"
+      ]
+    },
+    {
+      "stage_id": "evidence_audit",
+      "requires": [
+        "de_results",
+        "enrichment_results",
+        "paper refs",
+        "data refs"
+      ],
+      "ensures": [
+        "claim_table.tsv",
+        "evidence_ledger.jsonl"
+      ]
+    },
+    {
+      "stage_id": "biological_interpretation",
+      "requires": [
+        "claim_table",
+        "evidence_ledger",
+        "limitations"
+      ],
+      "ensures": [
+        "report.md",
+        "non-clinical biological interpretation"
+      ]
+    },
+    {
+      "stage_id": "review_and_red_team",
+      "requires": [
+        "stage_receipts",
+        "artifact_manifest",
+        "claim_table"
+      ],
+      "ensures": [
+        "review_receipt.json",
+        "critical blockers or accepted limitations"
+      ]
+    },
+    {
+      "stage_id": "delivery",
+      "requires": [
+        "accepted artifacts",
+        "review_receipt"
+      ],
+      "ensures": [
+        "delivery_readme.md",
+        "artifact_manifest.json",
+        "handoff-ready package"
+      ]
+    }
+  ],
+  "required_delivery_artifacts": [
+    "domain_pack_snapshot.json",
+    "dataset_manifest.json",
+    "sample_sheet.tsv",
+    "analysis_plan.json",
+    "normalized_counts.tsv",
+    "de_results.tsv",
+    "enrichment_results.tsv",
+    "claim_table.tsv",
+    "evidence_ledger.jsonl",
+    "stage_receipts.jsonl",
+    "review_receipt.json",
+    "report.md",
+    "delivery_readme.md",
+    "artifact_manifest.json",
+    "run_receipt.json"
+  ],
+  "tool_policy": {
+    "preferred_de_tools": [
+      "DESeq2",
+      "edgeR",
+      "limma-voom"
+    ],
+    "preferred_enrichment_tools": [
+      "clusterProfiler",
+      "fgsea",
+      "g:Profiler"
+    ],
+    "preferred_upstream_tools": [
+      "STAR",
+      "HISAT2",
+      "featureCounts",
+      "Salmon",
+      "kallisto",
+      "tximport"
+    ],
+    "smoke_fallback_policy": "Fallback may support runner smoke tests but cannot claim article-grade replay."
+  },
+  "benchmark_policy": {
+    "public_private_split_required": true,
+    "oracle_in_prompt_allowed": false,
+    "case_pass_rule": "A case passes only when every verifier gate passes.",
+    "artifact_level_scoring_required": true
+  },
+  "self_evolution_policy": {
+    "learning_source": "gate-level failure ledger and review receipt",
+    "allowed_patch_targets": [
+      "prompt policy",
+      "stage rubric",
+      "tool policy",
+      "adapter behavior",
+      "delivery contract"
+    ],
+    "promotion_requires": [
+      "hidden regression pass",
+      "independent review",
+      "owner promotion receipt"
+    ],
+    "history_rewrite_allowed": false
+  },
+  "authority_boundary": {
+    "scenario_pack_can_claim_domain_ready": false,
+    "scenario_pack_can_claim_production_ready": false,
+    "scenario_pack_can_claim_clinical_validity": false,
+    "scenario_pack_can_claim_biological_quality_verdict": false
+  }
+}

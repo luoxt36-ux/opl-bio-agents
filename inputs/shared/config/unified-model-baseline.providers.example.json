@@ -1,0 +1,34 @@
+{
+  "surface_kind": "opl_bio_unified_model_baseline_provider_configuration_example",
+  "version": "v0.1",
+  "providers": {
+    "codex_current": {
+      "adapter": "codex_cli",
+      "required_environment": [],
+      "optional_environment": ["CODEX_MODEL", "CODEX_BIN"],
+      "notes": "Uses the current authenticated Codex CLI configuration when CODEX_MODEL is unset."
+    },
+    "claude": {
+      "adapter": "anthropic_api",
+      "required_environment": ["ANTHROPIC_API_KEY", "ANTHROPIC_MODEL"],
+      "optional_environment": ["ANTHROPIC_BASE_URL"]
+    },
+    "gemini": {
+      "adapter": "gemini_api",
+      "required_environment": ["GEMINI_API_KEY or GOOGLE_API_KEY", "GEMINI_MODEL"],
+      "optional_environment": ["GEMINI_BASE_URL"]
+    },
+    "openrouter": {
+      "adapter": "openrouter_api",
+      "required_environment": ["OPENROUTER_API_KEY", "OPENROUTER_MODEL"],
+      "optional_environment": ["OPENROUTER_BASE_URL"]
+    }
+  },
+  "security_boundary": {
+    "commit_provider_secrets": false,
+    "public_input_only": true,
+    "source_literature_lookup_allowed": false,
+    "private_oracle_allowed": false,
+    "provider_secret_file_read_allowed": false
+  }
+}

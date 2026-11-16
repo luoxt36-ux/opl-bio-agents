@@ -1,0 +1,87 @@
+{
+  "surface_kind": "opl_bio_three_agent_identity_contract",
+  "version": "opl-bio-three-agent-identity.v1",
+  "state": "current_mainline_identity_authority",
+  "purpose": "Provide one machine-readable identity source for the three OPL-Bio Agents used by the current manuscript and release surfaces.",
+  "current_agents": [
+    {
+      "agent_id": "opl_bio_bulk_rna_seq_agent",
+      "runtime_key": "bulk_rna_seq_agent",
+      "task_family": "bulk_rna_seq",
+      "display_name": "Bulk RNA-seq Agent",
+      "runner": "examples/opl-bio-agent/runtime/agent_runner/bulk_rna_seq_agent.mjs",
+      "verifier": "examples/opl-bio-agent/runtime/authority_functions/bulk_rna_seq_benchmark_verifier.mjs",
+      "fixture": "examples/opl-bio-agent/runtime/fixtures/bulk_rna_seq_benchmark_cases.json",
+      "expected_passed_count": 10,
+      "release_boundary_needle": "Processed-matrix knowledge-delivery benchmark",
+      "claim_boundary": "Processed-matrix knowledge-delivery benchmark; not raw-read article-grade replay or clinical validity.",
+      "final_source_runner": "source/examples/opl-bio-agent/runtime/agent_runner/bulk_rna_seq_agent.mjs",
+      "final_source_verifier": "source/examples/opl-bio-agent/runtime/authority_functions/bulk_rna_seq_benchmark_verifier.mjs"
+    },
+    {
+      "agent_id": "opl_bio_sc_rna_seq_agent",
+      "runtime_key": "sc_rna_seq_agent",
+      "task_family": "sc_rna_seq",
+      "display_name": "scRNA-seq Agent",
+      "runner": "examples/opl-bio-agent/runtime/agent_runner/sc_rna_seq_agent.mjs",
+      "verifier": "examples/opl-bio-agent/runtime/authority_functions/sc_rna_seq_routine_analysis_verifier.mjs",
+      "fixture": "examples/opl-bio-agent/runtime/fixtures/sc_rna_seq_benchmark_cases.json",
+      "expected_passed_count": 3,
+      "release_boundary_needle": "Seventeen post-feature-matrix capabilities",
+      "claim_boundary": "Routine post-feature-matrix analysis with explicit unsupported boundaries; not raw-read processing, universal annotation, or clinical validity.",
+      "final_source_runner": "source/examples/opl-bio-agent/runtime/agent_runner/sc_rna_seq_agent.mjs",
+      "final_source_verifier": "source/examples/opl-bio-agent/runtime/authority_functions/sc_rna_seq_routine_analysis_verifier.mjs"
+    },
+    {
+      "agent_id": "opl_bio_genome_analysis_agent",
+      "runtime_key": "genome_analysis_agent",
+      "task_family": "genome_sequencing_analysis",
+      "display_name": "Genome Analysis Agent",
+      "runner": "examples/opl-bio-agent/runtime/agent_runner/genome_analysis_agent.mjs",
+      "verifier": "examples/opl-bio-agent/runtime/authority_functions/genome_analysis_verifier.mjs",
+      "fixture": "outputs/opl-bio-genome-analysis-agent-execution-upgrade-v1/untouched-confirmation-v3/case-manifest.json",
+      "compatibility_fixture": "examples/opl-bio-agent/runtime/fixtures/genome_sequencing_analysis_smoke_cases.json",
+      "model": "gpt-6-astra",
+      "execution_architecture": {
+        "model_driven": [
+          "task interpretation",
+          "execution-profile selection",
+          "decision rationale",
+          "fallback declaration"
+        ],
+        "local_deterministic": [
+          "profile artifact binding",
+          "genomic tool execution",
+          "result contract validation",
+          "private truth scoring"
+        ],
+        "model_receives_raw_genomic_records": false,
+        "model_receives_private_truth": false
+      },
+      "expected_passed_count": 2,
+      "release_boundary_needle": "Routine genome-sequencing analysis across 11 contracted domains",
+      "claim_boundary": "Bounded genome-sequencing analysis identity and provenance; not caller accuracy, superiority, clinical validity, or publication readiness.",
+      "final_source_runner": "source/examples/opl-bio-agent/runtime/agent_runner/genome_analysis_agent.mjs",
+      "final_source_verifier": "source/examples/opl-bio-agent/runtime/authority_functions/genome_analysis_verifier.mjs"
+    }
+  ],
+  "excluded_from_current_agents": {
+    "genome_variant_biobench": {
+      "agent_id": "genome_variant_biobench_agent",
+      "status": "historical_benchmark_only",
+      "current_agent": false,
+      "allowed_role": "Preserve historical evaluation-governance provenance and benchmark comparisons only."
+    },
+    "scholar": {
+      "constructed_agent": false,
+      "status": "external_validation_module_only",
+      "allowed_role": "Validate frozen Agent findings against public literature or databases after analysis; never count as one of the three constructed Agents."
+    }
+  },
+  "authority_boundary": {
+    "current_agent_count": 3,
+    "historical_artifact_presence_can_change_current_identity": false,
+    "figure_or_document_may_invent_additional_constructed_agents": false,
+    "identity_contract_can_claim_scientific_or_publication_readiness": false
+  }
+}

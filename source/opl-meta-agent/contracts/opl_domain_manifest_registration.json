@@ -1,0 +1,32 @@
+{
+  "surface_kind": "opl_domain_manifest_registration",
+  "schema_version": 1,
+  "agent_id": "oma",
+  "package_id": "oma",
+  "domain_id": "agent_engineering",
+  "carrier_slug": "opl-meta-agent",
+  "owner": "oma",
+  "registry_owner": "one-person-lab",
+  "registration_status": "provider_descriptor_ready",
+  "role": "foundry_semantic_provider_registration",
+  "domain_manifest": {
+    "domain_label": "OPL Meta Agent",
+    "agent_role": "foundry_semantic_provider",
+    "domain_descriptor_ref": "contracts/domain_descriptor.json",
+    "stage_manifest_ref": "agent/stages/manifest.json",
+    "action_catalog_ref": "contracts/action_catalog.json",
+    "provider_manifest_ref": "contracts/foundry_provider.json",
+    "pack_compiler_input_ref": "contracts/pack_compiler_input.json",
+    "generated_surface_handoff_ref": "contracts/generated_surface_handoff.json",
+    "functional_privatization_audit_ref": "contracts/functional_privatization_audit.json",
+    "memory_descriptor_ref": "contracts/memory_descriptor.json"
+  },
+  "provided_outputs": ["AgentBlueprint", "EvalSpec", "EvolutionProposal"],
+  "authority_boundary": {
+    "registry_owner_is_opl_framework": true,
+    "domain_repo_can_own_generic_runtime": false,
+    "domain_repo_can_write_foundry_run_state": false,
+    "domain_repo_can_materialize_or_evaluate": false,
+    "domain_repo_can_activate_or_rollback": false
+  }
+}

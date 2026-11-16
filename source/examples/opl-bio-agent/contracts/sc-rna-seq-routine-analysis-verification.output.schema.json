@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://one-person-lab.local/contracts/opl-bio-agent/sc-rna-seq-routine-analysis-verification.output.schema.json",
+  "title": "OPL-Bio scRNA-seq Routine Analysis Verification Output",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "surface_kind",
+    "version",
+    "owner",
+    "status",
+    "case_count",
+    "passed_count",
+    "blocked_count",
+    "routine_case_results",
+    "authority_boundary"
+  ],
+  "properties": {
+    "surface_kind": {
+      "const": "opl_bio_sc_rna_seq_routine_analysis_verification"
+    },
+    "version": {
+      "const": "opl-bio-sc-rna-seq-routine-analysis-verifier.v2"
+    },
+    "owner": {
+      "const": "opl-bio-agent"
+    },
+    "status": {
+      "enum": ["passed", "blocked"]
+    },
+    "case_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "passed_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "blocked_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "routine_case_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "case_id",
+          "status",
+          "core_capability_count",
+          "covered_core_capability_count",
+          "verified_core_capability_count",
+          "partial_core_capability_count",
+          "checks",
+          "missing_artifacts",
+          "missing_core_evidence"
+        ],
+        "properties": {
+          "case_id": {"type": "string", "minLength": 1},
+          "status": {"enum": ["passed", "blocked"]},
+          "core_capability_count": {"const": 17},
+          "covered_core_capability_count": {"const": 17},
+          "verified_core_capability_count": {"type": "integer", "minimum": 0, "maximum": 17},
+          "partial_core_capability_count": {"type": "integer", "minimum": 0, "maximum": 17},
+          "checks": {"type": "object", "additionalProperties": {"type": "boolean"}},
+          "missing_artifacts": {"type": "array", "items": {"type": "string"}},
+          "missing_core_evidence": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "authority_boundary": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "verifier_can_claim_core_workflow_support": {"type": "boolean"},
+        "verifier_can_claim_article_grade_replay": {"const": false},
+        "verifier_can_claim_biological_quality_verdict": {"const": false},
+        "verifier_can_claim_clinical_validity": {"const": false}
+      }
+    }
+  }
+}

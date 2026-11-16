@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SOURCE_PATH="${BASH_SOURCE[0]}"
+while [[ -L "$SOURCE_PATH" ]]; do
+  SOURCE_DIR="$(cd "$(dirname "$SOURCE_PATH")" && pwd)"
+  LINK_TARGET="$(readlink "$SOURCE_PATH")"
+  if [[ "$LINK_TARGET" == /* ]]; then
+    SOURCE_PATH="$LINK_TARGET"
+  else
+    SOURCE_PATH="$SOURCE_DIR/$LINK_TARGET"
+  fi
+done
+ROOT_DIR="$(cd "$(dirname "$SOURCE_PATH")/.." && pwd)"
+
+run_opl() {
+  if [[ -f "$ROOT_DIR/src/cli.ts" ]]; then
+    exec node --experimental-strip-types "$ROOT_DIR/src/cli.ts" "$@"
+  fi
+
+  exec node "$ROOT_DIR/dist/cli.js" "$@"
+}
+
+invoke_opl() {
+  if [[ -f "$ROOT_DIR/src/cli.ts" ]]; then
+    node --experimental-strip-types "$ROOT_DIR/src/cli.ts" "$@"
+    return
+  fi
+
+  node "$ROOT_DIR/dist/cli.js" "$@"
+}
+
+run_codex() {
+  if [[ -n "${OPL_CODEX_BIN:-}" ]]; then
+    exec "$OPL_CODEX_BIN" "$@"
+  fi
+
+  exec codex "$@"
+}
+
+maybe_sync_family_skills() {
+  if [[ "${OPL_SKIP_SKILL_SYNC:-}" == "1" ]]; then
+    return
+  fi
+
+  invoke_opl skill sync --quiet >/dev/null
+}
+
+if [[ "$#" -eq 0 ]]; then
+  maybe_sync_family_skills
+  run_codex
+fi
+
+case "$1" in
+  --help|-h)
+    run_opl --help --text
+    ;;
+  exec)
+    shift
+    maybe_sync_family_skills
+    if [[ -n "${OPL_EXECUTOR_KIND:-}" ]]; then
+      run_opl exec "$@"
+    fi
+    for arg in "$@"; do
+      if [[ "$arg" == "--executor" ]]; then
+        run_opl exec "$@"
+      fi
+    done
+    run_codex exec "$@"
+    ;;
+  resume)
+    maybe_sync_family_skills
+    run_codex "$@"
+    ;;
+  ask)
+    shift
+    run_opl ask "$@"
+    ;;
+  chat)
+    shift
+    run_opl chat "$@"
+    ;;
+  shell)
+    shift
+    run_opl shell "$@"
+    ;;
+  session)
+    run_opl "$@"
+    ;;
+  help|doctor|install|start|web|mcp-stdio|status|workspace|domain|actions|agents|agent-lab|work-order|domain-memory|stages|packages|contract|system|modules|module|engine|service|runtime|family-runtime|executor|skill|quality|framework|substrate)
+    run_opl "$@"
+    ;;
+  *)
+    if [[ "$1" == @* ]]; then
+      run_opl "$@"
+    fi
+    maybe_sync_family_skills
+    run_codex "$@"
+    ;;
+esac

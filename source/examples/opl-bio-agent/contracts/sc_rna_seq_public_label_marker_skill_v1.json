@@ -1,0 +1,81 @@
+{
+  "surface_kind": "opl_bio_scrna_public_label_marker_skill",
+  "version": "v1",
+  "status": "public_analysis_skill_candidate",
+  "method_basis": [
+    {
+      "source": "Scanpy preprocessing and clustering tutorial",
+      "url": "https://scanpy.readthedocs.io/en/stable/tutorials/basics/clustering.html",
+      "supports": ["normalization", "highly_variable_genes", "PCA", "neighbors", "clustering", "rank_genes_groups"]
+    },
+    {
+      "source": "OPL-Bio generic cross-tissue marker signature v0.2",
+      "path": "examples/opl-bio-agent/contracts/sc_rna_seq_generic_cell_annotation_policy_v0_2.json",
+      "supports": ["public marker-panel scoring", "transparent marker support"]
+    },
+    {
+      "source": "OPL-Bio tissue-routed CellTypist candidate v0.9",
+      "path": "examples/opl-bio-agent/contracts/sc_rna_seq_cell_annotation_policy_v0_9_candidate.json",
+      "supports": ["label marker refinement", "marker coverage and margin arbitration"]
+    }
+  ],
+  "purpose": "Score allowed cell-type labels against only the currently visible public marker rows for the same observed parent or subcluster.",
+  "scoring": {
+    "marker_match": "case-insensitive exact match against a visible gene_symbol",
+    "support_status": "supported when at least two panel markers are positive, or one positive marker covers at least 40 percent of the panel; one lower-coverage marker is single_marker_only; none is not_observed",
+    "ranking": "descending positive marker count, then total positive score, then coverage, then label order",
+    "coverage": "number of panel genes observed in the row divided by panel size",
+    "minimum_observed_markers": 1,
+    "candidate_scores_are_not_assignments": true
+  },
+  "authority_boundary": {
+    "read_only": true,
+    "truth_access": false,
+    "prediction_access": false,
+    "dataset_specific_routing": false,
+    "label_assignment": false,
+    "adds_provider_calls": false
+  },
+  "panels": {
+    "B cell": ["MS4A1", "CD79A", "CD79B", "CD37", "CD74"],
+    "T cell": ["CD3D", "CD3E", "TRAC", "TRBC1", "TRBC2", "IL7R", "LTB"],
+    "endothelial cell": ["PECAM1", "VWF", "EMCN", "KDR", "ENG", "CLDN5"],
+    "endothelial cell of lymphatic vessel": ["PROX1", "LYVE1", "CCL21", "MMRN1", "PDPN"],
+    "endothelial cell of uterus": ["PECAM1", "VWF", "EMCN", "KDR", "ENG"],
+    "endothelial stalk cell": ["PECAM1", "VWF", "EMCN", "KDR", "ENG"],
+    "fibroblast": ["COL1A1", "COL1A2", "COL3A1", "DCN", "LUM", "PDGFRA"],
+    "hepatocyte": ["ALB", "APOA1", "APOB", "TTR", "SERPINA1", "HP"],
+    "malignant cell": ["EPCAM", "KRT8", "KRT18", "KRT19", "MUC1"],
+    "macrophage": ["LST1", "CTSS", "FCER1G", "TYROBP", "C1QA", "C1QB", "APOC1", "CD68"],
+    "monocyte": ["LYZ", "S100A8", "S100A9", "FCN1", "CD14", "VCAN"],
+    "mature NK T cell": ["CD3D", "CD3E", "NKG7", "GNLY", "KLRD1"],
+    "natural killer cell": ["NKG7", "GNLY", "KLRD1", "PRF1", "GZMB", "CTSW"],
+    "NKp46-positive innate lymphoid cell, human": ["NCR1", "KLRD1", "NKG7", "GNLY", "PRF1"],
+    "leukocyte": ["PTPRC", "CD52", "LSP1", "HCK", "ARHGDIB"],
+    "pericyte": ["RGS5", "CSPG4", "PDGFRB", "MCAM", "ACTA2"],
+    "smooth muscle cell": ["ACTA2", "TAGLN", "MYL9", "MYH11", "CNN1"],
+    "stromal cell": ["COL1A1", "COL1A2", "COL3A1", "DCN", "LUM", "PDGFRA"],
+    "stromal cell of endometrium": ["COL1A1", "COL1A2", "COL3A1", "DCN", "LUM", "PDGFRA"],
+    "ciliated epithelial cell": ["FOXJ1", "PCDH", "TPPP3", "CAPS", "RSPH1"],
+    "epithelial cell of cervix": ["EPCAM", "KRT8", "KRT18", "KRT19", "MUC1"],
+    "glandular epithelial cell of endometrium": ["EPCAM", "KRT8", "KRT18", "KRT19", "MUC1", "PAX8"],
+    "luminal epithelial cell of endometrium": ["EPCAM", "KRT8", "KRT18", "KRT19", "ESR1", "PGR"],
+    "uterine natural killer cell": ["NKG7", "GNLY", "KLRD1", "PRF1", "GZMB"],
+    "adipocyte": ["ADIPOQ", "PLIN1", "LEP", "FABP4", "CFD"],
+    "basal-myoepithelial cell of mammary gland": ["KRT5", "KRT14", "TP63", "ACTA2", "MYLK"],
+    "luminal adaptive secretory precursor cell of mammary gland": ["KRT8", "KRT18", "KRT19", "ELF5", "PGR"],
+    "luminal hormone-sensing cell of mammary gland": ["ESR1", "PGR", "KRT8", "KRT18", "KRT19"],
+    "activated skeletal muscle satellite cell": ["PAX7", "MYF5", "MYOD1", "CD34", "MKI67"],
+    "multi-potent skeletal muscle stem cell": ["PAX7", "MYF5", "CD34", "CXCR4"],
+    "skeletal muscle satellite stem cell": ["PAX7", "MYF5", "CD34", "CXCR4"],
+    "smooth muscle myoblast": ["MYOD1", "MYF5", "DES", "ACTA2", "TAGLN"],
+    "type I muscle cell": ["MYH7", "TNNT1", "TNNI1", "MYL2", "MYL3"],
+    "type IIx muscle cell": ["MYH1", "MYH2", "TNNT3", "TNNI2", "MYLPF"],
+    "connective tissue type mast cell": ["TPSAB1", "TPSB2", "KIT", "MS4A2", "CPA3"],
+    "mast cell": ["TPSAB1", "TPSB2", "KIT", "MS4A2", "CPA3", "HDC"]
+  },
+  "unsupported_labels": {
+    "reason": "No sufficiently specific public marker panel is available in this candidate skill.",
+    "labels": []
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "version": "v1",
+  "contract_id": "opl_native_helper_contract",
+  "contract_ref": "contracts/opl-framework/native-helper-contract.json",
+  "scope": "opl_rust_native_helper_json_stdio_boundary",
+  "language": "rust",
+  "protocol": {
+    "version": "opl_native_helper.v1",
+    "transport": "cli_stdio",
+    "input": "json_object_on_stdin",
+    "output": "json_object_on_stdout",
+    "error_shape": {
+      "ok": false,
+      "errors": [
+        {
+          "code": "string",
+          "message": "string"
+        }
+      ]
+    }
+  },
+  "owner_split": {
+    "helper_owner": "one-person-lab",
+    "runtime_kernel_owner": "provider_backed_family_runtime",
+    "domain_truth_owners": [
+      "med-autoscience",
+      "med-autogrant",
+      "redcube-ai"
+    ]
+  },
+  "runtime_manager_consumption": {
+    "binary_discovery_order": [
+      "OPL_NATIVE_HELPER_<HELPER_ID>_BIN",
+      "OPL_NATIVE_HELPER_BIN_DIR",
+      "OPL_STATE_DIR native-helper cache",
+      "workspace target/debug",
+      "PATH"
+    ],
+    "build_command": "npm run native:build",
+    "prebuild_install_command": "npm run native:prebuild",
+    "prebuild_pack_command": "npm run native:prebuild-pack",
+    "prebuild_check_command": "npm run native:prebuild-check",
+    "doctor_command": "npm run native:doctor",
+    "repair_command": "npm run native:repair",
+    "test_command": "npm run native:test",
+    "packaged_source_files": [
+      "Cargo.toml",
+      "Cargo.lock",
+      "native/opl-native-helper/Cargo.toml",
+      "native/opl-native-helper/src",
+      "scripts/native-helper-doctor.mjs",
+      "scripts/native-helper-prebuild.mjs",
+      "scripts/native-helper-repair.mjs"
+    ],
+    "prebuild_cache_strategy": {
+      "surface_kind": "opl_native_helper_prebuild_strategy",
+      "manifest": "native-helper-prebuilds/<target_triple>/<crate_version>/manifest.json",
+      "restore_order": [
+        "OPL_NATIVE_HELPER_PREBUILD_ROOT",
+        "package native-helper-prebuilds",
+        "GHCR one-person-lab-native-helper OCI archive",
+        "local Cargo build fallback"
+      ],
+      "cache_destination": "${OPL_STATE_DIR}/native-helper/bin/<target_triple>/<crate_version>"
+    },
+    "persisted_projection": "${OPL_STATE_DIR}/runtime-manager/native-state-index.json",
+    "persisted_surface_kind": "opl_runtime_manager_native_state_projection",
+    "index_lifecycle": {
+      "ttl_ms": 86400000,
+      "history_file": "${OPL_STATE_DIR}/runtime-manager/native-state-index-history.jsonl",
+      "failure_file": "${OPL_STATE_DIR}/runtime-manager/native-state-index-failures.jsonl",
+      "last_success_file": "${OPL_STATE_DIR}/runtime-manager/native-state-index-last-success.json",
+      "freshness_statuses": [
+        "fresh",
+        "stale_last_success_available",
+        "expired_last_success",
+        "unavailable_no_success"
+      ],
+      "diff_summary": {
+        "compared_fields": [
+          "index_key",
+          "helper_id",
+          "result_surface_kind",
+          "status"
+        ],
+        "count_fields": [
+          "previous_index_count",
+          "current_index_count",
+          "added_count",
+          "removed_count",
+          "changed_count",
+          "unchanged_count",
+          "helper_changed_count",
+          "result_surface_changed_count",
+          "status_changed_count"
+        ]
+      },
+      "failure_record": {
+        "required_fields": [
+          "generated_at",
+          "status",
+          "category",
+          "errors",
+          "details"
+        ],
+        "categories": [
+          "helper_unavailable",
+          "helper_error",
+          "write_failed"
+        ]
+      },
+      "history_gc": {
+        "max_history_entries": 50,
+        "reporting_fields": [
+          "retained_history_count",
+          "preserved_count",
+          "removed_count",
+          "history_count_before_gc",
+          "history_count_after_gc"
+        ]
+      }
+    }
+  },
+  "helpers": [
+    {
+      "helper_id": "opl-sysprobe",
+      "priority": "p1_native_helper",
+      "binary": "opl-sysprobe",
+      "input_contract": "optional request_id and probe_paths",
+      "output_surface": "native_system_probe"
+    },
+    {
+      "helper_id": "opl-doctor-native",
+      "priority": "p1_native_helper",
+      "binary": "opl-doctor-native",
+      "input_contract": "optional request_id and probe_paths",
+      "output_surface": "native_doctor_snapshot"
+    },
+    {
+      "helper_id": "opl-runtime-watch",
+      "priority": "p1_native_helper",
+      "binary": "opl-runtime-watch",
+      "input_contract": "watch_roots[] and optional max_depth",
+      "output_surface": "runtime_health_snapshot_index"
+    },
+    {
+      "helper_id": "opl-artifact-indexer",
+      "priority": "p2_high_frequency_index",
+      "binary": "opl-artifact-indexer",
+      "input_contract": "workspace_root plus optional artifact_roots[] and artifact_extensions[]",
+      "output_surface": "native_artifact_manifest"
+    },
+    {
+      "helper_id": "opl-state-indexer",
+      "priority": "p2_high_frequency_index",
+      "binary": "opl-state-indexer",
+      "input_contract": "workspace_roots[], session_ledger_roots[], attention_queue_roots[], and optional max_depth",
+      "output_surface": "native_state_index"
+    }
+  ],
+  "non_goals": [
+    "not_a_scheduler_kernel",
+    "not_a_session_or_memory_store",
+    "not_a_domain_truth_owner",
+    "not_a_concrete_executor",
+    "not_a_python_domain_logic_replacement"
+  ],
+  "source_of_truth_rule": "Rust helpers may index, validate, and accelerate local file surfaces, but they must not replace MAS, MAG, or RCA domain-owned durable truth."
+}

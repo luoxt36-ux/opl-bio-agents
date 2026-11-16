@@ -1,0 +1,76 @@
+{
+  "version": "g2",
+  "intent_id": [
+    "grant_direction_assessment",
+    "proposal_authoring",
+    "proposal_revision",
+    "research_progression",
+    "submission_delivery",
+    "data_asset_governance",
+    "presentation_delivery",
+    "lecture_materials",
+    "defense_materials"
+  ],
+  "workstream_id": [
+    "grant_ops",
+    "research_ops",
+    "presentation_ops"
+  ],
+  "domain_id": [
+    "medautogrant",
+    "medautoscience",
+    "redcube"
+  ],
+  "request_kind": [
+    "discover",
+    "plan",
+    "create",
+    "review",
+    "rerun",
+    "publish"
+  ],
+  "target_kind": [
+    "workspace",
+    "study",
+    "deliverable",
+    "topic",
+    "publication"
+  ],
+  "delivery_kind": [
+    "research_delivery",
+    "presentation_delivery",
+    "social_visual_delivery"
+  ],
+  "review_kind": [
+    "human_review",
+    "baseline_review",
+    "publish_gate",
+    "quality_regression"
+  ],
+  "entry_mode": [
+    "domain_agent_entry",
+    "stage_runtime_projection",
+    "direct_domain_skill"
+  ],
+  "selection_rules": [
+    "select by explicit domain-agent handle first",
+    "select by workstream semantics second",
+    "select by family/profile preference third",
+    "OPL opens a stage-led framework handoff and does not become domain truth owner",
+    "the selected domain agent owns quality, artifact, and publication or export authority"
+  ],
+  "special_cases": [
+    {
+      "family": "ppt_deck",
+      "direct_workstream": "presentation_ops",
+      "domain_id": "redcube",
+      "notes": "ppt_deck maps directly to Presentation Foundry through RedCube AI."
+    },
+    {
+      "family": "xiaohongshu",
+      "domain_id": "redcube",
+      "auto_workstream": null,
+      "notes": "xiaohongshu may select RedCube AI without automatically becoming Presentation Foundry."
+    }
+  ]
+}

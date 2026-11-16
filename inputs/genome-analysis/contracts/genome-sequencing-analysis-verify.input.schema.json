@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://one-person-lab.local/contracts/opl-bio-agent/genome-sequencing-analysis-verify.input.schema.json",
+  "title": "OPL-Bio Genome Sequencing Analysis Verify Input",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["cases", "predictions"],
+  "properties": {
+    "cases": {"type": "string", "minLength": 1},
+    "predictions": {"type": "string", "minLength": 1}
+  }
+}

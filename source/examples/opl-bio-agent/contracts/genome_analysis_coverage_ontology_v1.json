@@ -1,0 +1,56 @@
+{
+  "surface_kind": "opl_bio_genome_analysis_coverage_ontology",
+  "version": "opl-bio-genome-analysis-coverage.v1",
+  "purpose": "Define the minimum auditable breadth required before a Genome benchmark may be described as covering most genome-analysis needs.",
+  "requirement_domains": [
+    { "domain_id": "germline_small_variant", "label": "Germline small-variant analysis" },
+    { "domain_id": "somatic_tumor_normal", "label": "Somatic tumor-normal analysis" },
+    { "domain_id": "structural_copy_number", "label": "Structural-variant and copy-number analysis" },
+    { "domain_id": "long_read_phasing", "label": "Long-read and phasing analysis" },
+    { "domain_id": "family_cohort_joint", "label": "Family and cohort joint analysis" },
+    { "domain_id": "sample_qc_identity", "label": "Sample QC, contamination, and identity" },
+    { "domain_id": "annotation_prioritization", "label": "Variant annotation and prioritization" },
+    { "domain_id": "population_ancestry", "label": "Population frequency and ancestry calibration" },
+    { "domain_id": "mitochondrial", "label": "Mitochondrial variant analysis" },
+    { "domain_id": "reference_graph_hard_region", "label": "Reference, graph, and hard-region analysis" },
+    { "domain_id": "workflow_reproducibility", "label": "Workflow reproducibility and provenance" },
+    { "domain_id": "reporting_claim_governance", "label": "Reporting and claim governance" }
+  ],
+  "workflow_stages": [
+    "intake_scope",
+    "input_qc",
+    "method_selection",
+    "execution_monitoring",
+    "normalization_harmonization",
+    "verification_evaluation",
+    "failure_recovery",
+    "interpretation_prioritization",
+    "reporting_provenance"
+  ],
+  "data_modalities": [
+    "short_read_germline",
+    "tumor_normal",
+    "long_read",
+    "trio_family",
+    "population_cohort",
+    "mitochondrial",
+    "graph_reference",
+    "mixed_batch"
+  ],
+  "coverage_gate": {
+    "minimum_domain_fraction": 0.9,
+    "minimum_stage_fraction": 0.85,
+    "minimum_modality_fraction": 0.75,
+    "minimum_cases_per_domain": 2,
+    "minimum_multi_stage_case_fraction": 0.75,
+    "minimum_recovery_case_fraction": 0.4,
+    "maximum_public_arithmetic_recipe_case_fraction": 0.25,
+    "minimum_case_count": 24
+  },
+  "authority_boundary": {
+    "coverage_is_not_variant_call_accuracy": true,
+    "coverage_is_not_clinical_validity": true,
+    "future_performance_claim_requires_frozen_private_holdout": true,
+    "development_cases_are_never_promotable_to_holdout": true
+  }
+}

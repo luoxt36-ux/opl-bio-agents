@@ -1,0 +1,453 @@
+{
+  "surface_kind": "opl_bio_scenario_domain_pack",
+  "version": "opl-bio-sc-rna-seq-scenario-pack.v0.8",
+  "owner": "opl-bio-agent",
+  "state": "candidate_scenario_pack",
+  "scenario_agent_id": "opl_bio_sc_rna_seq_agent",
+  "task_family": "single_cell_rna_seq_replay",
+  "purpose": "Generate OPL-governed single-cell RNA-seq scenario agents for curated public processed-matrix replay and knowledge-delivery benchmark cases.",
+  "framework_boundary": {
+    "generated_from": "OPL stage runtime plus OPL-Bio domain pack",
+    "opl_owns": [
+      "stage lifecycle",
+      "executor activation",
+      "attempt ledger",
+      "receipt projection"
+    ],
+    "opl_bio_owns": [
+      "single-cell tool policy",
+      "cell-type interpretation",
+      "artifact authority",
+      "benchmark verdict",
+      "domain review"
+    ]
+  },
+  "input_contract": {
+    "accepted_task_kinds": [
+      "sc_rna_seq_celltype_marker_replay",
+      "sc_rna_seq_condition_response_by_celltype",
+      "sc_rna_seq_cluster_annotation_replay",
+      "sc_rna_seq_qc_normalization_clustering",
+      "sc_rna_seq_sample_aware_pseudobulk_de",
+      "sc_rna_seq_batch_integration_diagnostic",
+      "sc_rna_seq_doublet_screen",
+      "sc_rna_seq_trajectory_readiness"
+    ],
+    "required_public_inputs": [
+      "case_id",
+      "species",
+      "geo_accession or local dataset ref",
+      "counts_matrix_ref",
+      "cell_metadata_ref",
+      "condition_field",
+      "cell_type_field",
+      "one supported local input lane: counts_tsv plus cell_metadata_tsv, tenx_mtx_dir plus cell_metadata_tsv, or h5ad"
+    ],
+    "accepted_input_lanes": [
+      "cellranger_feature_barcode_matrix",
+      "h5ad_processed_object",
+      "processed_count_matrix_with_cell_metadata"
+    ],
+    "current_verified_lanes": [
+      "processed_count_matrix_with_cell_metadata",
+      "cellranger_feature_barcode_matrix",
+      "h5ad_processed_object"
+    ],
+    "current_adapter_lane": null
+  },
+  "stage_contracts": [
+    {
+      "stage_id": "data_readiness",
+      "requires": [
+        "dataset refs",
+        "cell metadata",
+        "gene-by-cell matrix"
+      ],
+      "ensures": [
+        "dataset_manifest.json",
+        "input_materialization_receipt.json",
+        "cell_metadata.tsv",
+        "data blockers or ready receipt"
+      ]
+    },
+    {
+      "stage_id": "analysis_plan",
+      "requires": [
+        "data_readiness receipt",
+        "task policy",
+        "available toolchain"
+      ],
+      "ensures": [
+        "analysis_plan.json",
+        "live_scanpy_receipt.json",
+        "fallback or live-tool execution lane decision"
+      ]
+    },
+    {
+      "stage_id": "qc_and_normalization",
+      "requires": [
+        "data_readiness receipt",
+        "counts matrix",
+        "cell metadata"
+      ],
+      "ensures": [
+        "qc_metrics.tsv",
+        "qc_summary.tsv",
+        "qc_summary_plot.svg",
+        "normalized_expression.tsv",
+        "scaled_expression.tsv",
+        "cell_cycle_scores.tsv",
+        "normalization receipt",
+        "live_scanpy/tables/scanpy_highly_variable_genes.tsv when live Scanpy is available",
+        "live_scanpy/tables/doublet_screen.tsv when live Scanpy is available"
+      ]
+    },
+    {
+      "stage_id": "celltype_annotation",
+      "requires": [
+        "normalized expression",
+        "marker policy"
+      ],
+      "ensures": [
+        "celltype_summary.tsv",
+        "marker_table.tsv",
+        "marker_dotplot.svg",
+        "celltype_condition_projection.svg",
+        "cluster_annotation.json",
+        "cell_predictions.tsv when generic marker-signature annotation is enabled",
+        "live_scanpy/tables/scanpy_cluster_assignments.tsv when live Scanpy is available"
+      ]
+    },
+    {
+      "stage_id": "condition_response",
+      "requires": [
+        "cell type assignments",
+        "condition labels"
+      ],
+      "ensures": [
+        "condition_response.tsv",
+        "celltype_condition_response.tsv",
+        "condition_response_summary.tsv",
+        "condition_response_heatmap.svg",
+        "cell_composition.tsv",
+        "module_scores.tsv",
+        "pathway_enrichment.tsv",
+        "live_scanpy/tables/scanpy_pseudobulk_de.tsv when sample metadata is available",
+        "live_scanpy/tables/trajectory_readiness.tsv when live Scanpy is available"
+      ]
+    },
+    {
+      "stage_id": "evidence_audit",
+      "requires": [
+        "marker table",
+        "condition response",
+        "paper refs",
+        "data refs"
+      ],
+      "ensures": [
+        "claim_table.tsv",
+        "evidence_ledger.jsonl"
+      ]
+    },
+    {
+      "stage_id": "biological_interpretation",
+      "requires": [
+        "claim_table",
+        "evidence_ledger",
+        "limitations"
+      ],
+      "ensures": [
+        "report.md",
+        "non-clinical single-cell interpretation"
+      ]
+    },
+    {
+      "stage_id": "review_and_red_team",
+      "requires": [
+        "stage_receipts",
+        "artifact_manifest",
+        "claim_table"
+      ],
+      "ensures": [
+        "review_receipt.json",
+        "critical blockers or accepted limitations"
+      ]
+    },
+    {
+      "stage_id": "delivery",
+      "requires": [
+        "accepted artifacts",
+        "review_receipt"
+      ],
+      "ensures": [
+        "delivery_readme.md",
+        "artifact_manifest.json",
+        "handoff-ready package"
+      ]
+    }
+  ],
+  "required_delivery_artifacts": [
+    "domain_pack_snapshot.json",
+    "dataset_manifest.json",
+    "input_materialization_receipt.json",
+    "analysis_plan.json",
+    "cell_metadata.tsv",
+    "qc_metrics.tsv",
+    "qc_summary.tsv",
+    "qc_summary_plot.svg",
+    "normalized_expression.tsv",
+    "scaled_expression.tsv",
+    "cell_cycle_scores.tsv",
+    "celltype_summary.tsv",
+    "marker_table.tsv",
+    "marker_dotplot.svg",
+    "celltype_condition_projection.svg",
+    "cluster_annotation.json",
+    "cell_predictions.tsv when enabled by the public task contract",
+    "condition_response.tsv",
+    "celltype_condition_response.tsv",
+    "condition_response_summary.tsv",
+    "condition_response_heatmap.svg",
+    "cell_composition.tsv",
+    "module_scores.tsv",
+    "pathway_enrichment.tsv",
+    "live_scanpy/live_scanpy_receipt.json",
+    "live_scanpy/scanpy_processed.h5ad when live Scanpy is available",
+    "live_scanpy/tables/scanpy_rank_genes_groups.tsv when live Scanpy is available",
+    "live_scanpy/tables/scanpy_condition_response.tsv when live Scanpy is available",
+    "live_scanpy/tables/scanpy_pca_coordinates.tsv when live Scanpy is available",
+    "live_scanpy/tables/scanpy_highly_variable_genes.tsv when live Scanpy is available",
+    "live_scanpy/tables/scanpy_cluster_assignments.tsv when live Scanpy is available",
+    "live_scanpy/tables/scanpy_umap_coordinates.tsv when live Scanpy is available",
+    "live_scanpy/tables/scanpy_pseudobulk_de.tsv when sample metadata is available",
+    "live_scanpy/batch_diagnostic.json when live Scanpy is available",
+    "live_scanpy/tables/doublet_screen.tsv when live Scanpy is available",
+    "live_scanpy/tables/trajectory_readiness.tsv when live Scanpy is available",
+    "routine_analysis_coverage.json",
+    "claim_table.tsv",
+    "evidence_ledger.jsonl",
+    "stage_receipts.jsonl",
+    "review_receipt.json",
+    "report.md",
+    "delivery_readme.md",
+    "artifact_manifest.json",
+    "run_receipt.json"
+  ],
+  "tool_policy": {
+    "routine_analysis_coverage_ref": "examples/opl-bio-agent/contracts/sc_rna_seq_routine_analysis_coverage_v1.json",
+    "preferred_analysis_frameworks": [
+      "Seurat",
+      "Scanpy",
+      "Bioconductor SingleCellExperiment"
+    ],
+    "preferred_qc_tools": [
+      "scater",
+      "scran",
+      "Seurat QC",
+      "Scanpy pp"
+    ],
+    "preferred_marker_tools": [
+      "Seurat FindAllMarkers",
+      "Scanpy rank_genes_groups",
+      "scran findMarkers"
+    ],
+    "preferred_integration_tools": [
+      "Seurat integration",
+      "Harmony",
+      "scVI"
+    ],
+    "default_cell_annotation_policy_ref": "examples/opl-bio-agent/contracts/sc_rna_seq_cell_annotation_policy_v0_6_evolved.json",
+    "generic_cell_annotation_policy": {
+      "policy_id": "opl_bio_generic_human_immune_epithelial_marker_signature.v0.1",
+      "normalization": "library-size CPM plus log1p",
+      "scoring": "per-gene z score across public cells followed by mean available-marker signature score",
+      "tie_break": "lexicographic cell-type label order",
+      "marker_panel": {
+        "Macrophages": [
+          "LST1",
+          "CTSS",
+          "FCER1G",
+          "TYROBP",
+          "C1QA",
+          "C1QB",
+          "APOC1",
+          "MARCO",
+          "CD68"
+        ],
+        "T": [
+          "CD3D",
+          "CD3E",
+          "TRAC",
+          "TRBC1",
+          "IL7R",
+          "LTB"
+        ],
+        "Epithelial": [
+          "EPCAM",
+          "KRT8",
+          "KRT18",
+          "KRT19",
+          "KRT17",
+          "MUC1"
+        ],
+        "Neutrophil": [
+          "FCGR3B",
+          "CSF3R",
+          "FPR1",
+          "S100A8",
+          "S100A9",
+          "CXCR2"
+        ],
+        "NK": [
+          "NKG7",
+          "GNLY",
+          "KLRD1",
+          "PRF1",
+          "GZMB",
+          "CTSW"
+        ],
+        "Plasma": [
+          "JCHAIN",
+          "MZB1",
+          "SDC1",
+          "DERL3",
+          "IGHG1",
+          "IGKC"
+        ],
+        "mDC": [
+          "FCER1A",
+          "CD1C",
+          "CLEC10A",
+          "CST3",
+          "HLA-DRA",
+          "CD74"
+        ],
+        "B": [
+          "MS4A1",
+          "CD79A",
+          "CD79B",
+          "CD37",
+          "CD74",
+          "HLA-DRA"
+        ],
+        "pDC": [
+          "GZMB",
+          "TCF4",
+          "IRF7",
+          "IL3RA",
+          "CLEC4C",
+          "SERPINF1"
+        ],
+        "Mast": [
+          "TPSAB1",
+          "TPSB2",
+          "KIT",
+          "MS4A2",
+          "CPA3",
+          "HDC"
+        ]
+      },
+      "authority_boundary": {
+        "policy_uses_case_specific_author_labels": false,
+        "policy_can_claim_smoke_or_candidate_annotation": true,
+        "policy_can_claim_article_grade_annotation": false
+      }
+    },
+    "self_evolved_v0_5_candidate_policy": {
+      "policy_ref": "outputs/opl-bio-scrna-self-evolution-v0-5-candidate/candidate_policy.json",
+      "freeze_decision_ref": "outputs/opl-bio-scrna-self-evolution-v0-5-candidate/freeze_decision.json",
+      "development_gate_ref": "outputs/opl-bio-scrna-self-evolution-v0-5-candidate/development_gate_result.json",
+      "status": "v0_5_candidate_frozen_new_untouched_test_required",
+      "eligible_input_lane": "truth-stripped h5ad",
+      "selection_summary": "label-aware CellTypist arbitration with default threshold 0.11, B threshold 0.46, and NK threshold 0.90",
+      "failure_policy": "fail closed on missing H5AD, model-hash mismatch, insufficient selected-gene coverage, missing predictions, or external-runner failure",
+      "authority_boundary": {
+        "development_gate_passed": true,
+        "gse246613_truth_used_for_training_or_threshold_selection": false,
+        "policy_applies_automatically_to_existing_benchmark_fixtures": false,
+        "policy_requires_explicit_cell_annotation_policy_ref": true,
+        "new_untouched_dendritic_rich_test_required": true,
+        "default_policy_promoted": false
+      }
+    },
+    "candidate_cell_annotation_policy": {
+      "policy_ref": "examples/opl-bio-agent/contracts/sc_rna_seq_cell_annotation_policy_v0_8.json",
+      "latest_evaluation_decision_ref": "outputs/opl-bio-scrna-self-evolution-v0-8-promotion/receipt.json",
+      "latest_evaluation_status": "v0_8_promoted_for_explicit_truth_stripped_h5ad_lane",
+      "eligible_input_lane": "truth-stripped h5ad",
+      "required_python_capabilities": [
+        "celltypist",
+        "scanpy",
+        "anndata",
+        "h5py"
+      ],
+      "failure_policy": "fail closed on missing H5AD, model-hash mismatch, insufficient selected-gene coverage, missing predictions, or external-runner failure",
+      "authority_boundary": {
+        "policy_has_eligible_untouched_postfreeze_promotion_evidence": true,
+        "gse96583_is_performance_replay_only_due_to_prior_project_exposure": true,
+        "gse246613_value_blind_test_passed_macro_f1_gate_but_failed_accuracy_and_dendritic_support_gates": true,
+        "cellxgene_b3875c91_independent_promotion_gate_passed": true,
+        "policy_is_postfreeze_promoted": true,
+        "generic_marker_default_replaced": false,
+        "policy_applies_automatically_to_existing_benchmark_fixtures": false,
+        "policy_requires_explicit_cell_annotation_policy_ref": true
+      }
+    },
+    "input_materialization_policy": "Processed TSV, 10x Matrix Market, and h5ad inputs must be materialized into a canonical counts.tsv plus cell_metadata.tsv pair before OPL stage execution.",
+    "smoke_fallback_policy": "Deterministic marker scoring may support runner smoke tests but cannot claim article-grade scRNA-seq replay.",
+    "self_evolved_v1_54_candidate_policy": {
+      "policy_ref": "examples/opl-bio-agent/contracts/sc_rna_seq_cell_annotation_policy_v1_54.json",
+      "candidate_policy_sha256": "d226c36e86b5b29dea220f3dfc51ecea6d9e437c4eb63b6362109b779a3ae211",
+      "status": "candidate_pending_untouched_confirmation",
+      "change_summary": "Public-marker coherence gate with two-marker concordance and conflict abstention before contract projection.",
+      "selection_mode": "explicit_cell_annotation_policy_ref_only",
+      "truth_or_author_labels_used_for_selection": false,
+      "other_systems_re_evaluated": false,
+      "promotion_requires": "same-contract untouched confirmation with OPL-Bio candidate only",
+      "default_policy_promoted": false
+    }
+  },
+  "benchmark_policy": {
+    "public_private_split_required": true,
+    "oracle_in_prompt_allowed": false,
+    "case_pass_rule": "A case passes only when every verifier gate passes.",
+    "artifact_level_scoring_required": true
+  },
+  "self_evolution_policy": {
+    "learning_source": "gate-level failure ledger and review receipt",
+    "allowed_patch_targets": [
+      "prompt policy",
+      "stage rubric",
+      "tool policy",
+      "adapter behavior",
+      "delivery contract",
+      "cell-type marker policy"
+    ],
+    "promotion_requires": [
+      "hidden regression pass",
+      "prospective external-dataset validation",
+      "independent review",
+      "owner promotion receipt"
+    ],
+    "candidate_registry": [
+      {
+        "candidate_id": "opl_bio_gse145926_feedback_linear_policy.v0.1",
+        "candidate_ref": "outputs/opl-bio-scrna-self-evolution-gse145926/evolved_cell_annotation_policy.json",
+        "status": "cross_sample_oof_gate_passed_default_promotion_blocked",
+        "validation_ref": "outputs/opl-bio-scrna-self-evolution-gse145926/receipt.json",
+        "agent_lab_evolution_ref": "outputs/opl-bio-scrna-self-evolution-gse145926/agent-lab-evolution-segment.json",
+        "default_policy": false,
+        "primary_same_case_benchmark_allowed": false,
+        "prospective_external_validation_pending": true,
+        "owner_promotion_pending": true
+      }
+    ],
+    "history_rewrite_allowed": false
+  },
+  "authority_boundary": {
+    "scenario_pack_can_claim_domain_ready": false,
+    "scenario_pack_can_claim_production_ready": false,
+    "scenario_pack_can_claim_clinical_validity": false,
+    "scenario_pack_can_claim_biological_quality_verdict": false
+  }
+}

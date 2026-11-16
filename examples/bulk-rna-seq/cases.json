@@ -1,0 +1,151 @@
+{
+  "surface_kind": "opl_bio_bulk_rna_seq_public_benchmark_suite",
+  "version": "opl-bio-bulk-rna-seq-benchmark.v0.2",
+  "owner": "opl-bio-agent",
+  "state": "public_tutorial_seed_not_manuscript_evaluation",
+  "source_surface_kind": "opl_bio_bulk_rna_seq_benchmark_suite",
+  "leakage_policy": {
+    "source_literature_lookup_allowed": false,
+    "source_paper_lookup_allowed": false,
+    "published_findings_lookup_allowed": false,
+    "private_oracle_lookup_allowed": false,
+    "public_input_may_include_dataset_accessions": true,
+    "private_oracle_included": false,
+    "oracle_targets_removed": true,
+    "gold_public_summary_removed": true,
+    "paper_ref_removed": true,
+    "source_literature_removed": true,
+    "published_findings_removed": true,
+    "original_case_ids_removed": true,
+    "external_models_must_not_receive_private_answer_key": true,
+    "external_models_must_not_lookup_source_papers_or_published_findings": true,
+    "public_input_is_blind_to_source_literature_findings": true,
+    "public_input_may_include_user_goal_dataset_refs_and_task_constraints": true
+  },
+  "cases": [
+    {
+      "case_id": "bulk_rna_seq_case_001",
+      "benchmark_id": "bulk_rna_seq_benchmark_001",
+      "data_ref": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE147507",
+      "scenario": "Analyze the provided human Bulk RNA-seq expression matrix for the specified case/control contrast and deliver differential-expression, enrichment, evidence, review, and report artifacts.",
+      "input_task": {
+        "task_kind": "bulk_rna_seq_de_enrichment",
+        "species": "human",
+        "geo_accession": "GSE147507",
+        "expression_matrix_ref": "GEO supplement:GSE147507_RawReadCounts_Human.tsv.gz",
+        "data_level": "processed raw counts",
+        "design_formula": "~ condition",
+        "contrast": {
+          "case_condition": "Series6_A549-ACE2_SARS-CoV-2",
+          "control_condition": "Series6_A549-ACE2_Mock"
+        },
+        "sample_sheet": [
+          {
+            "sample_id": "GSM4462342",
+            "condition": "Series6_A549-ACE2_Mock",
+            "cell_model": "A549-ACE2",
+            "species": "human",
+            "replicate": 1
+          },
+          {
+            "sample_id": "GSM4462343",
+            "condition": "Series6_A549-ACE2_Mock",
+            "cell_model": "A549-ACE2",
+            "species": "human",
+            "replicate": 2
+          },
+          {
+            "sample_id": "GSM4462344",
+            "condition": "Series6_A549-ACE2_Mock",
+            "cell_model": "A549-ACE2",
+            "species": "human",
+            "replicate": 3
+          },
+          {
+            "sample_id": "GSM4462345",
+            "condition": "Series6_A549-ACE2_SARS-CoV-2",
+            "cell_model": "A549-ACE2",
+            "species": "human",
+            "replicate": 1
+          },
+          {
+            "sample_id": "GSM4462346",
+            "condition": "Series6_A549-ACE2_SARS-CoV-2",
+            "cell_model": "A549-ACE2",
+            "species": "human",
+            "replicate": 2
+          },
+          {
+            "sample_id": "GSM4462347",
+            "condition": "Series6_A549-ACE2_SARS-CoV-2",
+            "cell_model": "A549-ACE2",
+            "species": "human",
+            "replicate": 3
+          }
+        ],
+        "analysis_policy": {
+          "preferred_runner": "DESeq2",
+          "accepted_runner": "equivalent deterministic processed-count DE runner",
+          "fdr_threshold": 0.05,
+          "gene_id_policy": "HGNC symbols",
+          "starting_point": "processed raw counts"
+        },
+        "local_inputs": {
+          "counts_tsv": "runtime/fixtures/bulk_rna_seq_inputs/gse147507_a549ace2/counts.tsv",
+          "sample_sheet_tsv": "runtime/fixtures/bulk_rna_seq_inputs/gse147507_a549ace2/sample_sheet.tsv"
+        },
+        "execution_goal": "run_processed_count_matrix_de_enrichment_report",
+        "accepted_input_lanes": [
+          "fastq_alignment_counts",
+          "fastq_transcript_quant",
+          "processed_count_matrix"
+        ],
+        "smoke_fallback_lane": "smoke_fallback",
+        "article_replay_policy": {
+          "requires_mainstream_toolchain": true,
+          "accepted_de_tools": [
+            "DESeq2",
+            "edgeR",
+            "limma-voom"
+          ],
+          "accepted_enrichment_tools": [
+            "clusterProfiler",
+            "fgsea",
+            "g:Profiler"
+          ],
+          "accepted_upstream_tools": [
+            "STAR",
+            "HISAT2",
+            "featureCounts",
+            "Salmon",
+            "kallisto",
+            "tximport"
+          ],
+          "fallback_can_claim_article_replay": false
+        },
+        "public_task_prompt": "Use only the provided dataset references, local matrices, metadata, contrast, and tool outputs. Do not look up the source paper or use published findings for this case."
+      },
+      "private_oracle_removed": true,
+      "blinding": {
+        "source_literature_lookup_allowed": false,
+        "source_paper_lookup_allowed": false,
+        "published_findings_lookup_allowed": false,
+        "private_oracle_lookup_allowed": false,
+        "public_input_may_include_dataset_accessions": true,
+        "blind_case_index": 1,
+        "paper_ref_removed": true,
+        "source_literature_removed": true,
+        "published_findings_removed": true,
+        "oracle_targets_removed": true,
+        "gold_public_summary_removed": true,
+        "original_case_id_removed": true,
+        "public_input_is_blind_to_source_literature_findings": true
+      },
+      "authority_boundary": {
+        "public_case_can_claim_gold_target_visibility": false,
+        "public_case_can_claim_source_paper_visibility": false,
+        "public_case_can_claim_biological_quality_verdict": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "release_id": "opl-bio-agents-2026.11.16",
+  "scope": "final source plus initial OPL inputs only",
+  "forbidden_intermediate_materials": {
+    "status": "passed",
+    "paths_found": []
+  },
+  "source_binding": {
+    "status": "passed",
+    "files": 669
+  },
+  "smoke": {
+    "status": "passed",
+    "results": [
+      {
+        "agent": "bulk-rna-seq",
+        "model_api_calls": 0,
+        "scope": "tutorial seed; not manuscript evaluation",
+        "checks": [
+          "DESeq2 completed",
+          "policy bound",
+          "truth not accessed"
+        ],
+        "status": "passed"
+      },
+      {
+        "agent": "scrna-seq",
+        "model_api_calls": 0,
+        "scope": "tutorial seed; not manuscript evaluation",
+        "checks": [
+          "public matrix read",
+          "Scanpy core steps completed",
+          "required outputs and identity verified"
+        ],
+        "status": "passed"
+      },
+      {
+        "agent": "genome-analysis",
+        "model_api_calls": 0,
+        "scope": "tutorial seed; not manuscript evaluation",
+        "checks": [
+          "synthetic inputs read",
+          "artifact hashes recomputed",
+          "identity and boundary verified"
+        ],
+        "status": "passed"
+      }
+    ],
+    "scientific_reproduction": false,
+    "fresh_environment_installation": false,
+    "scope": "Bounded public/synthetic examples only"
+  },
+  "model_calls_during_packaging": 0,
+  "not_validated": [
+    "fresh dependency installation",
+    "complete framework deployment",
+    "historical model reruns",
+    "manuscript numerical reproduction",
+    "real whole-genome variant calling"
+  ]
+}

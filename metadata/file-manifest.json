@@ -1,0 +1,3420 @@
+{
+  "release_id": "opl-bio-agents-2026.11.16",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 97,
+      "sha256": "9e1cc738d60062662b157de72635731675eb33a7ef510436db6466abb3b08635"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 415,
+      "sha256": "c406558056b3d3c9b28f65cea8481a5cc7639291f2020c16c841765eaaeba0c4"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2616,
+      "sha256": "23780387c2a46b7057894e9b49ed0dc9ca32b8b47a83ee0d1f5e24ca31ccf3e4"
+    },
+    {
+      "path": "README.zh-CN.md",
+      "bytes": 1795,
+      "sha256": "2239fa505d59e2769ba64e9b65258c64dffe30c353cdb959c3b4f116118786cb"
+    },
+    {
+      "path": "agents/bulk-rna-seq/BUILD_INPUTS.md",
+      "bytes": 1552,
+      "sha256": "92b09f34d0f3915b98c8e3974312fbc3b954cdc2058528231f5acd3c3a27f707"
+    },
+    {
+      "path": "agents/bulk-rna-seq/README.md",
+      "bytes": 1357,
+      "sha256": "610a4e51f4255ed9a01a6c9c5f3ecbd8e0b96afb1881457beee1fee2ffefa4fb"
+    },
+    {
+      "path": "agents/genome-analysis/BUILD_INPUTS.md",
+      "bytes": 1421,
+      "sha256": "77e022f0a7bd50e3c033d46438cc8093ad59abb371b39d9835cc44c4bea8244a"
+    },
+    {
+      "path": "agents/genome-analysis/README.md",
+      "bytes": 1098,
+      "sha256": "2e2b2546a0fde535c5a76f68e4369328f1508620a0fc4c8fea038307ac53fc65"
+    },
+    {
+      "path": "agents/scrna-seq/BUILD_INPUTS.md",
+      "bytes": 1245,
+      "sha256": "7546b8a4c0b5cc4b188b45fcf862b3e81b52eab971f7d6d210108b5123f1a83f"
+    },
+    {
+      "path": "agents/scrna-seq/README.md",
+      "bytes": 1137,
+      "sha256": "3bc867c55c594867dbeefb50f0a17a5b2222581f852b51e14a3680bd6a6c6315"
+    },
+    {
+      "path": "docs/SETUP.md",
+      "bytes": 1414,
+      "sha256": "d4801a3fbf958e1cea2e49bb829684eb2aa7f7b078e46ba26302716cde9213eb"
+    },
+    {
+      "path": "examples/bulk-rna-seq/cases.json",
+      "bytes": 5808,
+      "sha256": "556ec18b749bdfa1d06d88668a5d30998eb43352dd2398510a7896083e6718ac"
+    },
+    {
+      "path": "examples/bulk-rna-seq/decisions.json",
+      "bytes": 865,
+      "sha256": "80ddc8472bded3e9c4d4f85576e0dacc6ea30c7cc00c521f62dbcf0d5daf43df"
+    },
+    {
+      "path": "examples/genome-analysis/cases.json",
+      "bytes": 1170,
+      "sha256": "66d0be31279468e7c9e80f4d1f0dc9a9d1d03a9f26e4c6b939970bec81757ea5"
+    },
+    {
+      "path": "examples/scrna-seq/cases.json",
+      "bytes": 4508,
+      "sha256": "1e03d9bf5f079a4a85b8e9c42ed55a423d4f16537ff5db1203628cfd14878f05"
+    },
+    {
+      "path": "inputs/bulk-rna-seq/contracts/bulk-rna-seq-benchmark.input.schema.json",
+      "bytes": 667,
+      "sha256": "831f5bfd45eb7ec8387177f474ccc1929badbb2dcd3c3d1ec48770363311aa27"
+    },
+    {
+      "path": "inputs/bulk-rna-seq/contracts/bulk-rna-seq-benchmark.output.schema.json",
+      "bytes": 3055,
+      "sha256": "46c1ea7840b0730e91ed634d40d30e947186cc0ef12d81ed4e8bcfd45f161c37"
+    },
+    {
+      "path": "inputs/bulk-rna-seq/contracts/bulk-rna-seq-predict.input.schema.json",
+      "bytes": 776,
+      "sha256": "c5fa1891390e3183a05120e483010de7c11b0a71e169409ad73e9f8c6f3acf91"
+    },
+    {
+      "path": "inputs/bulk-rna-seq/contracts/bulk-rna-seq-predict.output.schema.json",
+      "bytes": 1933,
+      "sha256": "ea5b9dc82e215488efc0573dddf3dba0d33022ff90e332b2be4ba9a18b1eb542"
+    },
+    {
+      "path": "inputs/bulk-rna-seq/contracts/bulk_rna_seq_analysis_protocol_v1.json",
+      "bytes": 4199,
+      "sha256": "91b729d1876fd19aa2541a81171595f55b64486415c5c0330ecb2f88aba55ced"
+    },
+    {
+      "path": "inputs/bulk-rna-seq/contracts/bulk_rna_seq_generalist_package_v1.md",
+      "bytes": 493,
+      "sha256": "53a0c4511e2a3a4450d6be8f0447a2d26ddc1f0097a8c2fd18d0c358a6fa562c"
+    },
+    {
+      "path": "inputs/bulk-rna-seq/contracts/bulk_rna_seq_scenario_domain_pack.json",
+      "bytes": 5599,
+      "sha256": "7103ef52de26ef43d39abccdcf0afc79aedcaf2785e58e8991c350645f62d902"
+    },
+    {
+      "path": "inputs/bulk-rna-seq/contracts/bulk_rna_seq_task_specific_package_v1.md",
+      "bytes": 1119,
+      "sha256": "7d7ce4d2f5c332eadc3f1cb1c92b5de805244b7e0af321f2ff557e3e679b618b"
+    },
+    {
+      "path": "inputs/bulk-rna-seq/contracts/bulk_rna_seq_toolchain_profile.json",
+      "bytes": 5118,
+      "sha256": "0edaab4837f0b377ac46ff3c22d7216bd96ba32bd247f44914793a684ab15e19"
+    },
+    {
+      "path": "inputs/genome-analysis/contracts/genome-analysis-execution-v2-cases.schema.json",
+      "bytes": 1192,
+      "sha256": "19078aac76779a40f42f01767e68a63ec7d9194b5e11bccf33ff3811760af90b"
+    },
+    {
+      "path": "inputs/genome-analysis/contracts/genome-analysis-execution-v2.output.schema.json",
+      "bytes": 940,
+      "sha256": "d9cfec86a3f73066dd1e8924bf774358a98e65ca5f4c4b418be041904d973e8f"
+    },
+    {
+      "path": "inputs/genome-analysis/contracts/genome-sequencing-analysis-predict.input.schema.json",
+      "bytes": 521,
+      "sha256": "a3baf1b835959f2e5c0124a0038a330b40c687ba6fc7c2e384e00b8a1d69b02c"
+    },
+    {
+      "path": "inputs/genome-analysis/contracts/genome-sequencing-analysis-predict.output.schema.json",
+      "bytes": 557,
+      "sha256": "76b0c67ee6db5ce7ccdfe71b6c38cdf6d70fe596d22cb0a6ae52397792334fa4"
+    },
+    {
+      "path": "inputs/genome-analysis/contracts/genome-sequencing-analysis-verify.input.schema.json",
+      "bytes": 461,
+      "sha256": "76785167ee694011bcb26534d633fe5b08f5b98561a4372ab4b7ff552a4396a2"
+    },
+    {
+      "path": "inputs/genome-analysis/contracts/genome-sequencing-analysis-verify.output.schema.json",
+      "bytes": 1209,
+      "sha256": "56efb700f1caecdec28bd94867900aaf2337540e3ea3b26a1ef67a356fb8447c"
+    },
+    {
+      "path": "inputs/genome-analysis/contracts/genome_analysis_common_tool_loop_protocol_v1.json",
+      "bytes": 2733,
+      "sha256": "e889b926e4d413c47e74d52acbf27d7d555b26ca74c489441be23590d8c02cc6"
+    },
+    {
+      "path": "inputs/genome-analysis/contracts/genome_analysis_coverage_ontology_v1.json",
+      "bytes": 2508,
+      "sha256": "82e2f47863ed01ed8534f2999dd92add5d809968d8af62258f8f5c22598174f1"
+    },
+    {
+      "path": "inputs/genome-analysis/contracts/genome_analysis_execution_profile_decision_v3.schema.json",
+      "bytes": 1785,
+      "sha256": "77f9a8fe42b91ae00cd0fb4c3f2d9bc60afdb7122be7caab1a9305c5d90f3bb6"
+    },
+    {
+      "path": "inputs/genome-analysis/contracts/genome_analysis_execution_profile_registry_v3.json",
+      "bytes": 13356,
+      "sha256": "7a82aad816f8705d9226db5792df653c121cb4534e743bc7f9d44e13d797e25f"
+    },
+    {
+      "path": "inputs/genome-analysis/contracts/genome_sequencing_analysis_scenario_domain_pack.json",
+      "bytes": 4327,
+      "sha256": "5c61193923490cfbe86cbc8a4e1841fe354a148f63e6533a4d813e226cf541f6"
+    },
+    {
+      "path": "inputs/scrna-seq/contracts/sc-rna-seq-predict.input.schema.json",
+      "bytes": 779,
+      "sha256": "082e0b15b47c2b77525148e1b4976ebbc5795142568b97c62db40dc273bf4dde"
+    },
+    {
+      "path": "inputs/scrna-seq/contracts/sc-rna-seq-predict.output.schema.json",
+      "bytes": 1511,
+      "sha256": "046ab149cc12d8f81dfdaf99813d8e0673759486cc7fbed302cf3fb8b80d39c1"
+    },
+    {
+      "path": "inputs/scrna-seq/contracts/sc-rna-seq-routine-analysis-verification.output.schema.json",
+      "bytes": 2606,
+      "sha256": "cd7c1e24281a1103d73317b6b13e48c944558d1883231bf8ea6951ea2d3a10a0"
+    },
+    {
+      "path": "inputs/scrna-seq/contracts/sc_rna_seq_public_label_marker_skill_v1.json",
+      "bytes": 4918,
+      "sha256": "a1edd06aea7759b54109c6009effe57638de3aca647b8b460d7ef7f72a81b6b7"
+    },
+    {
+      "path": "inputs/scrna-seq/contracts/sc_rna_seq_public_label_marker_support_tool_v1.json",
+      "bytes": 1803,
+      "sha256": "c1870703d99d696aef56586ed1c85d7d2f01df9ad3d27a712a9cc90ba7932e57"
+    },
+    {
+      "path": "inputs/scrna-seq/contracts/sc_rna_seq_routine_analysis_coverage_v1.json",
+      "bytes": 7252,
+      "sha256": "2c823a8cf0c8e752700e0cdee1e2639d1b3cda29ca45e15c3733b671625f1cf5"
+    },
+    {
+      "path": "inputs/scrna-seq/contracts/sc_rna_seq_scenario_domain_pack.json",
+      "bytes": 15418,
+      "sha256": "aa7031b99eb03bff167598786cfbb8b313451ed8f7a41e3afe2a67ec6b254a3d"
+    },
+    {
+      "path": "inputs/shared/agent/knowledge/README.md",
+      "bytes": 156,
+      "sha256": "7ef0868014a6ae114412eb036767626d632b58421ecf58238baf38d91d7c938b"
+    },
+    {
+      "path": "inputs/shared/agent/knowledge/bulk_rna_seq_benchmark_v0_1.md",
+      "bytes": 1754,
+      "sha256": "c5d440cf149493c3a88b2e066bfa3b8558c061976641492999bab71df8fb7382"
+    },
+    {
+      "path": "inputs/shared/agent/knowledge/domain_boundary.md",
+      "bytes": 255,
+      "sha256": "eae12ccaa10867213c296a28cb8d1a7ef66682f57978f8743c27e8c2124e7332"
+    },
+    {
+      "path": "inputs/shared/agent/knowledge/literature_benchmark_v0_1.md",
+      "bytes": 1195,
+      "sha256": "fcfd528ecb431b387dd9e1bc9a2ace2949bd3bb1e071e01f44f28125f73dbd8b"
+    },
+    {
+      "path": "inputs/shared/agent/policies/README.md",
+      "bytes": 190,
+      "sha256": "4fc1cff5e941d9cef0cc8e9693ec036c86ebb767126d1b76aac03531c758f076"
+    },
+    {
+      "path": "inputs/shared/agent/prompts/README.md",
+      "bytes": 141,
+      "sha256": "2abfb9b52bc1f56a360f1e6521caf2cef48a1a131a51090b682418536d9fa627"
+    },
+    {
+      "path": "inputs/shared/agent/prompts/bulk_rna_seq_mvp.md",
+      "bytes": 2267,
+      "sha256": "c23afd3137236252c8db53dea19ab7eeca52efa185bb8b9cf6e35e37556164c5"
+    },
+    {
+      "path": "inputs/shared/agent/prompts/domain_intake.md",
+      "bytes": 346,
+      "sha256": "ca61040e5d21400c8d5e378b0b4d32560e574e03b21bf1f795ce7c680b3bff16"
+    },
+    {
+      "path": "inputs/shared/agent/prompts/gene_set_mvp.md",
+      "bytes": 909,
+      "sha256": "b3a2d940d4eb2a1bfb04ddab423c92485a7603cc65ebc0f573b575d26fc21e86"
+    },
+    {
+      "path": "inputs/shared/agent/quality_gates/README.md",
+      "bytes": 140,
+      "sha256": "d149a9ee61714fb75e5b95a2d802e036d02c4faafccacdf14fdfd9475bca16fa"
+    },
+    {
+      "path": "inputs/shared/agent/quality_gates/domain_acceptance.md",
+      "bytes": 298,
+      "sha256": "0e4737c8af76fcd8f407e1c527cd5fa55165b5f7d6a5034b79aeeba47ee3377b"
+    },
+    {
+      "path": "inputs/shared/agent/skills/README.md",
+      "bytes": 135,
+      "sha256": "c7cfd81ca10fc2c67f3250f70669e57af2b3a845699035bf76d62377922b8d74"
+    },
+    {
+      "path": "inputs/shared/agent/skills/bulk_rna_seq_mvp.md",
+      "bytes": 1364,
+      "sha256": "6b3db64c90c6321ab0df66035ebfca062bd618f63345e158be5cdf9e7d87149a"
+    },
+    {
+      "path": "inputs/shared/agent/skills/domain_execution.md",
+      "bytes": 315,
+      "sha256": "3314e3dcfa09e5c29251fab96216e11fec2353e839c88e2c64165459c7e0aaac"
+    },
+    {
+      "path": "inputs/shared/agent/skills/gene_set_mvp.md",
+      "bytes": 949,
+      "sha256": "f5d06643a8c8c10ee310647611a066fc577f05169ed80d431c83a0a73c8eaa17"
+    },
+    {
+      "path": "inputs/shared/agent/skills/sc_rna_seq_mvp.md",
+      "bytes": 2527,
+      "sha256": "1999ff6032764540e89709a15c6871af2e3d3c2d5451257c9bf6772629962081"
+    },
+    {
+      "path": "inputs/shared/agent/stages/README.md",
+      "bytes": 141,
+      "sha256": "066bf1b18e645a7ff951c0444d24a64f829410ae3bdddc50ce35a5dafb96b744"
+    },
+    {
+      "path": "inputs/shared/agent/stages/analysis_plan.md",
+      "bytes": 851,
+      "sha256": "a6c3160c5b05fda2838b9ad4ca8a57c01478b2e42e739e24a1c3e23ce7872d99"
+    },
+    {
+      "path": "inputs/shared/agent/stages/biological_interpretation.md",
+      "bytes": 840,
+      "sha256": "f00ad0c2f359200b81cff1dffd60839786f58604065f987d9523145ca6191a89"
+    },
+    {
+      "path": "inputs/shared/agent/stages/data_readiness.md",
+      "bytes": 833,
+      "sha256": "431d66591a586e3ff92f257eb76f8439a5740950051d9fb4c3d1fb2f30be27d5"
+    },
+    {
+      "path": "inputs/shared/agent/stages/delivery.md",
+      "bytes": 847,
+      "sha256": "5baa461f8577fee8d38b04b389a532930a5c34653e4446b32b1ea1295108546f"
+    },
+    {
+      "path": "inputs/shared/agent/stages/domain_intake.md",
+      "bytes": 467,
+      "sha256": "fd211e90be278a5b41a005fab131f0f8da10b6007617b76d7df61d9b912388f3"
+    },
+    {
+      "path": "inputs/shared/agent/stages/evidence_audit.md",
+      "bytes": 848,
+      "sha256": "de7a9b2540d363e7a72590840ee4b6783bfcadac689c493ebc45d7fbe86c1482"
+    },
+    {
+      "path": "inputs/shared/agent/stages/execution.md",
+      "bytes": 830,
+      "sha256": "91e62ea37e6057dfbf8483f967a862e70a0581fd98ec7c62970a4c5b02888fd0"
+    },
+    {
+      "path": "inputs/shared/agent/stages/intake_and_scope.md",
+      "bytes": 862,
+      "sha256": "fdfb12c450fe951ac030bbf349c77123bd14764dd264901a64c0afedc77e3b73"
+    },
+    {
+      "path": "inputs/shared/agent/stages/review_and_red_team.md",
+      "bytes": 845,
+      "sha256": "f04bf7a853aca4e734206b6d98bf3331b018ac222702efed51edd41bd3f7cf26"
+    },
+    {
+      "path": "inputs/shared/config/unified-model-baseline.providers.example.json",
+      "bytes": 1171,
+      "sha256": "697e030100ec39eac1f258f6aeaadfa3155021088df4e948030ae9b934aa91c9"
+    },
+    {
+      "path": "inputs/shared/contracts/action_catalog.json",
+      "bytes": 38960,
+      "sha256": "9501195eaeb96a1f0355f291ed3b3a39145cf4801f8400a501379b476d48eed1"
+    },
+    {
+      "path": "inputs/shared/contracts/domain_descriptor.json",
+      "bytes": 1977,
+      "sha256": "bbc3c38543e9cf5ee2e49b5b20c4a9ae75310abb29f0a2f2b0561eb8dd74117b"
+    },
+    {
+      "path": "inputs/shared/contracts/functional_privatization_audit.json",
+      "bytes": 17421,
+      "sha256": "808859d3ab56bc7c7e0a9fbf6e6be779f4857d590be6dad9d35535e44d55606f"
+    },
+    {
+      "path": "inputs/shared/contracts/generated_surface_handoff.json",
+      "bytes": 4718,
+      "sha256": "5d2d9078531d7a380c01959f792f8704944be9d3ddac7b171806e055c0381f4f"
+    },
+    {
+      "path": "inputs/shared/contracts/owner_receipt_contract.json",
+      "bytes": 511,
+      "sha256": "099eb0f6ea56a76f0e7fe555a561cc2e539167ca36aba65098be7f7bba24de12"
+    },
+    {
+      "path": "inputs/shared/contracts/pack_compiler_input.json",
+      "bytes": 3813,
+      "sha256": "e2e212f15933cad813d434a8608ae04bceb07a28813b8927523c6d344ce61f69"
+    },
+    {
+      "path": "inputs/shared/contracts/stage_control_plane.json",
+      "bytes": 45339,
+      "sha256": "fa9526992ec7acd6f491497284e485ba85199c40d7743655e2e0e6c9d2e585a8"
+    },
+    {
+      "path": "inputs/shared/contracts/three_agent_identity_v1.json",
+      "bytes": 4144,
+      "sha256": "bee9a2aa679be6f7a85ad263f1d2ae0edcce7d4ed6c4bd0dfbbaf7003e75fb7e"
+    },
+    {
+      "path": "metadata/agents.json",
+      "bytes": 4845,
+      "sha256": "7f7cfe7f2acc3f68bc9cc7b138ba3f64e24ba61aba12dc940b6aca49ac4e4b29"
+    },
+    {
+      "path": "metadata/release.json",
+      "bytes": 243,
+      "sha256": "882a7b1d99b11657b4830d89d5ff2f3147c17563f25d968edff948ec7b2aec25"
+    },
+    {
+      "path": "metadata/source-manifest.json",
+      "bytes": 275571,
+      "sha256": "94cd1cb583f2d4943e316d623e6d93f8cb4780464dcecfbdded505c2a3f6a6f5"
+    },
+    {
+      "path": "metadata/validation.json",
+      "bytes": 1640,
+      "sha256": "4cb2153be712518e634f40aa8193e6b7ecf267c0abd9b15575a924a72e5d82db"
+    },
+    {
+      "path": "source/Cargo.lock",
+      "bytes": 2676,
+      "sha256": "b95f9992c9279c5ba82fb8f375f8c42c592d6fa31f1f4a903e55a08a8c84198a"
+    },
+    {
+      "path": "source/Cargo.toml",
+      "bytes": 66,
+      "sha256": "a17f34e4b4414e1b4e96b5e4d765a4ffb4f6db5056948430d7e485fe5b231dd9"
+    },
+    {
+      "path": "source/LICENSE",
+      "bytes": 10939,
+      "sha256": "a515d5a76da6c082f0d3d33a597bf82e32ecdac8841ed1783ac081ebd6d62ebf"
+    },
+    {
+      "path": "source/bin/opl",
+      "bytes": 2024,
+      "sha256": "bab15aeef2a12a970cb8377f9bc976891be05e46841648c1b10744b14a82ec58"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-action-catalog.schema.json",
+      "bytes": 4922,
+      "sha256": "c4ce66a808b0b103aff973a39ecbee72dfa4ebbc324f123b892bc776a382d451"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-action-graph.schema.json",
+      "bytes": 5602,
+      "sha256": "25e3f72259348fad3e9d61a543bcff0a46aa7e2dfcfc6a21c9a5e3359a4bacbf"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-checkpoint-lineage.schema.json",
+      "bytes": 5643,
+      "sha256": "b6488c034db7f3e451cddc9e52ee6d570b0a1501399f64f9d49d7c6cf605577e"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-conflict-envelope.schema.json",
+      "bytes": 7058,
+      "sha256": "584eb330c642c5cb1292313febe27a490a138cc2a5427fb850a33b7cd446e8ae"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-domain-memory-ref.schema.json",
+      "bytes": 8454,
+      "sha256": "5beb6699e71dc0822a15545c26b09d5a14c17ad9df98f46d0b5aaa9281936a26"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-domain-memory-writeback.schema.json",
+      "bytes": 7175,
+      "sha256": "f987c0e6c0997cc1d111da050702cc082f53a5e9b834f0dcad04d17eae833090"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-event-envelope.schema.json",
+      "bytes": 5859,
+      "sha256": "a7e31bc44ebd079ba5ff037590fb85b6b74ab34d5dcc0ebed16f345172c7a012"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-human-gate.schema.json",
+      "bytes": 4620,
+      "sha256": "44d9883c1a82773d37c3da764995cd0957874871732ca1b4bc899b848f4f1513"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-lifecycle-ledger.schema.json",
+      "bytes": 2924,
+      "sha256": "194a37acaabd1f6c78eff68876cb326bde682ee0dda50748d5955014fcc1419f"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-owner-route.schema.json",
+      "bytes": 2327,
+      "sha256": "9005adcb3129e73bb79aeaed12af36d3d8d1fb0a77abe880a6cda4e2bf805258"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-persistence-policy.schema.json",
+      "bytes": 4080,
+      "sha256": "b867784ecdace49cb572f91f509a31a5209d8fa9cc8ba99e39f777a7fd6d4af1"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-product-entry-manifest-v2.schema.json",
+      "bytes": 41808,
+      "sha256": "a08a4486e126b4e72668f08e1d3edc7bbb621d4a5df65ca46b89f7262fd560bb"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-runtime-supervision.schema.json",
+      "bytes": 6633,
+      "sha256": "8bf404715fc223a0a5befb74a3d584415191aab60575d03b876fa7e8cc32aae1"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-stage-admission.schema.json",
+      "bytes": 16434,
+      "sha256": "b562951d3d2deccfaa7f201c01ca2ab81866fd3f2a5349258114a4551bf8ff1a"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-stage-assumption-lifecycle.schema.json",
+      "bytes": 6453,
+      "sha256": "4e46a59fdb5ce4d9fea9a155ad5f05d55fcfbfcc50daed185457a5affe7774ea"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-stage-cohort-loop.schema.json",
+      "bytes": 9155,
+      "sha256": "7d1b2c26a8bee8375761d9ec6cfa6a7749143323909819f4b05a17730d1bd9c2"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-stage-control-plane.schema.json",
+      "bytes": 15536,
+      "sha256": "74eb003bca4cc83810f047d2b8e31c9c3ba2a87f966bb66d472c873033405c13"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-stage-graph-projection.schema.json",
+      "bytes": 14306,
+      "sha256": "1433e660d945475fa67cf73938d6f7109fd80001dc90dbab10acfd7a5ba1551d"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-stage-integrity-metadata.schema.json",
+      "bytes": 12651,
+      "sha256": "86abbb71bb34aa0f6fb93bf6a7e0225be7f90dc00a649b557aeacc4d6d6960f8"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-stage-pack-registry.schema.json",
+      "bytes": 14592,
+      "sha256": "83eacb5a9fb94d73ce1f3d082b489d8bd2a5329e1aa18c05bcbc7b4306b80779"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-stage-pack-source-spec.schema.json",
+      "bytes": 10629,
+      "sha256": "0e43804de71d614f0c8b2558260439ae7a292436d5b16ca54f6ad4a0ba720543"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-stage-proof-bundle.schema.json",
+      "bytes": 42547,
+      "sha256": "1a0da3b6109c52e8301cddbc837da6146896d69eddc761e0b9cc7ee1184e6e1e"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-stage-replay-certification.schema.json",
+      "bytes": 8376,
+      "sha256": "9c6be9800e240b74779eb95dd72c34007087ebbfb15e56300619f13e0361890d"
+    },
+    {
+      "path": "source/contracts/family-orchestration/family-stage-runtime-budget.schema.json",
+      "bytes": 13833,
+      "sha256": "39dfb220dad2a71ffa50d14fe2ff2cf613a966c2e28be60dd726fa494caf963b"
+    },
+    {
+      "path": "source/contracts/family-release/shared-owner-release.json",
+      "bytes": 1634,
+      "sha256": "3d572895c84261f5511501fdb8beccf414ca567ef8a104eb9857f50ba81fbc14"
+    },
+    {
+      "path": "source/contracts/opl-framework/agent-lab-contract.json",
+      "bytes": 57146,
+      "sha256": "40cee8ab99970e6e80d89b43ca445aa95d0e13ee01ab31207fb169259bc0b2c2"
+    },
+    {
+      "path": "source/contracts/opl-framework/agent-lab-mag-live-acceptance-suite.json",
+      "bytes": 5925,
+      "sha256": "a2205d74714ae30508792ce026f7c4f19304e1c5cab151715bd40a67b61c4892"
+    },
+    {
+      "path": "source/contracts/opl-framework/agent-platform-surface-ownership-contract.json",
+      "bytes": 3017,
+      "sha256": "d5a7455bfffc1129d75b3f48ea438fbd6d9927ec7f6e3e66d85b9eb099f676a8"
+    },
+    {
+      "path": "source/contracts/opl-framework/codex-default-profile.json",
+      "bytes": 397,
+      "sha256": "84f32a187c4958529f3ce57cf6a916e6f274102f068f7d2c215b70766094d28c"
+    },
+    {
+      "path": "source/contracts/opl-framework/domain-pack-compiler-contract.json",
+      "bytes": 10060,
+      "sha256": "1fe021be377e87e8a9086907903d525fc89236de4a04c8cb645317161391ccd6"
+    },
+    {
+      "path": "source/contracts/opl-framework/domains.json",
+      "bytes": 5227,
+      "sha256": "8629c03ec724a159c9ce086e716a61890f33ac9d211f05442f95e5815c80c18c"
+    },
+    {
+      "path": "source/contracts/opl-framework/family-domain-quality-projection-contract.json",
+      "bytes": 1615,
+      "sha256": "af33f3c02353a1210e0dd8c3cd1f49e7f3af5b2be5c1bb3d466f4e8c6b00e29d"
+    },
+    {
+      "path": "source/contracts/opl-framework/family-executor-adapter-defaults.json",
+      "bytes": 9177,
+      "sha256": "afc585bee09ec4dbd8f49491c36cdfe5ef904811f27ef25f8a76aca996673fe5"
+    },
+    {
+      "path": "source/contracts/opl-framework/family-incident-learning-loop.json",
+      "bytes": 1099,
+      "sha256": "772175053aacf76379b510af7dd08ee6d5d699aed4d84614c642e35179d33899"
+    },
+    {
+      "path": "source/contracts/opl-framework/family-product-operator-projection.json",
+      "bytes": 2932,
+      "sha256": "8bae046cc881a92dd496b3f84c91a7f2c30740b1c2ae27fbc6a0dbeba0ec9476"
+    },
+    {
+      "path": "source/contracts/opl-framework/family-runtime-attempt-contract.json",
+      "bytes": 9593,
+      "sha256": "e0cded60c43781c0c49b470e037c67816602e9759b59857cf912c0941f473207"
+    },
+    {
+      "path": "source/contracts/opl-framework/family-runtime-online-substrate-contract.json",
+      "bytes": 5407,
+      "sha256": "d1fe2c3c448852aadedeb175158cfe75f5c0ffdb2f646d722aaa4b97b0d4b837"
+    },
+    {
+      "path": "source/contracts/opl-framework/family-transition-runner-contract.json",
+      "bytes": 4136,
+      "sha256": "613ef8d796b20c1f2c2fc3ce1351ddac89a384ee43f4560ca296e6311eb6f2ee"
+    },
+    {
+      "path": "source/contracts/opl-framework/fresh-install-test-matrix.json",
+      "bytes": 5382,
+      "sha256": "d5ddb4f26dfad6dfc630ca7e16f3def2fd12fdc58e30ae9f172acc9f45f6ac15"
+    },
+    {
+      "path": "source/contracts/opl-framework/functional-agent-runtime-harness-contract.json",
+      "bytes": 3644,
+      "sha256": "a966bd4e3bc18dd9b9c5d14bb776b1f644fc187287ed405a1196fdeb4d12773d"
+    },
+    {
+      "path": "source/contracts/opl-framework/functional-privatization-audit-envelope-contract.json",
+      "bytes": 2521,
+      "sha256": "d82abcf033ceed345dd0bdd571599b7004eaf361005615ca9f02226c12d7a080"
+    },
+    {
+      "path": "source/contracts/opl-framework/generic-substrate-projection-contract.json",
+      "bytes": 2661,
+      "sha256": "fa4694973e11af618933732600b24ea930e1939ef3cb9c753df4e716b4e862b5"
+    },
+    {
+      "path": "source/contracts/opl-framework/managed-runtime-three-layer-contract.json",
+      "bytes": 1450,
+      "sha256": "f50fd948b26969668daf6ba323198cdeccac65603ad546226f7fcc6b701b6440"
+    },
+    {
+      "path": "source/contracts/opl-framework/native-helper-contract.json",
+      "bytes": 5578,
+      "sha256": "7a5106f30d3ab6765966ec9d026e69fda270c86da6aae0193176beb7db56f010"
+    },
+    {
+      "path": "source/contracts/opl-framework/public-surface-index.json",
+      "bytes": 21352,
+      "sha256": "c28b83c8a9af7a030803ecfb97b74c5d5f7f0bd903c0d6f05c71a29670de46fc"
+    },
+    {
+      "path": "source/contracts/opl-framework/runtime-manager-contract.json",
+      "bytes": 15809,
+      "sha256": "3354af0289c7acd0f24a70ac9a182bc85a17bdf481fbb075ef700fc7f92701c8"
+    },
+    {
+      "path": "source/contracts/opl-framework/stage-route-scheduler-contract.json",
+      "bytes": 8243,
+      "sha256": "76fb083aa68783321e0c353ad66bfd52187bf4423cc4ba439c795722f5e81bac"
+    },
+    {
+      "path": "source/contracts/opl-framework/stage-selection-vocabulary.json",
+      "bytes": 1783,
+      "sha256": "46729ca3e537acf1a6bf498dbd01653b66f4f2d6cfac5521b7a68df690767dac"
+    },
+    {
+      "path": "source/contracts/opl-framework/standard-domain-agent-skeleton-contract.json",
+      "bytes": 18438,
+      "sha256": "447f614919a92602b5fc030096b111a83725cd7022d315b242419d963dff338d"
+    },
+    {
+      "path": "source/contracts/opl-framework/surface-budget-policy.json",
+      "bytes": 4721,
+      "sha256": "ec7f814c5fccd5c044f207498d939c7692a8a289951f6a8991855ceb40329628"
+    },
+    {
+      "path": "source/contracts/opl-framework/task-topology.json",
+      "bytes": 7940,
+      "sha256": "fd5af32c246d6831b589f95d72cc151be315b87dd3896b11004b55975b4a3152"
+    },
+    {
+      "path": "source/contracts/opl-framework/workstreams.json",
+      "bytes": 1784,
+      "sha256": "74ee77d1da1f87e9c3ed6d32f714c2a56bc2e37926a2bbdb096accb81ed69321"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/knowledge/README.md",
+      "bytes": 156,
+      "sha256": "7ef0868014a6ae114412eb036767626d632b58421ecf58238baf38d91d7c938b"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/knowledge/bulk_rna_seq_benchmark_v0_1.md",
+      "bytes": 1754,
+      "sha256": "c5d440cf149493c3a88b2e066bfa3b8558c061976641492999bab71df8fb7382"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/knowledge/domain_boundary.md",
+      "bytes": 255,
+      "sha256": "eae12ccaa10867213c296a28cb8d1a7ef66682f57978f8743c27e8c2124e7332"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/knowledge/literature_benchmark_v0_1.md",
+      "bytes": 1195,
+      "sha256": "fcfd528ecb431b387dd9e1bc9a2ace2949bd3bb1e071e01f44f28125f73dbd8b"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/policies/README.md",
+      "bytes": 190,
+      "sha256": "4fc1cff5e941d9cef0cc8e9693ec036c86ebb767126d1b76aac03531c758f076"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/prompts/README.md",
+      "bytes": 141,
+      "sha256": "2abfb9b52bc1f56a360f1e6521caf2cef48a1a131a51090b682418536d9fa627"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/prompts/bulk_rna_seq_mvp.md",
+      "bytes": 2267,
+      "sha256": "c23afd3137236252c8db53dea19ab7eeca52efa185bb8b9cf6e35e37556164c5"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/prompts/domain_intake.md",
+      "bytes": 346,
+      "sha256": "ca61040e5d21400c8d5e378b0b4d32560e574e03b21bf1f795ce7c680b3bff16"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/prompts/gene_set_mvp.md",
+      "bytes": 909,
+      "sha256": "b3a2d940d4eb2a1bfb04ddab423c92485a7603cc65ebc0f573b575d26fc21e86"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/quality_gates/README.md",
+      "bytes": 140,
+      "sha256": "d149a9ee61714fb75e5b95a2d802e036d02c4faafccacdf14fdfd9475bca16fa"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/quality_gates/domain_acceptance.md",
+      "bytes": 298,
+      "sha256": "0e4737c8af76fcd8f407e1c527cd5fa55165b5f7d6a5034b79aeeba47ee3377b"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/skills/README.md",
+      "bytes": 135,
+      "sha256": "c7cfd81ca10fc2c67f3250f70669e57af2b3a845699035bf76d62377922b8d74"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/skills/bulk_rna_seq_mvp.md",
+      "bytes": 1364,
+      "sha256": "6b3db64c90c6321ab0df66035ebfca062bd618f63345e158be5cdf9e7d87149a"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/skills/domain_execution.md",
+      "bytes": 315,
+      "sha256": "3314e3dcfa09e5c29251fab96216e11fec2353e839c88e2c64165459c7e0aaac"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/skills/gene_set_mvp.md",
+      "bytes": 949,
+      "sha256": "f5d06643a8c8c10ee310647611a066fc577f05169ed80d431c83a0a73c8eaa17"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/skills/sc_rna_seq_mvp.md",
+      "bytes": 2527,
+      "sha256": "1999ff6032764540e89709a15c6871af2e3d3c2d5451257c9bf6772629962081"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/stages/README.md",
+      "bytes": 141,
+      "sha256": "066bf1b18e645a7ff951c0444d24a64f829410ae3bdddc50ce35a5dafb96b744"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/stages/analysis_plan.md",
+      "bytes": 851,
+      "sha256": "a6c3160c5b05fda2838b9ad4ca8a57c01478b2e42e739e24a1c3e23ce7872d99"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/stages/biological_interpretation.md",
+      "bytes": 840,
+      "sha256": "f00ad0c2f359200b81cff1dffd60839786f58604065f987d9523145ca6191a89"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/stages/data_readiness.md",
+      "bytes": 833,
+      "sha256": "431d66591a586e3ff92f257eb76f8439a5740950051d9fb4c3d1fb2f30be27d5"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/stages/delivery.md",
+      "bytes": 847,
+      "sha256": "5baa461f8577fee8d38b04b389a532930a5c34653e4446b32b1ea1295108546f"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/stages/domain_intake.md",
+      "bytes": 467,
+      "sha256": "fd211e90be278a5b41a005fab131f0f8da10b6007617b76d7df61d9b912388f3"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/stages/evidence_audit.md",
+      "bytes": 848,
+      "sha256": "de7a9b2540d363e7a72590840ee4b6783bfcadac689c493ebc45d7fbe86c1482"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/stages/execution.md",
+      "bytes": 830,
+      "sha256": "91e62ea37e6057dfbf8483f967a862e70a0581fd98ec7c62970a4c5b02888fd0"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/stages/intake_and_scope.md",
+      "bytes": 862,
+      "sha256": "fdfb12c450fe951ac030bbf349c77123bd14764dd264901a64c0afedc77e3b73"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/agent/stages/review_and_red_team.md",
+      "bytes": 845,
+      "sha256": "f04bf7a853aca4e734206b6d98bf3331b018ac222702efed51edd41bd3f7cf26"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/action_catalog.json",
+      "bytes": 38960,
+      "sha256": "9501195eaeb96a1f0355f291ed3b3a39145cf4801f8400a501379b476d48eed1"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/bulk-rna-seq-benchmark.input.schema.json",
+      "bytes": 667,
+      "sha256": "831f5bfd45eb7ec8387177f474ccc1929badbb2dcd3c3d1ec48770363311aa27"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/bulk-rna-seq-benchmark.output.schema.json",
+      "bytes": 3055,
+      "sha256": "46c1ea7840b0730e91ed634d40d30e947186cc0ef12d81ed4e8bcfd45f161c37"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/bulk-rna-seq-predict.input.schema.json",
+      "bytes": 776,
+      "sha256": "c5fa1891390e3183a05120e483010de7c11b0a71e169409ad73e9f8c6f3acf91"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/bulk-rna-seq-predict.output.schema.json",
+      "bytes": 1933,
+      "sha256": "ea5b9dc82e215488efc0573dddf3dba0d33022ff90e332b2be4ba9a18b1eb542"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/bulk_rna_seq_analysis_protocol_v1.json",
+      "bytes": 4199,
+      "sha256": "91b729d1876fd19aa2541a81171595f55b64486415c5c0330ecb2f88aba55ced"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/bulk_rna_seq_generalist_package_v1.md",
+      "bytes": 493,
+      "sha256": "53a0c4511e2a3a4450d6be8f0447a2d26ddc1f0097a8c2fd18d0c358a6fa562c"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/bulk_rna_seq_scenario_domain_pack.json",
+      "bytes": 5599,
+      "sha256": "7103ef52de26ef43d39abccdcf0afc79aedcaf2785e58e8991c350645f62d902"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/bulk_rna_seq_task_specific_package_v1.md",
+      "bytes": 1119,
+      "sha256": "7d7ce4d2f5c332eadc3f1cb1c92b5de805244b7e0af321f2ff557e3e679b618b"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/bulk_rna_seq_toolchain_profile.json",
+      "bytes": 5118,
+      "sha256": "0edaab4837f0b377ac46ff3c22d7216bd96ba32bd247f44914793a684ab15e19"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/domain_descriptor.json",
+      "bytes": 1977,
+      "sha256": "bbc3c38543e9cf5ee2e49b5b20c4a9ae75310abb29f0a2f2b0561eb8dd74117b"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/functional_privatization_audit.json",
+      "bytes": 17421,
+      "sha256": "808859d3ab56bc7c7e0a9fbf6e6be779f4857d590be6dad9d35535e44d55606f"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/generated_surface_handoff.json",
+      "bytes": 4718,
+      "sha256": "5d2d9078531d7a380c01959f792f8704944be9d3ddac7b171806e055c0381f4f"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/genome-analysis-execution-v2-cases.schema.json",
+      "bytes": 1192,
+      "sha256": "19078aac76779a40f42f01767e68a63ec7d9194b5e11bccf33ff3811760af90b"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/genome-analysis-execution-v2.output.schema.json",
+      "bytes": 940,
+      "sha256": "d9cfec86a3f73066dd1e8924bf774358a98e65ca5f4c4b418be041904d973e8f"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/genome-sequencing-analysis-predict.input.schema.json",
+      "bytes": 521,
+      "sha256": "a3baf1b835959f2e5c0124a0038a330b40c687ba6fc7c2e384e00b8a1d69b02c"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/genome-sequencing-analysis-predict.output.schema.json",
+      "bytes": 557,
+      "sha256": "76b0c67ee6db5ce7ccdfe71b6c38cdf6d70fe596d22cb0a6ae52397792334fa4"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/genome-sequencing-analysis-verify.input.schema.json",
+      "bytes": 461,
+      "sha256": "76785167ee694011bcb26534d633fe5b08f5b98561a4372ab4b7ff552a4396a2"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/genome-sequencing-analysis-verify.output.schema.json",
+      "bytes": 1209,
+      "sha256": "56efb700f1caecdec28bd94867900aaf2337540e3ea3b26a1ef67a356fb8447c"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/genome_analysis_common_tool_loop_protocol_v1.json",
+      "bytes": 2733,
+      "sha256": "e889b926e4d413c47e74d52acbf27d7d555b26ca74c489441be23590d8c02cc6"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/genome_analysis_coverage_ontology_v1.json",
+      "bytes": 2508,
+      "sha256": "82e2f47863ed01ed8534f2999dd92add5d809968d8af62258f8f5c22598174f1"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/genome_analysis_execution_profile_decision_v3.schema.json",
+      "bytes": 1785,
+      "sha256": "77f9a8fe42b91ae00cd0fb4c3f2d9bc60afdb7122be7caab1a9305c5d90f3bb6"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/genome_analysis_execution_profile_registry_v3.json",
+      "bytes": 13356,
+      "sha256": "7a82aad816f8705d9226db5792df653c121cb4534e743bc7f9d44e13d797e25f"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/genome_sequencing_analysis_scenario_domain_pack.json",
+      "bytes": 4327,
+      "sha256": "5c61193923490cfbe86cbc8a4e1841fe354a148f63e6533a4d813e226cf541f6"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/owner_receipt_contract.json",
+      "bytes": 511,
+      "sha256": "099eb0f6ea56a76f0e7fe555a561cc2e539167ca36aba65098be7f7bba24de12"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/pack_compiler_input.json",
+      "bytes": 3813,
+      "sha256": "e2e212f15933cad813d434a8608ae04bceb07a28813b8927523c6d344ce61f69"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/sc-rna-seq-predict.input.schema.json",
+      "bytes": 779,
+      "sha256": "082e0b15b47c2b77525148e1b4976ebbc5795142568b97c62db40dc273bf4dde"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/sc-rna-seq-predict.output.schema.json",
+      "bytes": 1511,
+      "sha256": "046ab149cc12d8f81dfdaf99813d8e0673759486cc7fbed302cf3fb8b80d39c1"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/sc-rna-seq-routine-analysis-verification.output.schema.json",
+      "bytes": 2606,
+      "sha256": "cd7c1e24281a1103d73317b6b13e48c944558d1883231bf8ea6951ea2d3a10a0"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/sc_rna_seq_public_label_marker_skill_v1.json",
+      "bytes": 4918,
+      "sha256": "a1edd06aea7759b54109c6009effe57638de3aca647b8b460d7ef7f72a81b6b7"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/sc_rna_seq_public_label_marker_support_tool_v1.json",
+      "bytes": 1803,
+      "sha256": "c1870703d99d696aef56586ed1c85d7d2f01df9ad3d27a712a9cc90ba7932e57"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/sc_rna_seq_routine_analysis_coverage_v1.json",
+      "bytes": 7252,
+      "sha256": "2c823a8cf0c8e752700e0cdee1e2639d1b3cda29ca45e15c3733b671625f1cf5"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/sc_rna_seq_scenario_domain_pack.json",
+      "bytes": 15418,
+      "sha256": "aa7031b99eb03bff167598786cfbb8b313451ed8f7a41e3afe2a67ec6b254a3d"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/stage_control_plane.json",
+      "bytes": 45339,
+      "sha256": "fa9526992ec7acd6f491497284e485ba85199c40d7743655e2e0e6c9d2e585a8"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/contracts/three_agent_identity_v1.json",
+      "bytes": 4144,
+      "sha256": "bee9a2aa679be6f7a85ad263f1d2ae0edcce7d4ed6c4bd0dfbbaf7003e75fb7e"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/agent_runner/bulk_rna_analysis_decision_bound_executor_v1.mjs",
+      "bytes": 20268,
+      "sha256": "7577dd702bc4c4c78816d9c4e193e7da3d4b6e9103baddc8fa1b020d8ffbbf4b"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/agent_runner/bulk_rna_seq_agent.mjs",
+      "bytes": 80426,
+      "sha256": "be752808f398d5d4094dc7fbbd11f81b71eb48f7efc94c7077720124311d8578"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/agent_runner/genome_analysis_agent.mjs",
+      "bytes": 17325,
+      "sha256": "91293c91173f9d4e5b91f42af53e75af589fa6244acdad4c6dfd214b60d966ba"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/agent_runner/genome_analysis_profile_bound_executor_v4.mjs",
+      "bytes": 10466,
+      "sha256": "befcce0cf30c477d112767955aaedd094fa2c6098e57f3fd76a2fc8f0757a923"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/agent_runner/genome_analysis_smoke_runner_v1.mjs",
+      "bytes": 8510,
+      "sha256": "1db69056751f6536f52fbeba68324ece5aefd5e68c6d473f3ffa9363c73262b1"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/agent_runner/parts/bulk_rna_seq_claim_evidence.mjs",
+      "bytes": 5468,
+      "sha256": "b1f167d6d5be6d0bb47c6676a3efb296c3ab03a3a18c9d285527645cf74b9e6d"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/agent_runner/parts/bulk_rna_seq_gene_selection.mjs",
+      "bytes": 3903,
+      "sha256": "bcffbea3b0e2ad41c2e21bed4c8bed863c9a6e20086d2b705f044284f337348f"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/agent_runner/parts/manuscript_evidence_summary.mjs",
+      "bytes": 5367,
+      "sha256": "76f6375dbe9636487726c412cdc2a0f974c57c4fdae038f493e7483f10fd6ce8"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/agent_runner/parts/sc_rna_seq_input_materializer.mjs",
+      "bytes": 11655,
+      "sha256": "75e0fb596477616d5fad95833e5f77cee2462348c49679bab284ef35d1bfb225"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/agent_runner/sc_rna_seq_agent.mjs",
+      "bytes": 106997,
+      "sha256": "168ece03f1a36be47c66908afcdf7eda91cc88ffa0ec17bff42d9383b0cda888"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/authority_functions/bulk_rna_seq_benchmark_verifier.mjs",
+      "bytes": 26643,
+      "sha256": "ed62f6739642871cd9cc5b27e1bd59a30fad43272cda20deaac5fe9d84c03fda"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/authority_functions/genome_analysis_verifier.mjs",
+      "bytes": 4693,
+      "sha256": "6d776ab5a6c2a8ef380613f89229fc4babaaab27239302ac40d873e73842e104"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/authority_functions/sc_rna_seq_routine_analysis_verifier.mjs",
+      "bytes": 6100,
+      "sha256": "5465e89f534ec88e214a33c4ad3737dec3d3cf70cfd8d7df9cea0a555640f2d9"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/fixtures/bulk_rna_seq_inputs/gse147507_a549ace2/counts.tsv",
+      "bytes": 475,
+      "sha256": "228793865c0ec9772562ab61d441b0bf6404292f44b7a894c2faf3fedb08d34e"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/fixtures/bulk_rna_seq_inputs/gse147507_a549ace2/sample_sheet.tsv",
+      "bytes": 379,
+      "sha256": "7d294a097c07897208012793f6da6376b2a8fee007471598af0687ad41061f8a"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/fixtures/genome_variant_end_to_end_v1/alignment.sam",
+      "bytes": 474,
+      "sha256": "2fba8310e701b86cd060eae6070fe806c33472b94a96103ef673152ed4e180e5"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/fixtures/genome_variant_end_to_end_v1/opl_bio_candidate.vcf",
+      "bytes": 259,
+      "sha256": "c1fd7edfc9bdc556e2e2b4d561dfb10a3cf8f2ff6bbcdf96b91a90bbeabf4a5a"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/fixtures/genome_variant_end_to_end_v1/reference.fa",
+      "bytes": 214,
+      "sha256": "63adc65db722636abd92a94db01661e70673fb4f849dc74e89793438bea7a6f2"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/fixtures/sc_rna_seq_inputs/public_case_001/cell_metadata.tsv",
+      "bytes": 594,
+      "sha256": "51a9d23bf0458ecdbcdc34867f262d15685bdaeb033a8f2aba397e130a8f426f"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/fixtures/sc_rna_seq_inputs/public_case_001/counts.tsv",
+      "bytes": 865,
+      "sha256": "0becf85b4d32b81e3d76dadff28e9d71f5f045d092aa6f3903073596213a1fdd"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/tool_adapters/bulk_rna_seq_deseq2_clusterprofiler.R",
+      "bytes": 10451,
+      "sha256": "1798c1e4f93eca3dc83f2984da485c4f0a6879b633affc00bf5981302a0e0c74"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/tool_adapters/sc_rna_seq_h5ad_export.py",
+      "bytes": 5468,
+      "sha256": "d1a7a46f38adc1d22e22f1e20e44b77dffd78c99f673167dc3103e72d6b539da"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/runtime/tool_adapters/sc_rna_seq_scanpy_replay.py",
+      "bytes": 20958,
+      "sha256": "8a8512c24756328ea7cbacaf4a1a5bf1cbffe4fcbe65ad76f45d5b0aa077a6c3"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/scripts/lib/blind-benchmark-split.mjs",
+      "bytes": 8850,
+      "sha256": "7059083a4c5805f5a7f97a11ada325c1c1141e034b2cb02c7440ba8292e20123"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/scripts/lib/genome-analysis-profile-comparator-v3.mjs",
+      "bytes": 6520,
+      "sha256": "f0a9ac187eaba956178d5bf626c0d57515d180f78a08aafba0a5b59410d6ded3"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/scripts/lib/genome-public-arithmetic.mjs",
+      "bytes": 8839,
+      "sha256": "095649c72dd8808d20a79768f40506232bdcc456e3a752b534e72430a6e314b4"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/scripts/lib/genome-public-workflow.mjs",
+      "bytes": 4730,
+      "sha256": "d751084002045efa49dfb3a31c1ff5a202639ffbb083b019bff39767a0c7d14f"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/scripts/lib/genome-routine-analysis-comparator-v1.mjs",
+      "bytes": 13489,
+      "sha256": "3236a47f09f823925a4dd93465087fdf117e7e0963c8f890aaf0fc70d26fbb65"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/scripts/lib/m2-source-truth-retry-policy.mjs",
+      "bytes": 9462,
+      "sha256": "964010b6b1b719bf994275eb1a94efd5547d216c1622094acf4c1140aa3f3fc0"
+    },
+    {
+      "path": "source/examples/opl-bio-agent/scripts/score-opl-bio-genome-routine-analysis-decision-v1.mjs",
+      "bytes": 6978,
+      "sha256": "ead370e0533f8b83aa77a67c26ea9868e0bc9730b3d441743853f705b073158a"
+    },
+    {
+      "path": "source/native/opl-native-helper/Cargo.toml",
+      "bytes": 193,
+      "sha256": "56ae07183667a7d276be94d1f0bac2210c521bb9d4a08c30f98c35983d08c856"
+    },
+    {
+      "path": "source/native/opl-native-helper/src/bin/opl-artifact-indexer.rs",
+      "bytes": 72,
+      "sha256": "dc5ccf469b911697dfa7963835213e882d8052db7f5ddc26a067598a4c9a0cc1"
+    },
+    {
+      "path": "source/native/opl-native-helper/src/bin/opl-doctor-native.rs",
+      "bytes": 69,
+      "sha256": "6437ef2c98ef180ac18b3bb3e9f80f57c1e98b17837d4fee0c7e99259cbf6e75"
+    },
+    {
+      "path": "source/native/opl-native-helper/src/bin/opl-runtime-watch.rs",
+      "bytes": 69,
+      "sha256": "773d14442d877b4683b49cffcad2f072c7eec2a9694adfe74227e4e0a7447a3d"
+    },
+    {
+      "path": "source/native/opl-native-helper/src/bin/opl-state-indexer.rs",
+      "bytes": 69,
+      "sha256": "0a3ebc4117a69b4c2bdbafa66399866300300fb6afa1b73e6fd8f7b494a1f182"
+    },
+    {
+      "path": "source/native/opl-native-helper/src/bin/opl-sysprobe.rs",
+      "bytes": 64,
+      "sha256": "a26ef2371ba0baf80ac5b186d28cb0ae9ddf9affcef04d728fa4c6a0b28d9baa"
+    },
+    {
+      "path": "source/native/opl-native-helper/src/lib.rs",
+      "bytes": 25007,
+      "sha256": "27556f3ed1a1bd9b7cb60000482362f7de878d06e69538da189dd00d53eec44a"
+    },
+    {
+      "path": "source/opl-meta-agent/LICENSE",
+      "bytes": 10927,
+      "sha256": "833ec30eb6223cb0ff2caab6a7c25ea305b0bb62a373f37c8c78193a0cc4d575"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/knowledge/evidence-learning-policy.md",
+      "bytes": 289,
+      "sha256": "656f822d489fa9eb052e4942399b976015a8958cd76e5a00ac3efc6feca286f9"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/knowledge/opl-boundary-policy.md",
+      "bytes": 378,
+      "sha256": "bc0ca1acb64d9c0416421e41e80b699256751981467e3a46f2c1b560ce2752af"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/knowledge/project-maturity-signals.md",
+      "bytes": 369,
+      "sha256": "357ac2229e5d07be514d6b2465fdffd6c16e19a505bfba9344e789e3090cc242"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/knowledge/transferable-agent-practices.md",
+      "bytes": 287,
+      "sha256": "4ee7afb13d7617c628da3d9efc4da52cceb04405fadde2dd4e418ce96b67fe18"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/primary_skill/SKILL.md",
+      "bytes": 3661,
+      "sha256": "a29bc0a7f69ad42434e7bc783d53fbfde3d2c296f9f5d0d2eb4f46cc3627559f"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/principles/domain-specialization.md",
+      "bytes": 231,
+      "sha256": "f663a2fbdad8c5eb39c43969a22037262dc5f263d2f6279214d4ac980d70fe0b"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/principles/opl-standard-agent-principles.md",
+      "bytes": 1078,
+      "sha256": "04ae185ad33c155cc0d8a683c62fdb4b39d6ffd0166695ebb0a28d582bcf357c"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/professional_skills/oma-design-basis-architecture/SKILL.md",
+      "bytes": 910,
+      "sha256": "4e9aefc4d8bfa9644cf94fc50838c1debc9b820d48c1d7abe4c3653976e1f14b"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/professional_skills/oma-evidence-diagnosis/SKILL.md",
+      "bytes": 856,
+      "sha256": "464fbe9fadf7fc11ab798113e3a5c477a347df8867deee47da8b3c24e056c850"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/professional_skills/oma-target-assessment-eval-design/SKILL.md",
+      "bytes": 2497,
+      "sha256": "23ed937873a18731458149953161fe6fddcd9cdd6d90c6cc780291678b129dd4"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/prompts/agent-blueprint-authoring.md",
+      "bytes": 1897,
+      "sha256": "eb23caa600d6479f7715a86509e8849584e073e2919c4b48fd4fc79a8cb4be68"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/prompts/design-basis-admission.md",
+      "bytes": 438,
+      "sha256": "f991ed7a802f143c5c1629922c29f97ebc8d498bc48ea8fea7eebaa848550a9b"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/prompts/evaluation-design.md",
+      "bytes": 1665,
+      "sha256": "f99db72676714861d5d4ec22356af6c60be462edc8acb1e50c56d435a8f1c8a0"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/prompts/evidence-diagnosis.md",
+      "bytes": 575,
+      "sha256": "26bfba18275b4fe4c49fe2cde117b308771878494c3b38415e2cfbeffeff4b72"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/prompts/mission-intake.md",
+      "bytes": 721,
+      "sha256": "a00c9728d77bf9bd6928edd49cb3a5242387752a688f397ad9d79e77bc3c228d"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/prompts/stage-architecture.md",
+      "bytes": 516,
+      "sha256": "b0cd9bb7eda5b9d7b095552a3d86091796ebe8073422bf99f867de2c1b4cf415"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/prompts/stage-quality-cycle-roles.md",
+      "bytes": 1299,
+      "sha256": "ea2ce3cdef2bc680e56a1cb1ee01c04495cf65b5462145eff132204c78b9537b"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/prompts/target-agent-assessment.md",
+      "bytes": 388,
+      "sha256": "d08d6d5bf04b7dd3e3bdf4057c0eccafab599d056aaa0caeb27360680ac1540f"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/quality_gates/foundry-provider-output.md",
+      "bytes": 1670,
+      "sha256": "a6ea2cfce835fe1b2588d21f00d8b284795465f4f916d5eb9b110629c2772f24"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/stages/agent-blueprint-authoring.md",
+      "bytes": 262,
+      "sha256": "e6b2d5819771841304870c7ffc6fa1054a945087ba9f4c8c0ae9d5a184c7d231"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/stages/design-basis-admission.md",
+      "bytes": 125,
+      "sha256": "5f8231f2b820482c540cab6dedfac81f614aaaf13e821fc9e6ea76ca651b7583"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/stages/evaluation-design.md",
+      "bytes": 564,
+      "sha256": "ec90644d07a943179dd9a2c5561472bf6c0879d6eb3d622f57642292ffb1af73"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/stages/evidence-diagnosis.md",
+      "bytes": 104,
+      "sha256": "8d5b20850f4be3fd7ac2abc10b067641dc150e02583005a95d7103119159ecb6"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/stages/manifest.json",
+      "bytes": 11178,
+      "sha256": "e7849fc08ca1495a52badca055a6ca3452b03de9cea3c382acf7a70e60b571a1"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/stages/mission-intake.md",
+      "bytes": 130,
+      "sha256": "d1b556117dfad4f27c571ec1d187ce4751b9a5d20251839a1ae360dc7d5c6ed1"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/stages/stage-architecture.md",
+      "bytes": 126,
+      "sha256": "cb098916910882af541bfa4394c5d64d29c392fb8f303f2941125b4b99200d93"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/stages/target-agent-assessment.md",
+      "bytes": 130,
+      "sha256": "cd258e0e3fcccdc1681fadd3b396c3f49aa3dda11b5a95dfa977a464425b2797"
+    },
+    {
+      "path": "source/opl-meta-agent/agent/tools/domain_affordances.md",
+      "bytes": 449,
+      "sha256": "dec2ebc03fc549f420bb1a48d6ce0570fe804da5030ab09019d47477dff5bb83"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/action_catalog.json",
+      "bytes": 2568,
+      "sha256": "24f5b67fdedad6878947780e343d1133177e94920b0d8838c70939b81cee6c5a"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/capability_map.json",
+      "bytes": 20836,
+      "sha256": "74a1dfbbb5966b23f03ee2568e642f503718417c0e92f1b8388e3a114d5f6038"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/domain_descriptor.json",
+      "bytes": 3274,
+      "sha256": "b5f95458a840572e335324a88fb914ec0ca2e7cd93642d7a33941c3415929e6c"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/epistemic_review_adoption.json",
+      "bytes": 8433,
+      "sha256": "e6be790a9c519990b525a228d671a3d879e8e10b264fab6cbe4f208ef101d3f5"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/fixtures/foundry-protocol/agent-blueprint.json",
+      "bytes": 6169,
+      "sha256": "72a2f9fc7163e20937e08a040721bb6392be03a4aa191e5f6dac5f1b67617099"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/fixtures/foundry-protocol/design-request.json",
+      "bytes": 1099,
+      "sha256": "b20ba14d1ce42fa8c996923f16e76ab3ad60c1e528330c32fed5ba11acd2c956"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/fixtures/foundry-protocol/evidence-bundle.json",
+      "bytes": 3254,
+      "sha256": "a53ce8f89937926d7a927fec7de25cea07dee686ec9add7d4a40132f0ef34503"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/fixtures/foundry-protocol/improve/agent-blueprint.json",
+      "bytes": 6305,
+      "sha256": "1f8aa2c98d7fa3ad411ebf21e66b3dbd975996f87dc8f7f2bfc02f77a40c103a"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/fixtures/foundry-protocol/improve/design-request.json",
+      "bytes": 1413,
+      "sha256": "a25033ffe5a9cf0ad3622958abecf721ea3c2f35c885fa107d6ac0b61072759f"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/fixtures/foundry-protocol/improve/evidence-bundle.json",
+      "bytes": 4507,
+      "sha256": "14a2a81674c8619b16b61cdae6889aea753cf0918c3dd11cce3e258b6c3011a5"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/foundry_agent_series.json",
+      "bytes": 2447,
+      "sha256": "d935e904d4c8089a8279aea59e38980e83dca3815072a8ac1e65ae5adcb54b29"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/foundry_protocol_fixture_manifest.json",
+      "bytes": 1673,
+      "sha256": "34275a9cc8b64030335d40caf99afadf624405350f5db7aa98e36fcb7841fe87"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/foundry_protocol_improve_fixture_manifest.json",
+      "bytes": 1705,
+      "sha256": "9cd27195bf6cf1f4c4bf937252c2a82713955dbba180b3cfc79a961379761d43"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/foundry_provider.json",
+      "bytes": 2007,
+      "sha256": "1990ec386dfcc17c558cfabd7e80ddc7337c2874bc53a747ad7a7d3e9c1ff006"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/functional_privatization_audit.json",
+      "bytes": 7236,
+      "sha256": "d19fb34470d17f934d396d89ea67f6c6d823f141acb2af1ea5b6458d3ec8d973"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/generated_surface_handoff.json",
+      "bytes": 2790,
+      "sha256": "b1eb4842cfa232e4d1308b9fe38e41abfb429030d5954548fa415f0e110f7aa1"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/memory_descriptor.json",
+      "bytes": 882,
+      "sha256": "b939196fde9878eb38c478eab9310dc2476609ea38bb5175d0faefec0e1cb984"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/opl-native-profile.json",
+      "bytes": 1409,
+      "sha256": "7dd13f0d013827365aabcd8396315b716b8a5cddbb9c497bc25ecb8a93670ced"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/opl_agent_package_manifest.json",
+      "bytes": 2238,
+      "sha256": "6a40ae170f2e4b0cf6b1d7cbdec0316a99b53206725cb4f33278d0c76cf65be1"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/opl_domain_manifest_registration.json",
+      "bytes": 1379,
+      "sha256": "8cc95ceb9c4e1da3663dd4865c37df3f027529606dca1bc80adb7439d631de33"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/pack_compiler_input.json",
+      "bytes": 4446,
+      "sha256": "f77f7477fa03dcca40c3635138ee5a89573b131e108119100a8a0cb871e9a979"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/stage_quality_cycle_policy.json",
+      "bytes": 10664,
+      "sha256": "8757d1fe8e9e33cfb43cf4bf15432f349c9eccca718bafe15f4a419f9d5fcf2c"
+    },
+    {
+      "path": "source/opl-meta-agent/contracts/standard-agent-principles-adoption.json",
+      "bytes": 3482,
+      "sha256": "5008709e23605f6e18986e90157e82c986fa0cfd59730aa164ef67f2a4245a7c"
+    },
+    {
+      "path": "source/opl-meta-agent/opl-package.json",
+      "bytes": 2238,
+      "sha256": "6a40ae170f2e4b0cf6b1d7cbdec0316a99b53206725cb4f33278d0c76cf65be1"
+    },
+    {
+      "path": "source/opl-meta-agent/package-lock.json",
+      "bytes": 277,
+      "sha256": "f68383a66ddbf98912111d98536c448077e0087484683ee034e905fa5518c2ae"
+    },
+    {
+      "path": "source/opl-meta-agent/package.json",
+      "bytes": 418,
+      "sha256": "d43c2fc6980ce8559dfde0168a0e26699b2c30f6dcdc6366178ea023eef0682e"
+    },
+    {
+      "path": "source/opl-meta-agent/plugins/opl-meta-agent/.codex-plugin/plugin.json",
+      "bytes": 1119,
+      "sha256": "9aecc6dbe9b0b9b6b8fbc4569c492bb4a492e1e15a86e8b6e1275385787245ab"
+    },
+    {
+      "path": "source/opl-meta-agent/plugins/opl-meta-agent/opl-package.json",
+      "bytes": 2164,
+      "sha256": "5d9cfcde114b2c70b4a203d7a1dff8ad17548189830f903fa6481eaac9c9abae"
+    },
+    {
+      "path": "source/opl-meta-agent/plugins/opl-meta-agent/plugin.json",
+      "bytes": 1339,
+      "sha256": "8682920889d91c00467dd6125fb2621ae3c13a7b6386d0ca75aa4a4cfb9ed4c9"
+    },
+    {
+      "path": "source/opl-meta-agent/plugins/opl-meta-agent/skills/oma-design-basis-architecture/SKILL.md",
+      "bytes": 910,
+      "sha256": "4e9aefc4d8bfa9644cf94fc50838c1debc9b820d48c1d7abe4c3653976e1f14b"
+    },
+    {
+      "path": "source/opl-meta-agent/plugins/opl-meta-agent/skills/oma-evidence-diagnosis/SKILL.md",
+      "bytes": 856,
+      "sha256": "464fbe9fadf7fc11ab798113e3a5c477a347df8867deee47da8b3c24e056c850"
+    },
+    {
+      "path": "source/opl-meta-agent/plugins/opl-meta-agent/skills/oma-target-assessment-eval-design/SKILL.md",
+      "bytes": 2497,
+      "sha256": "23ed937873a18731458149953161fe6fddcd9cdd6d90c6cc780291678b129dd4"
+    },
+    {
+      "path": "source/opl-meta-agent/plugins/opl-meta-agent/skills/opl-meta-agent/SKILL.md",
+      "bytes": 3661,
+      "sha256": "a29bc0a7f69ad42434e7bc783d53fbfde3d2c296f9f5d0d2eb4f46cc3627559f"
+    },
+    {
+      "path": "source/opl-meta-agent/scripts/repo-hygiene.sh",
+      "bytes": 1285,
+      "sha256": "5463a4dc3fc4538a887145a34641545493613e72875943a6c34933037e07936d"
+    },
+    {
+      "path": "source/opl-meta-agent/scripts/verify.sh",
+      "bytes": 455,
+      "sha256": "1dedb4009d3f1b384ef437ba94bdf3a51e1570931919e573e00d4008b41c8d54"
+    },
+    {
+      "path": "source/opl-meta-agent/tests/contracts.test.mjs",
+      "bytes": 40991,
+      "sha256": "f1cb582d65f31d0cb1ccc7e320b173ce8726dc7a99f7538be5263f1daf708bc4"
+    },
+    {
+      "path": "source/opl-meta-agent/tests/foundry-protocol-fixtures.test.mjs",
+      "bytes": 10853,
+      "sha256": "d2cfadb5dcb852585a47dbb85e06fd7b88d40672ba5e23623ad991e26637036d"
+    },
+    {
+      "path": "source/package-lock.json",
+      "bytes": 84555,
+      "sha256": "b452219e24cbcef20ed7d09dc3c1353427195f0c6f7db0a257c87a5199c26f59"
+    },
+    {
+      "path": "source/package.json",
+      "bytes": 4908,
+      "sha256": "912cb549a8e2d3125b6cc8bd7a163e8ce1b6011e58b26a5006d185fd8293109a"
+    },
+    {
+      "path": "source/scripts/map-opl-bio-gene-identifiers-v1.R",
+      "bytes": 1269,
+      "sha256": "8c1193a41fc4f5c17fe608fa5a64b6a112c989266b53862f082ae0970ee693cc"
+    },
+    {
+      "path": "source/src/agent-executor.ts",
+      "bytes": 23850,
+      "sha256": "86b0413fa8f66700598cc35828c29af11f9ffdb4325aee89f84df0513b9c3712"
+    },
+    {
+      "path": "source/src/agent-lab-ahe-evidence.ts",
+      "bytes": 6471,
+      "sha256": "f8c6d0fbc8efed04a5a7bd35a64ecd8fb1d033dcc2d0ccedd604d01ca6c50fd8"
+    },
+    {
+      "path": "source/src/agent-lab-authority.ts",
+      "bytes": 1580,
+      "sha256": "b239675c256dceb92d30da1879a1108f0a43167892a774a8f5588b85f9e1ccae"
+    },
+    {
+      "path": "source/src/agent-lab-codex-attempt-flywheel.ts",
+      "bytes": 19567,
+      "sha256": "e5d28d9a93e9c46865a23d91d342f1bee35a399edbb0fd7e190cf2d894bedfbe"
+    },
+    {
+      "path": "source/src/agent-lab-complete.ts",
+      "bytes": 45487,
+      "sha256": "29cd6c6b47fce59cbf312e7c2d76cd93757a0d4a2914fd2e5249b3b749ac2fc2"
+    },
+    {
+      "path": "source/src/agent-lab-control-read-models.ts",
+      "bytes": 9339,
+      "sha256": "2d79a06eaef359a5e4df5087e7ae67fde0236c662c5c7d38dd3a030dc3a3228d"
+    },
+    {
+      "path": "source/src/agent-lab-developer-mode.ts",
+      "bytes": 28741,
+      "sha256": "32cb6cd3015eb8465a02bbe81b793885a0c4198185080f811940bb86e666eac1"
+    },
+    {
+      "path": "source/src/agent-lab-efficiency-nonregression.ts",
+      "bytes": 12682,
+      "sha256": "cd0652348ee031362693f901d9e401694df400e8e95d231f33b8886666322993"
+    },
+    {
+      "path": "source/src/agent-lab-executor-capability-aperture.ts",
+      "bytes": 16014,
+      "sha256": "01a08139ca03438f9d47c6e1f6337bc2f69e4ba985300e495822296cc5a0912a"
+    },
+    {
+      "path": "source/src/agent-lab-independent-ai-review.ts",
+      "bytes": 833,
+      "sha256": "ea3465fc40ae4ac2ecec41f244c0fd7fc4cb8ba703f60bbae5062ff48b5310da"
+    },
+    {
+      "path": "source/src/agent-lab-longline.ts",
+      "bytes": 13547,
+      "sha256": "39aa6970cc69791c683c7251266a278b179f2a57922a4196b3838b1b57af917e"
+    },
+    {
+      "path": "source/src/agent-lab-mechanism-inputs.ts",
+      "bytes": 25269,
+      "sha256": "dedf5768ff95cf2cd48d1f3b9da12a2affe318b4ebf4a1e7fa7edcbf8e153fdd"
+    },
+    {
+      "path": "source/src/agent-lab-optimizer-read-models.ts",
+      "bytes": 7510,
+      "sha256": "874f23b2103f5a2b769b4dd07c6e3c23c85588520300b03135d5b22cf98d6cb5"
+    },
+    {
+      "path": "source/src/agent-lab-production-evidence.ts",
+      "bytes": 4876,
+      "sha256": "c1098272cee55ffa6507a50c1e9c7cb881df94cadf55e3e0457a898b7dc4bb00"
+    },
+    {
+      "path": "source/src/agent-lab-promotion.ts",
+      "bytes": 10507,
+      "sha256": "841aa87e9e90e5ca9213c96321a78ea61305ab21408ea49a2768ed2144361c59"
+    },
+    {
+      "path": "source/src/agent-lab-ref-summary.ts",
+      "bytes": 1119,
+      "sha256": "0dde4933b63690901502b05b6678406a9e8ab80cdc24eb9a4f27f4f8a7afb908"
+    },
+    {
+      "path": "source/src/agent-lab-sample-suite.ts",
+      "bytes": 12555,
+      "sha256": "320ff86a508b578fa056414af09d5ccefdf84bb753f72b2722309df494bb54da"
+    },
+    {
+      "path": "source/src/agent-lab-stage-executor-policy.ts",
+      "bytes": 8952,
+      "sha256": "a4332a9f0a44dd9a69cf4b289d9ed51ddec249d603d698600378dee04c57776d"
+    },
+    {
+      "path": "source/src/agent-lab-token-cost-estimate.ts",
+      "bytes": 16626,
+      "sha256": "4cd3b932a3a568b5cc0e4ba1f41d89ed17703007989ea82f69486b0986928c1c"
+    },
+    {
+      "path": "source/src/agent-lab-variant-comparison.ts",
+      "bytes": 12094,
+      "sha256": "3ccffb5777722bf94ead22c8c36497cd2d420440cd2be9671a45adae7b452f10"
+    },
+    {
+      "path": "source/src/agent-lab-work-order-execution.ts",
+      "bytes": 29650,
+      "sha256": "78558cadb861ccb197e4e10436817bbc85a6557f31d3403a6a8c58f088abb5b3"
+    },
+    {
+      "path": "source/src/agent-lab.ts",
+      "bytes": 38490,
+      "sha256": "4e7ed0afc6ce0fe596a27628b4e2384188eaa1385585eb9d906db89cbb0c21a7"
+    },
+    {
+      "path": "source/src/agent-platform-surface-ownership.ts",
+      "bytes": 38257,
+      "sha256": "ff67fb1794047c965775a510d7e0bcf65513ae9c71c5d0599633a19a19790979"
+    },
+    {
+      "path": "source/src/agent-readiness.ts",
+      "bytes": 10807,
+      "sha256": "547ff2dfb6e258b9ed5c9eb7eae59f5ae745e70857a2a686d5da6f646bad09c7"
+    },
+    {
+      "path": "source/src/aionui-acp-shell.ts",
+      "bytes": 4384,
+      "sha256": "ef1ec4df94d43541b68a4eea4700384c11061585173d0089ca6e76311d4e98b3"
+    },
+    {
+      "path": "source/src/app-release-long-operator-observation.ts",
+      "bytes": 11591,
+      "sha256": "3d9992b02dff0fa0d51bc1345b4e06bfeffd48a9ea181afe7258ae749f304a10"
+    },
+    {
+      "path": "source/src/app-release-user-path-evidence-ledger.ts",
+      "bytes": 10356,
+      "sha256": "2977b2f8500897b5dd038bf4e47552a3e0387a0a2679ad58fcdd7a4dfdbfc023"
+    },
+    {
+      "path": "source/src/automation-companions.ts",
+      "bytes": 2793,
+      "sha256": "2bbc27f9aa75a4938f3f203912fcee1453b7bdbc6a7a2a3bdf14f9ccc293a5f4"
+    },
+    {
+      "path": "source/src/cli/cases/agent-evidence-command-spec.ts",
+      "bytes": 1202,
+      "sha256": "d4ce6145af811847dbf90ad1bf8f858554fbed6d86fa8db38d22469be36a58cc"
+    },
+    {
+      "path": "source/src/cli/cases/agent-lab-public-command-specs.ts",
+      "bytes": 6291,
+      "sha256": "92414eb157f0b01f9c059053421a87853c2e980abe228f1bd266ff9a26ea5f1d"
+    },
+    {
+      "path": "source/src/cli/cases/private-command-specs.ts",
+      "bytes": 41514,
+      "sha256": "d6baab0892908d04d0adbdafe12f4a7e944203ad6122b07661ee9da1e6815b1e"
+    },
+    {
+      "path": "source/src/cli/cases/public-command-specs.ts",
+      "bytes": 41507,
+      "sha256": "4fe37904cfacbd5e941d7ecd7cdc0a4f9d52ffce1416d4abb96c110205d9ba9c"
+    },
+    {
+      "path": "source/src/cli/cases/runtime-app-release-evidence-command-spec.ts",
+      "bytes": 14760,
+      "sha256": "bbb78d63c664cd766821e1691f8096bfbe68ca072dc6ae4898c4893b513def5e"
+    },
+    {
+      "path": "source/src/cli/cases/runtime-developer-mode-closeout-command-spec.ts",
+      "bytes": 7342,
+      "sha256": "4769132d74e37625ee3e2f9146552f2f88fcd3cae07e1a1dfb968f2b58d83a18"
+    },
+    {
+      "path": "source/src/cli/cases/runtime-developer-mode-closeout-public-command-specs.ts",
+      "bytes": 1633,
+      "sha256": "2d405520a7f897e0d11782a19728be9e59b7f155936531aa01696398cb734753"
+    },
+    {
+      "path": "source/src/cli/cases/runtime-oma-app-live-path-command-spec.ts",
+      "bytes": 5271,
+      "sha256": "a5d068631ca9a8cb1b1554798ba98583fe81abfe7ba65f7c2d4d693e75ed719a"
+    },
+    {
+      "path": "source/src/cli/cases/runtime-oma-production-consumption-command-spec.ts",
+      "bytes": 14264,
+      "sha256": "a618cc71146729503ef69c6bf6d4625ead178b388bb231bd810454d20f90f12d"
+    },
+    {
+      "path": "source/src/cli/cases/runtime-public-command-specs.ts",
+      "bytes": 10255,
+      "sha256": "013619247cb0d8e9039f87a88b6501c65ebfd107e87223dd5d63ba217b129f2b"
+    },
+    {
+      "path": "source/src/cli/cases/system-public-command-specs.ts",
+      "bytes": 7210,
+      "sha256": "3b69a5e94922f9cb674bf7b8bd66a27afb701a9c3a8ca7359c683ddfcd9e82de"
+    },
+    {
+      "path": "source/src/cli/cases/work-order-public-command-specs.ts",
+      "bytes": 1070,
+      "sha256": "c6f14a431f209662b5acb0f9ca5b22db4f3c841b66a05eea002cec9b066d22ab"
+    },
+    {
+      "path": "source/src/cli/main.ts",
+      "bytes": 4939,
+      "sha256": "ec32aeecf9449f3ca4e2692cf24a68ced1c13e3e69850facf9869b5df4a231c1"
+    },
+    {
+      "path": "source/src/cli/modules/agent-lab-public-payloads.ts",
+      "bytes": 10239,
+      "sha256": "4452797867c3b67bb1d9b28523e99136184ab99ade5bd400f8eed779cd1cebec"
+    },
+    {
+      "path": "source/src/cli/modules/help-output.ts",
+      "bytes": 12007,
+      "sha256": "80c1c2554bcfdd588a4de346578b5e8ac3e907a05e4ed6866889a8e969a0b586"
+    },
+    {
+      "path": "source/src/cli/modules/payload-file.ts",
+      "bytes": 838,
+      "sha256": "04b44e7e7d185fc438e6ff420725af4747acf92afbb4a9c328952b911e3904a0"
+    },
+    {
+      "path": "source/src/cli/modules/public-payloads.ts",
+      "bytes": 5935,
+      "sha256": "bb584d5f1ccecb158efe551e78ae82388960ed99375a6c066d7146288ea9f8c0"
+    },
+    {
+      "path": "source/src/cli/modules/request-parsers.ts",
+      "bytes": 20410,
+      "sha256": "074eda689ade56e9c9251c1b21b6094599b49adacea3a227bcf41acecf46e4c0"
+    },
+    {
+      "path": "source/src/cli/modules/runtime-helpers.ts",
+      "bytes": 890,
+      "sha256": "749cae369fbebd587d6d1b48dd22188688f2ecbb259994054fab87157004e3f4"
+    },
+    {
+      "path": "source/src/cli/modules/support.ts",
+      "bytes": 1902,
+      "sha256": "cf3cffc15843d1625861fe9b83e59938493ea041d3652c52ef3f1169805bbcd8"
+    },
+    {
+      "path": "source/src/cli/modules/system-action-parsers.ts",
+      "bytes": 11336,
+      "sha256": "ac090595b94a22d603beda851d7d983e79c176b6c3232a6da2cb63a7fe29d1d1"
+    },
+    {
+      "path": "source/src/cli/modules/types.ts",
+      "bytes": 4431,
+      "sha256": "0120adfd7ace098ab04b09ab7c9f0e16057f8114f98bb983a9dfa8134a158f00"
+    },
+    {
+      "path": "source/src/cli/modules/work-order-public-payloads.ts",
+      "bytes": 3516,
+      "sha256": "49788ce36d3a9db84c3d985a1f8822eeca128e87d8eab713e1bceeeafa1cbe5f"
+    },
+    {
+      "path": "source/src/cli.ts",
+      "bytes": 527,
+      "sha256": "349381f699e4380155610765b3a667743eae6c0b6e8337cae6f5e2410c4f71c2"
+    },
+    {
+      "path": "source/src/codex.ts",
+      "bytes": 21879,
+      "sha256": "2cd9bfa656c727511039acafb0df2b002885006cf3d05c7489f4904af309e782"
+    },
+    {
+      "path": "source/src/contract-validation.ts",
+      "bytes": 2992,
+      "sha256": "c52bc08e2c14ea5ffbd8b6e66ec9964be3adf19a307bb66dc9c05c2b75462607"
+    },
+    {
+      "path": "source/src/contracts.ts",
+      "bytes": 26955,
+      "sha256": "3352c64c2473ed430d40f3b01eb32d8b5fb88cc758b5c0b1ef16d885db50bf19"
+    },
+    {
+      "path": "source/src/developer-mode-closeout-ledger.ts",
+      "bytes": 15511,
+      "sha256": "669ab968d9991c57675bfe796283d1671d0c44bc372d52d19e845235c966e2d5"
+    },
+    {
+      "path": "source/src/developer-mode.ts",
+      "bytes": 15331,
+      "sha256": "9e8e3da29cdc0679b77fe3b495fcf0e943d0e958b5d15697846064403c765991"
+    },
+    {
+      "path": "source/src/domain-contracts.ts",
+      "bytes": 8389,
+      "sha256": "93cae27fd63f4cfb0da79e093d1411a0806c85c5e6ccfa5200f433738e9b6156"
+    },
+    {
+      "path": "source/src/domain-dispatch-evidence-identity-guidance.ts",
+      "bytes": 3941,
+      "sha256": "27c1e051fdaff434f556579133859bfe35ea2673b743f779e3bf25e547ced67b"
+    },
+    {
+      "path": "source/src/domain-dispatch-evidence-payload-preflight.ts",
+      "bytes": 11881,
+      "sha256": "fc685389a1089c652dc01d227b24984398314804b95e49367a1db4e9cba4b994"
+    },
+    {
+      "path": "source/src/domain-dispatch-evidence-workorder-packet.ts",
+      "bytes": 24905,
+      "sha256": "ee9de0c4bf3d5279dc7a169501fb3df756396f4ba5a3e5577e3a23aa01b6fa54"
+    },
+    {
+      "path": "source/src/domain-launch.ts",
+      "bytes": 9082,
+      "sha256": "29ab5b87733517b2ec6d3bb09bb299ec08fddd593df4797032c412f300505af2"
+    },
+    {
+      "path": "source/src/domain-manifest/artifact-skill-normalizers.ts",
+      "bytes": 8502,
+      "sha256": "35e5128bb8cb855202cd77be59ca45c8160d365815da6b089222246c6fb4a8f2"
+    },
+    {
+      "path": "source/src/domain-manifest/catalog-builder.ts",
+      "bytes": 4121,
+      "sha256": "9faa1ef804049532d82b98566ccf2ad7c6a6e08f05ff8ab1acdb67f909fd3bad"
+    },
+    {
+      "path": "source/src/domain-manifest/entry-surfaces.ts",
+      "bytes": 13999,
+      "sha256": "04d35007c863715ed2630f022a6f4d4ec252361af12513e22bc2486630ba63ad"
+    },
+    {
+      "path": "source/src/domain-manifest/family-transition-materializer.ts",
+      "bytes": 11298,
+      "sha256": "8af8209e5c486f4935799498bde77b5ff40ffc5935592931b8c2aa5c4e95ae5b"
+    },
+    {
+      "path": "source/src/domain-manifest/family-transition-normalizer.ts",
+      "bytes": 7690,
+      "sha256": "3314259e4a0e6409e0b9e2d94eeb816af2d2a952d7033fb3712d91993be37aab"
+    },
+    {
+      "path": "source/src/domain-manifest/functional-closure-surfaces.ts",
+      "bytes": 2012,
+      "sha256": "54f16a76e92246ec1731bf5b2601a3f6750f56cff7dd4955cbdcd5bf25b9ec3d"
+    },
+    {
+      "path": "source/src/domain-manifest/normalizers.ts",
+      "bytes": 41743,
+      "sha256": "f78a1f5199f5cd586d795184bdddeedc506cae801665d2ae60a1f2120f96b71e"
+    },
+    {
+      "path": "source/src/domain-manifest/projection-cache.ts",
+      "bytes": 4475,
+      "sha256": "601050419b456c01c58abf09724d4df4b5b29fd71255737d1d6704ed228e65be"
+    },
+    {
+      "path": "source/src/domain-manifest/resolver.ts",
+      "bytes": 6389,
+      "sha256": "43939ebef8921eb2e0b8f3f86d6bc4d27670985175bb4fd254236bd941c1d819"
+    },
+    {
+      "path": "source/src/domain-manifest/shared-utils.ts",
+      "bytes": 1885,
+      "sha256": "3acb386f9893a2a0e9f919e8b12472533ad529403c1614b43ee572e1decc9acb"
+    },
+    {
+      "path": "source/src/domain-manifest/status-skeleton-normalizers.ts",
+      "bytes": 2111,
+      "sha256": "9a73f8f8f0ccddc26798dd288c876a479a303024169f6822e9c3bdff6334a4b3"
+    },
+    {
+      "path": "source/src/domain-manifest/surface-normalizers.ts",
+      "bytes": 125,
+      "sha256": "c782d69601aa016f77eb6b23b2131472b66067fd61e0e558ccd075a1aae85b8b"
+    },
+    {
+      "path": "source/src/domain-manifest/surface-utils.ts",
+      "bytes": 1969,
+      "sha256": "475de01a1e2853d6407903832b011ad2428cc8c17388cd0d8c3a6e8abc71fa27"
+    },
+    {
+      "path": "source/src/domain-manifest/types.ts",
+      "bytes": 17103,
+      "sha256": "8ac6cd9ac7b8e3d232281e35869fdf44c6ce671beed0cb3181a4eb8c960c5294"
+    },
+    {
+      "path": "source/src/domain-manifest.ts",
+      "bytes": 641,
+      "sha256": "b533a71b51be9af4e4d09f09c13f9f9e776e5cfd8f4a853cf0254e0ca10237b6"
+    },
+    {
+      "path": "source/src/domain-pack-compiler/generated-interface-read-model.ts",
+      "bytes": 35419,
+      "sha256": "6a66a124eb8c8e1ece3c9b6497a37d473bd604ab8b9066a1c99698fe0ff96b33"
+    },
+    {
+      "path": "source/src/domain-pack-compiler.ts",
+      "bytes": 33305,
+      "sha256": "ec5daba854a36169d7e1bbb97631be0b6b554aa7eb8b7d784d1ef27a7e159daa"
+    },
+    {
+      "path": "source/src/evidence-envelope.ts",
+      "bytes": 24216,
+      "sha256": "7f04fa9d02444a3bdd986cf6f689e034c0606231fa9055d0c8759db130520b8b"
+    },
+    {
+      "path": "source/src/evidence-requirement.ts",
+      "bytes": 10251,
+      "sha256": "8c72383fa0eeac6640037b86711be447bd500ac7d1553e38e3c4d80ed42ed7a1"
+    },
+    {
+      "path": "source/src/external-evidence-ledger.ts",
+      "bytes": 14604,
+      "sha256": "43c00db797fd37c180b298e097c4af11fb16f662af27c43525a25ab1d29ceea8"
+    },
+    {
+      "path": "source/src/external-evidence-receipt-classification.ts",
+      "bytes": 6048,
+      "sha256": "4755d2ccad9f5ae6452b97e4279f6edccd820626e3052ad34c489c63739f6235"
+    },
+    {
+      "path": "source/src/family-action-catalog-contract.ts",
+      "bytes": 6621,
+      "sha256": "6449a9fb5e8cd7eab693cf1e02e085e1043bbfe8171fbea4a452c46b14b689d4"
+    },
+    {
+      "path": "source/src/family-action-catalog.ts",
+      "bytes": 15508,
+      "sha256": "bf121eb3b9808d6000d8a2c2f12ca17fbd7d73ebaec19153bf57450d5e5ba162"
+    },
+    {
+      "path": "source/src/family-conflict-envelope.ts",
+      "bytes": 17765,
+      "sha256": "b48039b70cd7e1c38d5038a5f445cbe589b84eba2e56c58bac959b1fd6e2cac3"
+    },
+    {
+      "path": "source/src/family-domain-agent-descriptor.ts",
+      "bytes": 37745,
+      "sha256": "750c97fce8962df221954fc0866f2cda3ed6564eca5bed2466d4f82dca60942f"
+    },
+    {
+      "path": "source/src/family-domain-agent-provider-closure.ts",
+      "bytes": 2761,
+      "sha256": "0b30f09bc891055843fb71ddcf0caeb60ad22463604740e73f2345d9f1419e9f"
+    },
+    {
+      "path": "source/src/family-domain-agent-skeleton-parts/legacy-cleanup-evidence.ts",
+      "bytes": 22642,
+      "sha256": "e8283d8a3c3ed15f048c05434318f71432c56582720e32f962224ba2e554b092"
+    },
+    {
+      "path": "source/src/family-domain-agent-skeleton.ts",
+      "bytes": 29741,
+      "sha256": "6e7c27d83c60b75daae7f3686a196b930a77c3c1cd6717c98766062482ea8cf8"
+    },
+    {
+      "path": "source/src/family-domain-catalog.ts",
+      "bytes": 39934,
+      "sha256": "bafe26752d657c6f237d251f884e2f448d5533ca9aa537c3458eafeaf24f4779"
+    },
+    {
+      "path": "source/src/family-domain-memory-contract.ts",
+      "bytes": 6280,
+      "sha256": "a198d9bc003ba36703adc9e97725c1aac5a12c6e5c96af14c2c4a61f6beb9d2d"
+    },
+    {
+      "path": "source/src/family-domain-memory.ts",
+      "bytes": 18381,
+      "sha256": "13b44ea18df06bcce8b9f778625ec5bf3472f96c76c2b49329b16c09aaebf14d"
+    },
+    {
+      "path": "source/src/family-entry-contracts.ts",
+      "bytes": 23662,
+      "sha256": "b5701f5bef8f9889b4aa66f8e94fbe88c59a2d616f74eb0310ab37283c1659eb"
+    },
+    {
+      "path": "source/src/family-human-review-budget.ts",
+      "bytes": 14321,
+      "sha256": "d4df33660ea047b5bcc86d079f68d4bbb93cae767ba5dc3ad9aff29ee93ca0fc"
+    },
+    {
+      "path": "source/src/family-orchestration.ts",
+      "bytes": 37184,
+      "sha256": "f4921f63389b064e7d033947926cc38a5e4fa3a1ceba3346a4185c2c20a62541"
+    },
+    {
+      "path": "source/src/family-runtime-codex-stage-runner.ts",
+      "bytes": 26352,
+      "sha256": "c1da515c4db06d7c34c35c2e850a0791f348417122f8e455498480edf4b53743"
+    },
+    {
+      "path": "source/src/family-runtime-command-parts/attempt.ts",
+      "bytes": 9747,
+      "sha256": "cfa70a814fde728b105bb57febb0d9164db6aefb79e80a528711b9e2918ce798"
+    },
+    {
+      "path": "source/src/family-runtime-command-parts/evidence-worklist.ts",
+      "bytes": 3081,
+      "sha256": "62b4bc6a413d2713a8878f91ca14f733ace9cf1ed5c37e47d5ba448b6c6126bd"
+    },
+    {
+      "path": "source/src/family-runtime-command-parts/lifecycle.ts",
+      "bytes": 5108,
+      "sha256": "3e415eaa69a826bbc138e338102d6c16ccc68226bab2b7f2578c48f530b6c018"
+    },
+    {
+      "path": "source/src/family-runtime-command-parts/provider.ts",
+      "bytes": 2853,
+      "sha256": "4fcd4575d2a5ae5977a27548cccd5573e624525c4406eed61145a68137d22510"
+    },
+    {
+      "path": "source/src/family-runtime-command-parts/queue.ts",
+      "bytes": 9440,
+      "sha256": "8378a654c258de1bdf9a51b5d44968538773b04164d44b162b92ce4d2f5129c1"
+    },
+    {
+      "path": "source/src/family-runtime-command-parts/registry.ts",
+      "bytes": 5012,
+      "sha256": "5cbf6cda575f1f978ef20fe4b4fe762fa49a1e08f45ca312e89d4953908e9c51"
+    },
+    {
+      "path": "source/src/family-runtime-command-parts/scheduler.ts",
+      "bytes": 2853,
+      "sha256": "86ea314e5ade82df632645f8f40bbbfcc5113971c3d858163ef1ae4363a3a267"
+    },
+    {
+      "path": "source/src/family-runtime-command-parts/service-worker.ts",
+      "bytes": 1931,
+      "sha256": "0ca32252a83d03176dba1573bf0a48e52f5da0c2f0a914a9e88d271b79d6c0a7"
+    },
+    {
+      "path": "source/src/family-runtime-command-parts/shared.ts",
+      "bytes": 2597,
+      "sha256": "a2059665fec0b22a53560c34e8a4a4999395719c30d40691eafcb32b17d28554"
+    },
+    {
+      "path": "source/src/family-runtime-command.ts",
+      "bytes": 5280,
+      "sha256": "d5f5f465ecaf9d2bcce3b5bb9f0a652cfadfb7b371fd79b8ea93e31dabf59177"
+    },
+    {
+      "path": "source/src/family-runtime-controlled-apply.ts",
+      "bytes": 5324,
+      "sha256": "730a52e86361edeaccd2559db5663e304a8dfbd24008da289225e22f61a7cf36"
+    },
+    {
+      "path": "source/src/family-runtime-current-control-state.ts",
+      "bytes": 10119,
+      "sha256": "57c3797fb7ab98e1316377cd6e14cf5c5e3e32869a51e61a6af9fc11c5f37ffa"
+    },
+    {
+      "path": "source/src/family-runtime-dead-letter-redrive.ts",
+      "bytes": 2404,
+      "sha256": "c8b418ab94b08d60c9e44c1b003e56a72ce5483fac80e1b11cfea1d74b7ac147"
+    },
+    {
+      "path": "source/src/family-runtime-dispatch-command.ts",
+      "bytes": 1210,
+      "sha256": "b1522b8565fa4c3b9b68752111bab4e98d926f5c128b523fdac54458cceaf2f9"
+    },
+    {
+      "path": "source/src/family-runtime-dispatch-task.ts",
+      "bytes": 1523,
+      "sha256": "b06054155ce9d446093ca331f99724822f824fe3b43217408066c426036f888c"
+    },
+    {
+      "path": "source/src/family-runtime-domain-intake.ts",
+      "bytes": 17971,
+      "sha256": "e7e533dc1e040b10c6ba0593443ec9e3ab95a0fbaeda88b85449c8714a848d5a"
+    },
+    {
+      "path": "source/src/family-runtime-enqueue.ts",
+      "bytes": 17649,
+      "sha256": "0ada9b4820c99fb6bddfd962d0051b0e7fc9cb80d33135f3ae27a1f4f879cd28"
+    },
+    {
+      "path": "source/src/family-runtime-evidence-worklist-command.ts",
+      "bytes": 352,
+      "sha256": "e34c05c173b70387b26aa218b866e5a758f58c3aa9cd7a19e43ce2e990541244"
+    },
+    {
+      "path": "source/src/family-runtime-evidence-worklist-parts/attention-actions.ts",
+      "bytes": 3246,
+      "sha256": "49452f28c7620f70374f22ae16413378ae748b5de99b635f619802e2a1b793b0"
+    },
+    {
+      "path": "source/src/family-runtime-evidence-worklist-parts/default-caller-deletion-evidence-routes.ts",
+      "bytes": 3491,
+      "sha256": "c493c74133843e8c14a7c4c5187a60bed591fa80ad73347cbb6eec121331209a"
+    },
+    {
+      "path": "source/src/family-runtime-evidence-worklist-parts/operator-route-handoff.ts",
+      "bytes": 4063,
+      "sha256": "577290a7e7dd7d3b6d10600c7706783a8f68231dc0d8670e1beb3978c62e05b0"
+    },
+    {
+      "path": "source/src/family-runtime-evidence-worklist-parts/route-defaults.ts",
+      "bytes": 1724,
+      "sha256": "d4b239f9ed2d5f74d5a54b5918c414541754380f3de59254371446205625a9ed"
+    },
+    {
+      "path": "source/src/family-runtime-evidence-worklist-parts/zero-open-completion-guard.ts",
+      "bytes": 1923,
+      "sha256": "25ec06ed142dd062e9336706eca8292b3926b6a0ac86815ee1aa7ced7cc23d94"
+    },
+    {
+      "path": "source/src/family-runtime-evidence-worklist.ts",
+      "bytes": 45354,
+      "sha256": "f1cf6a14d36e8b0d665ca134ce61241543672b65544763b37e13bfbb9d970c10"
+    },
+    {
+      "path": "source/src/family-runtime-ids.ts",
+      "bytes": 253,
+      "sha256": "993c61723c4ff8db9a3246c9025a955d6a998f78bac8fe43dd668c3e8b367d35"
+    },
+    {
+      "path": "source/src/family-runtime-launch-invocation.ts",
+      "bytes": 8098,
+      "sha256": "3beba8cdebc9ef005523a9de801bdccf86a7bac429c712683660dec1154cc953"
+    },
+    {
+      "path": "source/src/family-runtime-lifecycle-apply.ts",
+      "bytes": 22113,
+      "sha256": "348eba759490000c5fed0c417670a7f46f4c78f1aa33b1eb0a989640d30723c9"
+    },
+    {
+      "path": "source/src/family-runtime-lifecycle-index.ts",
+      "bytes": 17873,
+      "sha256": "dcbf82bf3b333829140db2d0e040c85bc74e844deaf7e17218e03c0afb08dd70"
+    },
+    {
+      "path": "source/src/family-runtime-lifecycle-store.ts",
+      "bytes": 5990,
+      "sha256": "6c98d8f512688181368ea176513a7bfdc103aab353f36094e2cba1c21dd65557"
+    },
+    {
+      "path": "source/src/family-runtime-lifecycle.ts",
+      "bytes": 8523,
+      "sha256": "e62d4e39f6c5351b1f61284b1f92b7226ae7eb8c3418657e9433e50d7a22e269"
+    },
+    {
+      "path": "source/src/family-runtime-linked-task-sync.ts",
+      "bytes": 6812,
+      "sha256": "fb4d1785ca1db072d17a79a4fd0b879ed71edf18e9d708db60b3ef13436301db"
+    },
+    {
+      "path": "source/src/family-runtime-mas-default-executor-start.ts",
+      "bytes": 9345,
+      "sha256": "070f8d0048652966f081f11ada047df0766af81b47c34e0b59132c63ffa47a3a"
+    },
+    {
+      "path": "source/src/family-runtime-mas-domain-route.ts",
+      "bytes": 6454,
+      "sha256": "313ad028a880020a43dc96ce4a15041e40bdc43f30b41388c6d0df891ac12851"
+    },
+    {
+      "path": "source/src/family-runtime-mas-managed-provider-projection.ts",
+      "bytes": 12429,
+      "sha256": "07d1fea79c0ee1cb5369d999f1860c9dcbcc6b1d3623989540b10b7c67b2c39e"
+    },
+    {
+      "path": "source/src/family-runtime-paper-autonomy.ts",
+      "bytes": 2327,
+      "sha256": "e254a13eb1764f96445caefd99ae82d19ce1802c26c1678b4480e68565a68ce6"
+    },
+    {
+      "path": "source/src/family-runtime-provider-continuous-proof.ts",
+      "bytes": 26983,
+      "sha256": "f6bb220ef8eb4afb2a42322223f0451267898f30e122599814194cc60bda3601"
+    },
+    {
+      "path": "source/src/family-runtime-provider-hosted-attempts.ts",
+      "bytes": 14840,
+      "sha256": "c83ce9da3e146b7921711a0f637a4997369829eb3a4d076e003d7aa2ffee5b72"
+    },
+    {
+      "path": "source/src/family-runtime-provider-proof-receipts.ts",
+      "bytes": 8147,
+      "sha256": "99da847195033c09a20ac1f97d692304371ac34ea1ead47d0bc86060417c6fa3"
+    },
+    {
+      "path": "source/src/family-runtime-provider-slo-executor.ts",
+      "bytes": 5846,
+      "sha256": "6f2e4a09822c8eb016088af7a0b6fd530bfb082ac94be49a5636cea090ba4ae8"
+    },
+    {
+      "path": "source/src/family-runtime-providers.ts",
+      "bytes": 14621,
+      "sha256": "fa3c22a9160817c23426e2ddec734656a8905a2dc9adee777fa4d5a7c221bc96"
+    },
+    {
+      "path": "source/src/family-runtime-redrive.ts",
+      "bytes": 5045,
+      "sha256": "fac760864079171b9b1a0deac6b31e91d06d8b2d078798d094334f4d44be02fa"
+    },
+    {
+      "path": "source/src/family-runtime-residency-proof-events.ts",
+      "bytes": 1045,
+      "sha256": "a89625f5c9a649eafb8bc1d2986b720064454acc73529127131347b5e01bdbf4"
+    },
+    {
+      "path": "source/src/family-runtime-residency-proof.ts",
+      "bytes": 5938,
+      "sha256": "9bf3424f7710eeef013f8f27a96b5193d3ff595119e6efc7602be7814a043965"
+    },
+    {
+      "path": "source/src/family-runtime-scheduler.ts",
+      "bytes": 6664,
+      "sha256": "ad3270074e38b86d4e04b06aeee4b072e1e87dc493ec09c880bdff179758bd54"
+    },
+    {
+      "path": "source/src/family-runtime-sidecar-closeout.ts",
+      "bytes": 8569,
+      "sha256": "665a0d58049b6e74567566d638a3a75c19a7a4f956ee4acac8519c1f27dd362c"
+    },
+    {
+      "path": "source/src/family-runtime-sidecar-process.ts",
+      "bytes": 2161,
+      "sha256": "51ce75638183e115ad60a4ac29fd0a7b2c26e58cc49da90cab373386388646fb"
+    },
+    {
+      "path": "source/src/family-runtime-stage-admission-gate.ts",
+      "bytes": 14621,
+      "sha256": "a1bee56c398939e40077119165544e10e082df5265240c69e45b4c7107d17420"
+    },
+    {
+      "path": "source/src/family-runtime-stage-attempt-ledger.ts",
+      "bytes": 11062,
+      "sha256": "181ca0a84682922f1a97989c9b5d0e3036f436492e284745b55a11ca7d31e24f"
+    },
+    {
+      "path": "source/src/family-runtime-stage-attempt-query.ts",
+      "bytes": 9989,
+      "sha256": "ce7e978247b9fabf084274bbbd880c5d83650af0477d691046b9233dbdab174e"
+    },
+    {
+      "path": "source/src/family-runtime-stage-attempt-usage.ts",
+      "bytes": 11103,
+      "sha256": "d2c7a5f2fcd51b8827658002d3a8710185928e895bb7786f6b5dd3effa26ae47"
+    },
+    {
+      "path": "source/src/family-runtime-stage-attempts.ts",
+      "bytes": 32293,
+      "sha256": "0d241f5fe0df54d4f8bc27c80605a09c7d459ac496950c15969ea565055bf0a5"
+    },
+    {
+      "path": "source/src/family-runtime-status.ts",
+      "bytes": 6378,
+      "sha256": "f4b9b8cb7e36c4d9105ccc386500915d00ad69c74f16449cd1b2f28a9aa09ca6"
+    },
+    {
+      "path": "source/src/family-runtime-store.ts",
+      "bytes": 9943,
+      "sha256": "03f78a8cfd78553c86804526a75f0639b175393f696db77f29c76c2a9e0d1e74"
+    },
+    {
+      "path": "source/src/family-runtime-task-scope.ts",
+      "bytes": 1315,
+      "sha256": "242627bfefeb739828ba87e32af1861b29497960d1e5412175f1bb0f8c8d3b5c"
+    },
+    {
+      "path": "source/src/family-runtime-temporal-activities.ts",
+      "bytes": 5007,
+      "sha256": "cb3ce3d139e5a0fb8bf9f2da265cdaf9d70a26c6b7723cdaa842ee718e0cb90f"
+    },
+    {
+      "path": "source/src/family-runtime-temporal-client.ts",
+      "bytes": 1559,
+      "sha256": "203c318bfbd22093abdbf7642f6705145f91fa55be299f0e2657650067cbf5d7"
+    },
+    {
+      "path": "source/src/family-runtime-temporal-constants.ts",
+      "bytes": 491,
+      "sha256": "920c1124766971a80688c5849ae6be5154b0528b050496213c5518382d25ee30"
+    },
+    {
+      "path": "source/src/family-runtime-temporal-provider-parts/worker-process.ts",
+      "bytes": 3514,
+      "sha256": "f712fa043a2e9b919547de9447e2469e6e198aa0e0964c1ab41cfb89a7600015"
+    },
+    {
+      "path": "source/src/family-runtime-temporal-provider-parts/worker-state.ts",
+      "bytes": 3416,
+      "sha256": "0edd21deebd7ab93f12d02609e5adba28deae78eda453b25d6108bb449e0c622"
+    },
+    {
+      "path": "source/src/family-runtime-temporal-provider.ts",
+      "bytes": 37638,
+      "sha256": "81f7ad9152feb979c076246c77542d62dd938969717a9f05cf5231b1f4da93f9"
+    },
+    {
+      "path": "source/src/family-runtime-temporal-query.ts",
+      "bytes": 3122,
+      "sha256": "248df6591a2d0b1a51301c3fe1ebd6b33911409d4f36f5720818d7f157644dd8"
+    },
+    {
+      "path": "source/src/family-runtime-temporal-readiness.ts",
+      "bytes": 8583,
+      "sha256": "8d84b1f42e39fc915aa7266881c42c76163fa4cbdf233ff76663f21dc881ff9d"
+    },
+    {
+      "path": "source/src/family-runtime-temporal-residency-proof.ts",
+      "bytes": 9249,
+      "sha256": "74bd3f3e25939255c236ea0359f0d68b5a613d2604044a44c75a276cbe4da0c5"
+    },
+    {
+      "path": "source/src/family-runtime-temporal-service-command.ts",
+      "bytes": 2620,
+      "sha256": "bcb2f62b949a5fc70867d629dea53a8a29dd8e42772119f450804556485568a8"
+    },
+    {
+      "path": "source/src/family-runtime-temporal-service.ts",
+      "bytes": 9851,
+      "sha256": "62dcd24e0892e9f055d733335b247b7344d97f4d562eda5602a0750671ba7a1f"
+    },
+    {
+      "path": "source/src/family-runtime-temporal-workflows.ts",
+      "bytes": 10135,
+      "sha256": "d7e2801398a76e910a5bbd56cc0a1deec3b52186ce2ffd090db3f819fd46d019"
+    },
+    {
+      "path": "source/src/family-runtime-temporal.ts",
+      "bytes": 8911,
+      "sha256": "b11026f2548aa13b764970b91d50992f40dd6bcc4c2d88a074b31f6c9858db71"
+    },
+    {
+      "path": "source/src/family-runtime-tick.ts",
+      "bytes": 2750,
+      "sha256": "3a2b6a49d710866ffee0d05fdedad5d5a7b5640d294d7a4841c3e50d25f9a06f"
+    },
+    {
+      "path": "source/src/family-runtime-types.ts",
+      "bytes": 553,
+      "sha256": "0a6d611ecaf017fc3fff5a315d8f3331584a7ba85b37e21c5ea066991cc31752"
+    },
+    {
+      "path": "source/src/family-runtime.ts",
+      "bytes": 33919,
+      "sha256": "c53cf91eed38f0874dd94f673fac4f59ba75fcec4dff592bf16c74180b35ac4a"
+    },
+    {
+      "path": "source/src/family-shared-release.ts",
+      "bytes": 7019,
+      "sha256": "1c70b685cf087738d8cf3d4c14de9c1a7cc58badf79be171b901a96612a782bb"
+    },
+    {
+      "path": "source/src/family-stage-admission.ts",
+      "bytes": 27031,
+      "sha256": "dd15fef8994496c47b8877aa6a323bd1cf1d20650cf038a953bb4faa6798e9c3"
+    },
+    {
+      "path": "source/src/family-stage-assumption-lifecycle.ts",
+      "bytes": 6767,
+      "sha256": "690ce64e315724306873be3c772317ce5969453f1df9e9094c96138bac2bee41"
+    },
+    {
+      "path": "source/src/family-stage-cohort-loop.ts",
+      "bytes": 7579,
+      "sha256": "340cf1e9ce2dc60cd0bb2b8eec23da77d88d526d1a95b961c43346aef4746d4c"
+    },
+    {
+      "path": "source/src/family-stage-control-plane-contract.ts",
+      "bytes": 13217,
+      "sha256": "9506edaf4b3d7349847854cec09aec52340d644b52b3501aebd394bc97530d32"
+    },
+    {
+      "path": "source/src/family-stage-control-plane.ts",
+      "bytes": 39460,
+      "sha256": "8457524ac0b18b22b2ce0a5de2ae45af4729802c4e4f1dfbfeba8cac3cb1dd0f"
+    },
+    {
+      "path": "source/src/family-stage-derived-lenses.ts",
+      "bytes": 6386,
+      "sha256": "2605b3bd1f58c536348c5dfdea84ce7d1fcdf83395a5de3aa558340a3d9677e2"
+    },
+    {
+      "path": "source/src/family-stage-pack-registry.ts",
+      "bytes": 12837,
+      "sha256": "5550b7a8746f81086b2907440d76d2b3b9478d0d361d6edc9efa93e78b0ceaf2"
+    },
+    {
+      "path": "source/src/family-stage-proof-bundle.ts",
+      "bytes": 27137,
+      "sha256": "082d91126cecb79be1ed50bf40100255b91544d19544809fca24430251049786"
+    },
+    {
+      "path": "source/src/family-stage-readiness.ts",
+      "bytes": 17914,
+      "sha256": "63bb806242430402887ed25c5f10ec46f8fb931444110f47148d11cf607761f9"
+    },
+    {
+      "path": "source/src/family-stage-replay-certification.ts",
+      "bytes": 14051,
+      "sha256": "4ea43308c2a40dc902336189dcdf7eaaa6f51954975adfdc5a31a151fefec26e"
+    },
+    {
+      "path": "source/src/family-stage-runtime-budget.ts",
+      "bytes": 10869,
+      "sha256": "fb5ff2029b73e321660e33e35db1ad54841dea8a3048b8290e89949624dcdfe3"
+    },
+    {
+      "path": "source/src/family-stage-source-spec.ts",
+      "bytes": 8372,
+      "sha256": "ff881a9185db6772bd1e6fe5b20aa48312eca8dd56721e1853e58363b0933517"
+    },
+    {
+      "path": "source/src/family-transition-oracle-ingestion.ts",
+      "bytes": 10427,
+      "sha256": "e190888bca62eec023adb940e543e3db6b30f0a170a63f57c4f839dbd88febcf"
+    },
+    {
+      "path": "source/src/family-transition-runner.ts",
+      "bytes": 20949,
+      "sha256": "affaa3a7bac269a1de50684c67c5b614ea91cb12c30013ad7ffeb12183b03262"
+    },
+    {
+      "path": "source/src/family-transition-visual-ingestion.ts",
+      "bytes": 10058,
+      "sha256": "374715aea9652447fcaa85107d019817b3021f82c91be5a55be84109ed6647ac"
+    },
+    {
+      "path": "source/src/family-workspace-root.ts",
+      "bytes": 1412,
+      "sha256": "cc109345faad91ab8be5911898e40845ff7958fb24b9fa7bf3c67f617c097997"
+    },
+    {
+      "path": "source/src/framework-readiness-attention-actions.ts",
+      "bytes": 15744,
+      "sha256": "b304cab1eb511f4dfeba39353784170240c58441d9e49d09db0a371b5d42569b"
+    },
+    {
+      "path": "source/src/framework-readiness-attention-counts.ts",
+      "bytes": 5503,
+      "sha256": "e310f908e8ffdccf23b93e9b4021b1f9f825d3aeea1752881748856f4981f2e7"
+    },
+    {
+      "path": "source/src/framework-readiness-attention-first-payload.ts",
+      "bytes": 11565,
+      "sha256": "1ec05055fa86edfbba8e1b99520e53adc635db1e1d96f6f3ed41157942d76609"
+    },
+    {
+      "path": "source/src/framework-readiness-blockers.ts",
+      "bytes": 1499,
+      "sha256": "39470fe72e3f692159c439be476310fa34f14da5c5d95902cd5538ca312cd59b"
+    },
+    {
+      "path": "source/src/framework-readiness-semantic-hygiene.ts",
+      "bytes": 2095,
+      "sha256": "2d86a983cff5d93a5a1638f87fb470fb116172f25a2d728702beabed33a2f6dd"
+    },
+    {
+      "path": "source/src/framework-readiness-source-commands.ts",
+      "bytes": 702,
+      "sha256": "f42539419382e3140c833009e1aa0c6c40ba1eb44158771963139dc0575bcc4b"
+    },
+    {
+      "path": "source/src/framework-readiness-static-surfaces.ts",
+      "bytes": 3674,
+      "sha256": "ab28f4fe02183d648e478b09435a245de52a13ba38effc56ce3c03c503860218"
+    },
+    {
+      "path": "source/src/framework-readiness-typed-blocker-attention.ts",
+      "bytes": 4016,
+      "sha256": "39e17258f0884c5416106072c762550c91fe2ff375c41cd29fdb0477996dc12b"
+    },
+    {
+      "path": "source/src/framework-readiness.ts",
+      "bytes": 42314,
+      "sha256": "ca7d2aa46d4e6f142b0cecea8348ea3481be66a597fb7ffc67a7dae53a9bc1b3"
+    },
+    {
+      "path": "source/src/framework-semantic-hygiene.ts",
+      "bytes": 15419,
+      "sha256": "f95c05b985a304b9e99b8594263cf3e591d8318d350eba355944488e67cb132c"
+    },
+    {
+      "path": "source/src/functional-agent-runtime-harness.ts",
+      "bytes": 27822,
+      "sha256": "a0c6442ba8ce5047fbb26be6ca87406c6248f9a33e779a224cb565201276be68"
+    },
+    {
+      "path": "source/src/functional-privatization-audit-types.ts",
+      "bytes": 5506,
+      "sha256": "3a3f55c5bc1639fdca42ad7fd45b42be0fa2fc62a9b0a8b926d8725d140945ec"
+    },
+    {
+      "path": "source/src/functional-privatization-audit.ts",
+      "bytes": 34485,
+      "sha256": "ab447adc9c2691fb49063daa421a19436d1fea15868a5d549fbbe2cf8db621d0"
+    },
+    {
+      "path": "source/src/functional-privatization-envelope.ts",
+      "bytes": 12391,
+      "sha256": "b0366793c389b543d0037c82ae990fc97db05cd3ae96ea9c434d742d012967f7"
+    },
+    {
+      "path": "source/src/generic-substrate-projection.ts",
+      "bytes": 24850,
+      "sha256": "f94aa4b9183e02c3bad67d47589c2ff52cfe19f650182a229e891be8c6853575"
+    },
+    {
+      "path": "source/src/handoff-bundle-types.ts",
+      "bytes": 450,
+      "sha256": "32e30383847ea65c11c6065d7127517824fb6cad95ccb2ab203a9f9793f2cc46"
+    },
+    {
+      "path": "source/src/handoff-bundle.ts",
+      "bytes": 8088,
+      "sha256": "fc776d20a8d68c4022686ab610ad1d3cc6ee7d480ac46a8777c33bc2e0629d40"
+    },
+    {
+      "path": "source/src/install-companions/catalog.ts",
+      "bytes": 5613,
+      "sha256": "d1c5a9d8c10d6bff94c0703553f806ce6dac2529092cb78d0bca5e841faf3a08"
+    },
+    {
+      "path": "source/src/install-companions/gui-shell.ts",
+      "bytes": 3470,
+      "sha256": "4b54d85e2aff0f5f27814716bd9df41f8dc43aae9528ff3c56dec6dc7503b89b"
+    },
+    {
+      "path": "source/src/install-companions-parts/tools.ts",
+      "bytes": 6728,
+      "sha256": "15caa959258c7b6dd945c41344979a006ef30beb29a16bf8a27a88136c5fd004"
+    },
+    {
+      "path": "source/src/install-companions.ts",
+      "bytes": 26749,
+      "sha256": "d41100669a2e9659bfaff79908f44b680679cdc5b0e57a7827697a0377c8bbc3"
+    },
+    {
+      "path": "source/src/local-codex-defaults.ts",
+      "bytes": 15786,
+      "sha256": "4380a687ca64ee0853c74548770beb4eb2ef22bbf57eca53cbf46bc81b88e64b"
+    },
+    {
+      "path": "source/src/managed-install-update-ledger.ts",
+      "bytes": 8467,
+      "sha256": "142bbb5c4d1eb09caab76bd1f4de23744eae48e4892d70bff0b1f4bb91c94eb3"
+    },
+    {
+      "path": "source/src/managed-runtime-contract.ts",
+      "bytes": 7128,
+      "sha256": "d4a75c0239dc3233e715090899fba36f33a3f491859485c0ab193911f1823908"
+    },
+    {
+      "path": "source/src/managed-shell-command-env.ts",
+      "bytes": 5746,
+      "sha256": "41c6e48f6c9b2fc8ed6645f54aefd0a2505be6ef3240ca5ced164dab407b24c7"
+    },
+    {
+      "path": "source/src/management/domain-manifest-catalog.ts",
+      "bytes": 197,
+      "sha256": "45a262cd1d689500bb3fcc3d5047e6f7ba9ba2de97aad65e4f4cba8ae7962b1d"
+    },
+    {
+      "path": "source/src/management/progress-feedback.ts",
+      "bytes": 10801,
+      "sha256": "02873d566129b2404aa31cecd62171a94198d2e80fdda95650db08b27446fefb"
+    },
+    {
+      "path": "source/src/management/progress-study.ts",
+      "bytes": 32063,
+      "sha256": "d40b1415dfe21dccaa2bade00a6437744622f3f5f2854f7660a816fb48562ee6"
+    },
+    {
+      "path": "source/src/management/progress.ts",
+      "bytes": 7835,
+      "sha256": "8b1169fe372754eaafd97127b2f8b3c7c6c12febcf441de88d2f9d45b85aa3c2"
+    },
+    {
+      "path": "source/src/management/readiness.ts",
+      "bytes": 9172,
+      "sha256": "98f6f572be134c137bcf1541eff95c0b6b4b71e1b8f7f7c9e65f1bd1757e294d"
+    },
+    {
+      "path": "source/src/management/runtime-dashboard.ts",
+      "bytes": 9069,
+      "sha256": "9a7cdf0af8f11a768eae9cc1de078acc95832d2cfbfc265fe7cc31ba022128b1"
+    },
+    {
+      "path": "source/src/management/runtime.ts",
+      "bytes": 61,
+      "sha256": "e4a1bc197f4bc29dd1fa92bedfd5448634dd7f70c7a28cc77a8b083971470ea2"
+    },
+    {
+      "path": "source/src/management/shared.ts",
+      "bytes": 9462,
+      "sha256": "b39eea254df84ca80740f07681c081488adcc8b3d925fdc9fceada0a2caf1979"
+    },
+    {
+      "path": "source/src/management/types.ts",
+      "bytes": 513,
+      "sha256": "a3a17fe654f29c41d8b63a81478cacaf4d37635e01de3d105a4d5bedf2d03c4b"
+    },
+    {
+      "path": "source/src/management/workspace-runtime.ts",
+      "bytes": 3210,
+      "sha256": "636249408de7f130965cd22b6f1053720cc32debd8fd2e677270e51b2809d4d5"
+    },
+    {
+      "path": "source/src/management/workspace.ts",
+      "bytes": 63,
+      "sha256": "9d8fd1f66ac2590af8ad7b6edcb1b3ad003d7e5b79a12b801122dd30b0b0c136"
+    },
+    {
+      "path": "source/src/native-helper-doctor.ts",
+      "bytes": 222,
+      "sha256": "b41a253e0873a447fddf08b13d7ca484c7689cb96d067a309f5b3fa67a84f390"
+    },
+    {
+      "path": "source/src/native-helper-runtime.ts",
+      "bytes": 21120,
+      "sha256": "29a478f300e9adb7697c7789167771128dc5337348a05a3b9d8c037ef48dffea"
+    },
+    {
+      "path": "source/src/native-index-lifecycle.ts",
+      "bytes": 22454,
+      "sha256": "95d3f3fda7ba6533c07c2f9ec781193d997602a9b3add375bd4acb1f0f8e3c2f"
+    },
+    {
+      "path": "source/src/native-index-summary.ts",
+      "bytes": 9205,
+      "sha256": "a0394f19337124cd006ee0520e0f6f974a7b37e7d671117e9d64a556ca51f577"
+    },
+    {
+      "path": "source/src/observability-export.ts",
+      "bytes": 12546,
+      "sha256": "6d9f2ba04f4a02f0bbac54af47426b75dafb0e7c9ed197013828ee501f6f7546"
+    },
+    {
+      "path": "source/src/oma-app-live-path-ledger.ts",
+      "bytes": 6667,
+      "sha256": "f951693976ee9dade1a317583dcdd281389f1649333179c1d95eb467fdf1fc3c"
+    },
+    {
+      "path": "source/src/oma-long-soak-observation.ts",
+      "bytes": 10772,
+      "sha256": "2ad1c6223d1d59a92e0d52fec7f0b7971349a3e9db1ea08e5d0fb97820305a31"
+    },
+    {
+      "path": "source/src/oma-production-consumption-action.ts",
+      "bytes": 4821,
+      "sha256": "d7fba8a3fab47a9e06a34a107f827b504382498cf469aa01a60564caaea7ba16"
+    },
+    {
+      "path": "source/src/oma-production-consumption-ledger.ts",
+      "bytes": 9223,
+      "sha256": "6a6e964a979ae74c074e7cbe2ebd5e0de61d80909762b7ae95a11500b7101462"
+    },
+    {
+      "path": "source/src/opl-acp-bridge.ts",
+      "bytes": 10718,
+      "sha256": "d04be2389c699f5802ac91d8183572f1e9ffd85d379dc2b3a5156b5801ca6125"
+    },
+    {
+      "path": "source/src/opl-acp-stdio.ts",
+      "bytes": 26419,
+      "sha256": "9bf22b5de4120eda10ddf775b5c611426572dde1ee297d1f6322e952469ac61b"
+    },
+    {
+      "path": "source/src/opl-acp-types.ts",
+      "bytes": 2511,
+      "sha256": "a559f6f3b5a27e4868b14fbd4df7ef50a16af6cf9d08a53c86e2d84fc67e7e2b"
+    },
+    {
+      "path": "source/src/opl-framework-locator.ts",
+      "bytes": 7322,
+      "sha256": "5365662d9482530b8a447bd98b34ff8ab8ba1bd0255751c5f46106d652a35e7b"
+    },
+    {
+      "path": "source/src/opl-meta-agent-consumption.ts",
+      "bytes": 41761,
+      "sha256": "577a8550472c90f6362630b95a5ddf8a56a05d1a2f7a2e5ab5aec90e25232736"
+    },
+    {
+      "path": "source/src/opl-release.ts",
+      "bytes": 1041,
+      "sha256": "e1989611e936d202322f1614072f6becc9e6e041c68d33c77b38a5988be2a36e"
+    },
+    {
+      "path": "source/src/opl-runtime-paths/current.ts",
+      "bytes": 2267,
+      "sha256": "b2c293ddff70dd8a3221a4ac633caee1f4f3a8459201981f9a6f782851d249ee"
+    },
+    {
+      "path": "source/src/opl-runtime-paths/shared.ts",
+      "bytes": 283,
+      "sha256": "21d3325572fdb41fce4a5dfbc7ab4cde98907e3df74617cc528059bd8b26d165"
+    },
+    {
+      "path": "source/src/opl-runtime-paths.ts",
+      "bytes": 1074,
+      "sha256": "bceb4e6fe376f2d43a6761d81994af1106075f205d73f6900c0b8f0bbca7cb55"
+    },
+    {
+      "path": "source/src/opl-session-runtime.ts",
+      "bytes": 8586,
+      "sha256": "87416e1e0a07afbf8ecaa7f5d44e024a91a485d3f4b6ae99acc1ff82a3e5b3f2"
+    },
+    {
+      "path": "source/src/opl-skills.ts",
+      "bytes": 26316,
+      "sha256": "f05b78f1a8fce8e9bf448955c8ed16ba2e53f12805dd560f232d60e9182e3a12"
+    },
+    {
+      "path": "source/src/opl-web-paths.ts",
+      "bytes": 445,
+      "sha256": "00dd9c449b74484db65e518648fde1cc6b14ade8da83f812032e8271555316c4"
+    },
+    {
+      "path": "source/src/package-distribution.ts",
+      "bytes": 7195,
+      "sha256": "294ca17561e12904694f950c8cea8b94dd7cc7c609c2053edbf7896a3dfa800d"
+    },
+    {
+      "path": "source/src/packaged-module-marker.ts",
+      "bytes": 70,
+      "sha256": "7388f74ac46ae1c7f21a0683d15d10ea6bb6b01430c3cc47d3458a3683040a38"
+    },
+    {
+      "path": "source/src/product-entry-companions/builders.ts",
+      "bytes": 15568,
+      "sha256": "480925693cb9acc32a9398b6eae71f0936922e62f19d58948e871ae0e5510693"
+    },
+    {
+      "path": "source/src/product-entry-companions/internal.ts",
+      "bytes": 9039,
+      "sha256": "60744699ebce8e27326d4e1f2c70fe21897ce87ff8e154e024844c3d1f7530a4"
+    },
+    {
+      "path": "source/src/product-entry-companions/lifecycle-adapter.ts",
+      "bytes": 19460,
+      "sha256": "2b4114a2b8f49bd0b5cd2ba4dd0f7d8f86e4b77711d7e0b6f8c01d93224f7afa"
+    },
+    {
+      "path": "source/src/product-entry-companions/resume-surface.ts",
+      "bytes": 519,
+      "sha256": "82a97ee8afcb93e3cefb6522c74fec38440f47443d8417494752d4914daedab5"
+    },
+    {
+      "path": "source/src/product-entry-companions/shell-surfaces.ts",
+      "bytes": 10068,
+      "sha256": "3a1cc752550b161ebf0e95ac953e058a3b3b5ba0e97d079ae823952541c64fa4"
+    },
+    {
+      "path": "source/src/product-entry-companions/types.ts",
+      "bytes": 14143,
+      "sha256": "9dd3ee21a6a7d1eb7096f8ff1211b103ff4dd3168e7e42e4972c80de8d9cf1f2"
+    },
+    {
+      "path": "source/src/product-entry-companions/validators.ts",
+      "bytes": 23603,
+      "sha256": "1c8b4597c5c9693f84cfe8236ed1eee769e48469d3025fd8db479a91a554cd31"
+    },
+    {
+      "path": "source/src/product-entry-companions.ts",
+      "bytes": 299,
+      "sha256": "b3c3bb26d51457e12e136ce51c04fcfcf298755edbe753a96a54d864c8793db0"
+    },
+    {
+      "path": "source/src/product-entry-handoff-envelope.ts",
+      "bytes": 905,
+      "sha256": "85f9a761a38619d24d16bcb9819d5bf72b50228058b0e39e352fb80be58bcde4"
+    },
+    {
+      "path": "source/src/product-entry-parts/builders.ts",
+      "bytes": 6283,
+      "sha256": "01b9e49f37b71f772486602b0fddd7f86bdc91dbbf9c18af5e1715e1f7eb4227"
+    },
+    {
+      "path": "source/src/product-entry-parts/output.ts",
+      "bytes": 500,
+      "sha256": "076e3eb90295b8c4e50a87941e379e5cf81a3cdecfdf6e5a42d6b6d8278ffb34"
+    },
+    {
+      "path": "source/src/product-entry-parts/types.ts",
+      "bytes": 1053,
+      "sha256": "95438341cc1bdef5d9f6570d0a3d5468af3ceab698fa7e123a9c96a5b978f931"
+    },
+    {
+      "path": "source/src/product-entry-program-companions.ts",
+      "bytes": 14724,
+      "sha256": "7c8a7db5508090573a39c603d732b55a98131defdbc4faee31e61fd9332dc114"
+    },
+    {
+      "path": "source/src/product-entry-runtime.ts",
+      "bytes": 3054,
+      "sha256": "faa56f281d587e882a0bcd7170b31ba57183f05b494e9a53ddc16465797ce32a"
+    },
+    {
+      "path": "source/src/product-entry.ts",
+      "bytes": 4445,
+      "sha256": "a842c0379d74d8ca0281c0b4cf4c4c9da70d288dbbd94b842837917aeaaecf0c"
+    },
+    {
+      "path": "source/src/production-evidence-tail-ledger.ts",
+      "bytes": 25750,
+      "sha256": "3c3eae1dd6a44a8a9e7decaa54d63288cefed5b1ed958bfaa13a480f178c0118"
+    },
+    {
+      "path": "source/src/production-functional-closeout-action-route.ts",
+      "bytes": 320,
+      "sha256": "ec6ef2ff658fabf514e026eee57592c653417af7492d4531b709fe11f89b87e6"
+    },
+    {
+      "path": "source/src/production-functional-closeout-control-loop.ts",
+      "bytes": 3614,
+      "sha256": "b6776ccd9fd0a4b4b7fe679a700825a7d2fa3ae8cf87ba73577515f46fe5ccd5"
+    },
+    {
+      "path": "source/src/production-functional-closeout-evidence-readiness.ts",
+      "bytes": 10095,
+      "sha256": "4a9785b6ee8a70ccba58870477cf895f8b310f27b827e6d47b870f385f377a05"
+    },
+    {
+      "path": "source/src/production-functional-closeout-mas-guarded-evidence.ts",
+      "bytes": 1720,
+      "sha256": "e8dea4469c8a198e596d78ac17640ad2b79999d35564c7a82d8463ab26195082"
+    },
+    {
+      "path": "source/src/production-functional-closeout-provider-readiness.ts",
+      "bytes": 4559,
+      "sha256": "f891ef0684b44eaae55c0fa4a4298b12d3d4c5038005e9ec02baf8919514f7c2"
+    },
+    {
+      "path": "source/src/production-functional-closeout-usage.ts",
+      "bytes": 444,
+      "sha256": "3354d3309681636021160158ab096fcf820729a83119b4b716c399b6681fc93c"
+    },
+    {
+      "path": "source/src/production-functional-closeout.ts",
+      "bytes": 44021,
+      "sha256": "888676e3b54174760694530695419dcb91d45b46d2b6aa674b8e7292f628a00c"
+    },
+    {
+      "path": "source/src/quality-details/filesystem.ts",
+      "bytes": 3637,
+      "sha256": "cb10c58556d04b1383ce0f641df0731edbe5a17b1beb3bd71d8c06974bcf44ac"
+    },
+    {
+      "path": "source/src/quality-details/graph.ts",
+      "bytes": 6263,
+      "sha256": "fb106490cbf384f56ea4359ee831850b48bbea44c33129f1be1cf52a07f68b6f"
+    },
+    {
+      "path": "source/src/quality-details/index.ts",
+      "bytes": 12065,
+      "sha256": "c3432d9d4ef97bc998a5c55635f8f1d34b0febd0e2bf7dbe8519b7d5d4ffd831"
+    },
+    {
+      "path": "source/src/quality-details/markdown.ts",
+      "bytes": 3815,
+      "sha256": "0eb9ff72f3dcb2235f5f8621e02f056ce8e50642a6f6c9c5297a662826f1d308"
+    },
+    {
+      "path": "source/src/quality-details/options.ts",
+      "bytes": 3502,
+      "sha256": "025e1f964afa0da08e8cdc6a7988c4d4c2cebcf93b58c3911061bf8c19381972"
+    },
+    {
+      "path": "source/src/quality-details/python.ts",
+      "bytes": 6652,
+      "sha256": "25186d2c2c0c475cdac262fa176080c394ac574de1a91b6179544a6ea69381aa"
+    },
+    {
+      "path": "source/src/quality-details/resolve.ts",
+      "bytes": 3172,
+      "sha256": "a831e4578cbad895d0ca880fa1f7076d71589c7239beaff2a7ac151c3cb6fedf"
+    },
+    {
+      "path": "source/src/quality-details/rules.ts",
+      "bytes": 6463,
+      "sha256": "d851e833f0a46a85fdc2f7d8a0840651a4c047a4cc2a995604c8caa2100f3080"
+    },
+    {
+      "path": "source/src/quality-details/types.ts",
+      "bytes": 3814,
+      "sha256": "644b6a7b5dda6c89ede33071466d8e07733cb841acaf685ba1bca74f62e6fd60"
+    },
+    {
+      "path": "source/src/quality-details/typescript.ts",
+      "bytes": 6628,
+      "sha256": "20d4ef0ed4720ecd80737b1b4598c3a5c9c450e19b127bef909fb13c3eb6668b"
+    },
+    {
+      "path": "source/src/resolver.ts",
+      "bytes": 16658,
+      "sha256": "47b122b171b27747fd83d7b207be97c665cf15675606e6409590daf0ef908d74"
+    },
+    {
+      "path": "source/src/runtime-manager.ts",
+      "bytes": 27534,
+      "sha256": "71451ef9e8183aa3433cecb7f54c76d28fda0b20bce82b06ce69d5112e8d6d66"
+    },
+    {
+      "path": "source/src/runtime-modes.ts",
+      "bytes": 2716,
+      "sha256": "8d89e97921c4d53a3836ed4145dee1799e8f35360aa3449e656ebecd80d59d2f"
+    },
+    {
+      "path": "source/src/runtime-operator-action-execution-parts/provider-scheduler-action.ts",
+      "bytes": 1098,
+      "sha256": "6158fcc0d0577c1488798021a50e6e43a11f8421bae86be2613bbcf8f4eb72c9"
+    },
+    {
+      "path": "source/src/runtime-operator-action-execution-parts/provider-slo-action.ts",
+      "bytes": 1092,
+      "sha256": "c2f07dd43d8bb90785bab36143cb3f32f7ebdc344db00c764d80ea61dd786793"
+    },
+    {
+      "path": "source/src/runtime-operator-action-execution-parts/provider-worker-action.ts",
+      "bytes": 1953,
+      "sha256": "955634d3a40a672a61c9979292c6eaf0f89059482daaf38d3aebac7d434f29fc"
+    },
+    {
+      "path": "source/src/runtime-operator-action-execution.ts",
+      "bytes": 38723,
+      "sha256": "b4bdc712fbe563ef888957dc6189355049a1342e3bb34ca6c2a8bd857ff51b69"
+    },
+    {
+      "path": "source/src/runtime-state-paths.ts",
+      "bytes": 2788,
+      "sha256": "1fa2da87b4a24b5aa1a917d8deb9bf58c0f884f9a42a3509c91f4bf6e4d17975"
+    },
+    {
+      "path": "source/src/runtime-task-companions.ts",
+      "bytes": 25733,
+      "sha256": "68c537e50b9847d1a671680feb9101a2ac5fa14acd9b15b31cdfa74ee0c02049"
+    },
+    {
+      "path": "source/src/runtime-tray-action-routing.ts",
+      "bytes": 10699,
+      "sha256": "bb2b4fca8cd4e8a602a451ba567101c328eb70ee1f710dfa3d846e49e7a01bdf"
+    },
+    {
+      "path": "source/src/runtime-tray-action.ts",
+      "bytes": 1756,
+      "sha256": "624e02bc1ed85de91b3e32330a3e126f80b3d11e72c228374e1e086f066a55bb"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/app-release-user-path.ts",
+      "bytes": 30573,
+      "sha256": "3769f09b03788b434b5fb21c74e027fd41e82d0d57dc9ade704e6a233367daf3"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/authority-boundary.ts",
+      "bytes": 881,
+      "sha256": "d10b233548f67821387759bd47968755068d54f95e2a721172ca4ffddcac2673"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/codex-app-runtime-role.ts",
+      "bytes": 1192,
+      "sha256": "d87de8aa486e56458b0c5f6bec0780911f8b7367f25bac328725ceade8d22e96"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/default-caller-deletion-evidence-refs.ts",
+      "bytes": 10813,
+      "sha256": "f8116bebc41ae81cc66e6e25f8abcc029fc1047905fbaa95e4d0f3715a2efc9c"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/detail-view.ts",
+      "bytes": 42282,
+      "sha256": "09a157a901e14a065c00fa3740b632e5a37876e2f6d9bf46b94223220e284c3f"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/domain-dispatch-action-routes.ts",
+      "bytes": 12987,
+      "sha256": "395782edc6ad325416a57f4c9e1eca1305fcc69ef0c17149cb99dd3599bbd59b"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/domain-dispatch-evidence.ts",
+      "bytes": 19297,
+      "sha256": "9b22d25c6e3f55370e2196dc6b39b343af64c0f4afa9745785902b6d8256ea7b"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/execution-bridge.ts",
+      "bytes": 12168,
+      "sha256": "430b8d3beba39a96edf2ae605dae98af60a67e0be26bd9469019b3bd70164551"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/external-evidence-action-routes.ts",
+      "bytes": 7612,
+      "sha256": "3af4a6639c6fed1bd8d7fbb6192a3dc6fdc794c2685a1bdea435eed017390776"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/functional-privatization-action-routes.ts",
+      "bytes": 5248,
+      "sha256": "2482666a2bc6a9d7dbfd4b55f55cd90b1865c477c49d9857bead3be62d3bf05d"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/functional-privatization-audit-refs.ts",
+      "bytes": 12159,
+      "sha256": "814ed5fb7990cbbdf96fad3f7846be6e5e670601e2614a4b19e0e94a7c824a6b"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/functional-privatization-next-step.ts",
+      "bytes": 8146,
+      "sha256": "6816e17959aa363ddfd14591554ad3f44e01edefd3774acdc884cc152ab211ab"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/legacy-cleanup-action-routes.ts",
+      "bytes": 3146,
+      "sha256": "bab65fd87dc4322f90621eeb3d9e760371a8c85401cd9e36bead8ca4b54f706c"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/memory-artifact-lifecycle-evidence.ts",
+      "bytes": 4300,
+      "sha256": "0bccb07e8b8039b429e46fced29adcb424927ed7dfd782249bee1a4a602d508a"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/oma-production-consumption.ts",
+      "bytes": 12157,
+      "sha256": "1a8ff2aba51a4882bbc96a465214bb38f796d8ded02da03df904690c2e5277f9"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/owner-handoff-packet.ts",
+      "bytes": 8140,
+      "sha256": "edaf12369fa4502cc9d931d099f0ffc6bc9ef3e957760f7f84254b6729b1b234"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/owner-payload-workorder.ts",
+      "bytes": 2857,
+      "sha256": "41eb61ebea11db80ab3e772671f671ab19067673e0a25fe2a28918e813e6bad4"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/provider-periodic-refs.ts",
+      "bytes": 7883,
+      "sha256": "fa4f1daeb17cb880147caa9950003c0bfd0774565a92fd5472cb518d783b74ac"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/provider-scheduler-action-routes.ts",
+      "bytes": 4774,
+      "sha256": "d461dce4ff5ca74826e7788b7de6c0109771d0cdae34811c1ab5c31970a8d33d"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/provider-worker-action-routes.ts",
+      "bytes": 3456,
+      "sha256": "21bcb3653a077308a3d854c98228ef96d0fb72592af7e7a5f84bc6bfb839c132"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/replacement-coverage.ts",
+      "bytes": 6433,
+      "sha256": "8728505a5be2049346486950a5e8f0e918e013b57b99c9709cb1ce226b683699"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/selected-safe-action-candidates.ts",
+      "bytes": 6830,
+      "sha256": "e02075e9fb7e9f55e6f575993095e4501171b64f5befc18dd75d5e94e789fadf"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/selected-safe-action.ts",
+      "bytes": 5814,
+      "sha256": "ca88ae8492a1ebb8f1354be0975120320c486ed2f665b6a911d6127f4b5360e2"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/stage-production-action-routes.ts",
+      "bytes": 23296,
+      "sha256": "d3853cde7b8bc00c3b85f3e3de5e10fd0546baea9733ba5045d01847e618085d"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/stage-production-evidence-route-common.ts",
+      "bytes": 1111,
+      "sha256": "1a4a1edd9b2685812f5bcabbbdb7b75a8dfb17899d0e74e1a5019b2a4ba7bc0a"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/stage-production-evidence.ts",
+      "bytes": 36022,
+      "sha256": "fd3969ffe05d48e6be9d768d6764ad8c10e464ecf4e4429efe950962b906f448"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/summary.ts",
+      "bytes": 29718,
+      "sha256": "0372d3048f70f52e3e046371de26e9b7bae8794367a7da272c921d15c4e3d62d"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown-parts/value-utils.ts",
+      "bytes": 2794,
+      "sha256": "32aa07c1923698800591768fcdc1020059c9c55c67c37a90bcb290bb6610831b"
+    },
+    {
+      "path": "source/src/runtime-tray-app-operator-drilldown.ts",
+      "bytes": 50695,
+      "sha256": "42375b9eabfee879b739ab5f965c28f9a130b6ed6cb2ea9ded2fdeecaf2a89f5"
+    },
+    {
+      "path": "source/src/runtime-tray-artifact-gallery.ts",
+      "bytes": 6168,
+      "sha256": "2e8124b69685ff0f21c074db3e803922b8c631875c3b53a1f1b0fcdea43d430b"
+    },
+    {
+      "path": "source/src/runtime-tray-display.ts",
+      "bytes": 5777,
+      "sha256": "b026e2609251b12cdd0920fe743e9a7a27aa197a6bb8f233237e6bc03ba18667"
+    },
+    {
+      "path": "source/src/runtime-tray-domain-evidence-requests.ts",
+      "bytes": 16479,
+      "sha256": "15166f0451d4bbbeffab7932fbc3b46b6ed2b18ddf8a99a220e27871e3c36724"
+    },
+    {
+      "path": "source/src/runtime-tray-domain-projection-ingestion.ts",
+      "bytes": 8589,
+      "sha256": "62f4fe1b3d3379fc71c9dfe08d10a2731f543382173c7ef65e01361c649e775e"
+    },
+    {
+      "path": "source/src/runtime-tray-mas-portal.ts",
+      "bytes": 19436,
+      "sha256": "6e63a0597a7307fd6ba8ad55363586e78f7c81b40882daeb3233b59a3f85c86b"
+    },
+    {
+      "path": "source/src/runtime-tray-memory-locator-index.ts",
+      "bytes": 3921,
+      "sha256": "f23c9599e25d48164601bbcf5746f7646cd108671d3aee5d3bd45db62d113e53"
+    },
+    {
+      "path": "source/src/runtime-tray-native-helper-envelope.ts",
+      "bytes": 2876,
+      "sha256": "a6d198cb21f8f6c14040955cd3416dd11592c7e165e82dc23c0f7db54b7ac2f5"
+    },
+    {
+      "path": "source/src/runtime-tray-observability-slo.ts",
+      "bytes": 5044,
+      "sha256": "f874cdcfdcdeff8efa1c1d79c3ce30218e6ca57a624fbf4a0551f517edf77ea5"
+    },
+    {
+      "path": "source/src/runtime-tray-package-export-lifecycle.ts",
+      "bytes": 5417,
+      "sha256": "100f8cd8d40b52f2f48e0d0d80a6d49139fc3aad15732bdc5aa8de9906a317f2"
+    },
+    {
+      "path": "source/src/runtime-tray-provider-proof-items.ts",
+      "bytes": 4628,
+      "sha256": "b69f742c5ffd21cb9c8fa5cca2f619b20de3a35de23ace2c8031bbdac3674559"
+    },
+    {
+      "path": "source/src/runtime-tray-quality-readiness.ts",
+      "bytes": 4904,
+      "sha256": "8527aad6c5b6e4506d7a187dc0772ea3228ab47dbae4bc09860eed5784d761c0"
+    },
+    {
+      "path": "source/src/runtime-tray-review-repair-queue.ts",
+      "bytes": 7265,
+      "sha256": "7ac54229b98fcb70b04a9b8296c6ef22690639799be9c58fb92e4c8f769fa7d7"
+    },
+    {
+      "path": "source/src/runtime-tray-route-decision-graph.ts",
+      "bytes": 6041,
+      "sha256": "78773f93e4c5db1c1dffd967efc1e3ac34770fd5fe81385a424a2702ae15fc49"
+    },
+    {
+      "path": "source/src/runtime-tray-snapshot-types.ts",
+      "bytes": 2171,
+      "sha256": "82bba6a6653f1656bd27eea32f9dbc864acba20afef8099e9e606695245eff88"
+    },
+    {
+      "path": "source/src/runtime-tray-snapshot-utils.ts",
+      "bytes": 3183,
+      "sha256": "7c27bd59f78d5170bfd535b3023b5db607757b2b5e0de87acd7a4b39cc75cf02"
+    },
+    {
+      "path": "source/src/runtime-tray-snapshot.ts",
+      "bytes": 37441,
+      "sha256": "fcce42f3c8d80e329481dc75326e68ca6416d87c6af78258b491d181b1636409"
+    },
+    {
+      "path": "source/src/runtime-tray-stage-attempt-generic-projections.ts",
+      "bytes": 6980,
+      "sha256": "44c30aec05a963856f3075e8672603c9b4a7ebce835f41f49084a9d7e6de4686"
+    },
+    {
+      "path": "source/src/runtime-tray-stage-attempt-items.ts",
+      "bytes": 8917,
+      "sha256": "9fb2d9942b45a003abb57ed95750a96155aff801688a488b5826751cd5d43c85"
+    },
+    {
+      "path": "source/src/runtime-tray-stage-attempt-workbench-parts/metadata.ts",
+      "bytes": 14033,
+      "sha256": "2fe1dc5b5c7f45e3be1bef00895b3e16d8ceec07434ca8ba4d52be37d93da944"
+    },
+    {
+      "path": "source/src/runtime-tray-stage-attempt-workbench.ts",
+      "bytes": 29099,
+      "sha256": "44103642bc6ec27a9befef45690d9f42f7840c8d5f07b6e84084645707df1c88"
+    },
+    {
+      "path": "source/src/runtime-tray-transition-bridge-evidence.ts",
+      "bytes": 6254,
+      "sha256": "44a748e70e4e90533a977919f15200b1d28115e144f97ac37ad234d6e58aeb21"
+    },
+    {
+      "path": "source/src/runtime-tray-workspace-source-intake.ts",
+      "bytes": 6067,
+      "sha256": "478717624decf96c644780bea526fecf14c8f2eef9cbb54342ffda6a5c78ab45"
+    },
+    {
+      "path": "source/src/session-ledger.ts",
+      "bytes": 11954,
+      "sha256": "a0cb906dbeea755ec38c3a83171d56cbecf94c5a32acac125316aa9100cc5a68"
+    },
+    {
+      "path": "source/src/skill-catalog.ts",
+      "bytes": 2824,
+      "sha256": "b15e7e6b8fd5826619625e63dc2fa9353513e22efafa9a857694d1267dec8730"
+    },
+    {
+      "path": "source/src/stage-production-evidence-payload-preflight.ts",
+      "bytes": 14720,
+      "sha256": "86915ec06dbeef967652c2b52ca579d7cb43f2c0aca1765bd16a41bea4ee1a59"
+    },
+    {
+      "path": "source/src/standard-domain-agent-conformance-evidence-tail.ts",
+      "bytes": 11637,
+      "sha256": "51828d57108b71dc48c9f6c66a29221722355b46eaa56cce3580ba0f890a866a"
+    },
+    {
+      "path": "source/src/standard-domain-agent-conformance-physical-morphology.ts",
+      "bytes": 22184,
+      "sha256": "2996be979cb476ddcad95bb365dc2bab3c366e217316d3d3759f7814a519f095"
+    },
+    {
+      "path": "source/src/standard-domain-agent-conformance-utils.ts",
+      "bytes": 3317,
+      "sha256": "df7e3b0c0bf6ed0e6031ec0951f328cf4c4e86cf30ac83f593a43440bf87b71f"
+    },
+    {
+      "path": "source/src/standard-domain-agent-conformance.ts",
+      "bytes": 22949,
+      "sha256": "1ba5e894cc626df6250aaa65e745fb1d82244783a6a6bf8b77ca91a7773aa2b5"
+    },
+    {
+      "path": "source/src/standard-domain-agent-scaffold-constants.ts",
+      "bytes": 12309,
+      "sha256": "345f74da2462aa9acfd8d4a8f65287fff8d19614e433865efdf42072ecdd990c"
+    },
+    {
+      "path": "source/src/standard-domain-agent-scaffold-policy.ts",
+      "bytes": 11204,
+      "sha256": "94689168fd7c585c5ee32f0604c2338bede615ae535ae073814aab62fcc85c76"
+    },
+    {
+      "path": "source/src/standard-domain-agent-scaffold-template.ts",
+      "bytes": 28937,
+      "sha256": "96a2d4cb83d879c89f7d32019af0b4d9a4d7637b86c2b7e63e300db3f1317ade"
+    },
+    {
+      "path": "source/src/standard-domain-agent-scaffold.ts",
+      "bytes": 33858,
+      "sha256": "eb24f4b97b146f3ee5e7b2d2461098e43835bfe187171a53293c51150d12b38a"
+    },
+    {
+      "path": "source/src/standard-domain-agent-stage-pack-v2.ts",
+      "bytes": 7006,
+      "sha256": "db4e1e929b8fbde130c5b1f2b4869a9310a1de59e9994367742902c4779e1ef0"
+    },
+    {
+      "path": "source/src/standard-domain-agent-template-consumption.ts",
+      "bytes": 14763,
+      "sha256": "d84b5ce3d15fbb0f65cbf375558df50a7584bed55aa48b5e62ce898afcb7d1d3"
+    },
+    {
+      "path": "source/src/status-narration.ts",
+      "bytes": 3355,
+      "sha256": "c51ac6e6a0e7f77ad9b9b33f57dcc0621686005494d3db7f850435e78b9c2fac"
+    },
+    {
+      "path": "source/src/system-installation/codex-plugin-registry.ts",
+      "bytes": 6141,
+      "sha256": "fc1d40069d4d251ed3d9e868457c0a636538f12cd1af8c42d235af68a6e24782"
+    },
+    {
+      "path": "source/src/system-installation/developer-mode.ts",
+      "bytes": 2234,
+      "sha256": "8dd180ebe1b0b2b22097d384285dbffd8018584b35f372778faa3e2f776b4744"
+    },
+    {
+      "path": "source/src/system-installation/engine-actions.ts",
+      "bytes": 2544,
+      "sha256": "04a4f83e11deada3273932411b909b6471ddc50bf8fbebfb2a81305b563cb586"
+    },
+    {
+      "path": "source/src/system-installation/engine-helpers.ts",
+      "bytes": 9379,
+      "sha256": "85c9996b00e5f5420c88742d90645d748679704252dde99cee443cdc8aa9ffe9"
+    },
+    {
+      "path": "source/src/system-installation/environment.ts",
+      "bytes": 5846,
+      "sha256": "14f4df07e3a4af04a7c3a5eed90604847aacdc886769782d2d016d2f6932a627"
+    },
+    {
+      "path": "source/src/system-installation/first-run-contract.ts",
+      "bytes": 7608,
+      "sha256": "24a9b9cc696d4a9a7d71d97a6a53c0d8c873ca578f14aebaac0a81db488d2a68"
+    },
+    {
+      "path": "source/src/system-installation/initialize.ts",
+      "bytes": 20448,
+      "sha256": "7d2ff630878b0d77e3db77ae84b0520ed934737a1ae09c53b470099156ac470c"
+    },
+    {
+      "path": "source/src/system-installation/module-action-workflow.ts",
+      "bytes": 8575,
+      "sha256": "84c4073c75e87e1e8f33e2a4e87d3ae4390149a6f0b3b638d920280cc3a531c8"
+    },
+    {
+      "path": "source/src/system-installation/module-exec-buffer.ts",
+      "bytes": 591,
+      "sha256": "f8bd1b21f2583a619623356a8c2268f81c772baa883324a932ff7f37a2a2ec2d"
+    },
+    {
+      "path": "source/src/system-installation/module-git.ts",
+      "bytes": 4612,
+      "sha256": "d4d90146815df2525bad549612ecc7b1336d0c8ca25189edce19990d0465df11"
+    },
+    {
+      "path": "source/src/system-installation/module-packaged.ts",
+      "bytes": 2557,
+      "sha256": "df21e480cbb6b0607bdf3ec7a5eba937ab1351e26797cedc4100c4257c6a4d27"
+    },
+    {
+      "path": "source/src/system-installation/modules.ts",
+      "bytes": 25369,
+      "sha256": "98de4d22f8e510a4b2fc75ec0cc1f163fe3744293c1d27bfa0b04e62291903f6"
+    },
+    {
+      "path": "source/src/system-installation/shared.ts",
+      "bytes": 6584,
+      "sha256": "6bc3ccdb812ca815b7e67503fa69cd7a849bb514010e51fbc31918733a778338"
+    },
+    {
+      "path": "source/src/system-installation/startup-maintenance.ts",
+      "bytes": 11305,
+      "sha256": "23ee178e39629b96f9121549159aa74f87e02b80efd35666f68837e4b1c7c115"
+    },
+    {
+      "path": "source/src/system-installation/system-actions.ts",
+      "bytes": 10558,
+      "sha256": "f5aaf6283e1abb7d153c536cdb9bb3d14ce401a0122b64ea0c1a2b4943a8922f"
+    },
+    {
+      "path": "source/src/system-installation/turnkey.ts",
+      "bytes": 17411,
+      "sha256": "531b1231d21a40242904f425412dff0dd42f54cccbdc4c9c3139dd8ab9a2859e"
+    },
+    {
+      "path": "source/src/system-installation/workspace-root.ts",
+      "bytes": 358,
+      "sha256": "628c6a078a09733ff542d52b07dd8b98abe3b9d7c1cdd1483fd1c7cc2ace27b1"
+    },
+    {
+      "path": "source/src/system-installation.ts",
+      "bytes": 823,
+      "sha256": "c62cc35013617ab96ef35d543973feaa31c853ffc6645ce7ce55a80525fc8cd9"
+    },
+    {
+      "path": "source/src/system-preferences.ts",
+      "bytes": 9166,
+      "sha256": "4fc3a45d0242119aeaeffd1ded5ceb9f8b7a506f25177a305478c3e1295b6774"
+    },
+    {
+      "path": "source/src/terminal.ts",
+      "bytes": 280,
+      "sha256": "d80e68724521bfc35440d89f3fbb49a9e38b822a5f0df99e7ee6e02b7f552bc4"
+    },
+    {
+      "path": "source/src/types.ts",
+      "bytes": 6685,
+      "sha256": "9712eec0bf21dfb76262ef7a628f03b3ab571cf05507ce8284b2a1026df257ff"
+    },
+    {
+      "path": "source/src/workspace-registry.ts",
+      "bytes": 23583,
+      "sha256": "6fa64d38070a6d8ad1481964e109e11c3f695109492184174ba1bdb1fbe0d0e9"
+    },
+    {
+      "path": "source/tsconfig.build.json",
+      "bytes": 258,
+      "sha256": "8ead511bde74c6aa74c75f92c6cad60e8e611181e9e1ae2928ee3f6864a74132"
+    },
+    {
+      "path": "source/tsconfig.json",
+      "bytes": 447,
+      "sha256": "3c1bcfc2bafe346ac6980e3aeb55fb08f4745919fccb49030ad8814115cf154d"
+    },
+    {
+      "path": "tools/example_checks.py",
+      "bytes": 2272,
+      "sha256": "bc26479e87094164e6aaad90d7f616126e94d07743958802448878e57e989162"
+    },
+    {
+      "path": "tools/smoke.py",
+      "bytes": 4638,
+      "sha256": "0dee72a74f3d386f228d62370bd96378a3ff231f1edd4bfc75674c78aef8fc7f"
+    },
+    {
+      "path": "tools/verify_release.py",
+      "bytes": 1050,
+      "sha256": "d1a3300ba74ce018f1be5e32a7aa39d971507c63f194bf9150c1f9808fc49aff"
+    }
+  ]
+}
